@@ -7,7 +7,6 @@
   Copyright and Good Faith Purchasers © 2021-present initappz.
 */
 import 'package:deviraj_lms/helper/style.dart';
-import 'package:deviraj_lms/pages/tabs.dart';
 import 'package:flutter/material.dart';
 
 class orderSuccess extends StatefulWidget {
@@ -63,8 +62,8 @@ class _orderSuccessState extends State<orderSuccess> {
             ),
             ElevatedButton(
               onPressed: () {
-                Navigator.push(
-                    context, MaterialPageRoute(builder: (context) => tabs()));
+                // Navigator.push(
+                //     context, MaterialPageRoute(builder: (context) => tabs()));
               },
               child: Text(
                 'View My Course',

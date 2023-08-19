@@ -8,7 +8,6 @@
 */
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:deviraj_lms/helper/style.dart';
-import 'package:deviraj_lms/pages/logIn.dart';
 import 'package:flutter/material.dart';
 import 'package:otp_text_field/otp_field.dart';
 import 'package:otp_text_field/style.dart';
@@ -369,8 +368,8 @@ class _forgotPasswordState extends State<forgotPassword> {
             ),
             ElevatedButton(
               onPressed: () {
-                Navigator.push(
-                    context, MaterialPageRoute(builder: (context) => logIn()));
+                // Navigator.push(
+                //     context, MaterialPageRoute(builder: (context) => logIn()));
               },
               child: Text(
                 'Sign in',
