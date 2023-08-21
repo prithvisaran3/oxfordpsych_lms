@@ -15,7 +15,10 @@ class CourseCard extends StatelessWidget {
             context, MaterialPageRoute(builder: (context) => CourseDetail()));
       },
       child: Container(
-        margin: const EdgeInsets.only(right: 20),
+        decoration: BoxDecoration(
+          // color: AppColors.black,
+        ),
+        margin: const EdgeInsets.symmetric(horizontal: 20),
         width: 200,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,

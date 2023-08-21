@@ -1,10 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
+import 'package:ionicons/ionicons.dart';
 import '../../theme/colors.dart';
 import '../../theme/font.dart';
+import '../profile/subscribed_bar.dart';
 
 PreferredSizeWidget commonAppBar(
-    {centerTitle = true, title, isBackIcon = false, isCartIcon = false}) {
+    {centerTitle = true,
+    title,
+    isBackIcon = false,
+    isCartIcon = false,
+    isSubscribeIcon = false}) {
   return AppBar(
     backgroundColor: AppColors.white,
     elevation: 0,
@@ -42,6 +49,11 @@ PreferredSizeWidget commonAppBar(
       ),
     ),
     actions: [
+      isSubscribeIcon == true
+          ? SubscriptionStatusBar(
+              status: false,
+            )
+          : SizedBox(),
       isCartIcon == true
           ? Stack(
               children: [

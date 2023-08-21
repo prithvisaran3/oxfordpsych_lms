@@ -13,7 +13,7 @@ class Cart extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.white,
-      appBar: commonAppBar(title: "Cart", isCartIcon: true),
+      appBar: commonAppBar(title: "Cart", isCartIcon: true,isBackIcon: true),
       body: Padding(
         padding: const EdgeInsets.all(16),
         child: ListView(

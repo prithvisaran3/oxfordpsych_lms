@@ -11,6 +11,14 @@ class MainController extends GetxController {
     _currentIndex.value = value;
   }
 
+  final _isSubscribed=false.obs;
+
+  get isSubscribed => _isSubscribed.value;
+
+  set isSubscribed(value) {
+    _isSubscribed.value = value;
+  }
+
   final _tabLength = 4.obs;
 
   get tabLength => _tabLength.value;

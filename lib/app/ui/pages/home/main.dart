@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:ionicons/ionicons.dart';
 import '../../../controller/main.dart';
 import '../../theme/colors.dart';
 import '../favourtie.dart';
@@ -31,7 +32,7 @@ class HomeMain extends StatelessWidget {
           },
           tabs: [
             buildTab(icon: Icons.home_outlined, index: 0),
-            buildTab(icon: Icons.star_outline, index: 1),
+            buildTab(icon: Ionicons.heart_outline, index: 1),
             buildTab(icon: Icons.play_circle_outline, index: 2),
             buildTab(icon: Icons.person_outline, index: 3),
           ],

@@ -43,6 +43,9 @@ dependencies:
   get: ^4.6.5
   shared_preferences: ^2.2.0
   appinio_video_player: ^1.2.1
+  ionicons: ^0.2.2
+#  loading_animation_widget: ^1.2.0+4
+  font_awesome_flutter: ^10.5.0
 
 dev_dependencies:
   flutter_test:
