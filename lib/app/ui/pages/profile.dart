@@ -66,13 +66,13 @@ class _ProfileState extends State<Profile> {
                 style: TextStyle(color: AppColors.primary),
               ),
 
-              Row(
-                children: [
-                  SmallDetailsBox(title: "Total", content: "5"),
-                  SmallDetailsBox(title: "Completed", content: "25"),
-                  SmallDetailsBox(title: "Completed", content: "25"),
-                ],
-              )
+              // Row(
+              //   children: [
+              //     SmallDetailsBox(title: "Total", content: "5"),
+              //     SmallDetailsBox(title: "Completed", content: "25"),
+              //     SmallDetailsBox(title: "Completed", content: "25"),
+              //   ],
+              // )
               // const SizedBox(
               //   height: 25,
               // ),
