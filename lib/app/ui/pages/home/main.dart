@@ -3,6 +3,8 @@ import 'package:get/get.dart';
 import '../../../controller/main.dart';
 import '../../theme/colors.dart';
 import '../favourtie.dart';
+import '../myCourse.dart';
+import '../profile.dart';
 import 'home.dart';
 
 class HomeMain extends StatelessWidget {
@@ -12,7 +14,7 @@ class HomeMain extends StatelessWidget {
   Widget build(BuildContext context) {
     return DefaultTabController(
       length: MainController.to.tabLength,
-      animationDuration: const Duration(seconds: 2),
+      animationDuration: const Duration(seconds: 1),
       child: Scaffold(
         backgroundColor: AppColors.white,
         bottomNavigationBar: (TabBar(
@@ -36,14 +38,7 @@ class HomeMain extends StatelessWidget {
         )),
         body: TabBarView(
           physics: const NeverScrollableScrollPhysics(),
-          children: [
-            Home(),
-            Favourtie(),
-            Container(),
-            Container(),
-            // myCourse(),
-            // account(),
-          ],
+          children: [Home(), Favourtie(), MyCourse(), Profile()],
         ),
       ),
     );

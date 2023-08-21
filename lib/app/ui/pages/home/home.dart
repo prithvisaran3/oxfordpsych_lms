@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../../../../pages/cart.dart';
-import '../../../../pages/topCourses.dart';
+import '../all_courses.dart';
 import '../../theme/colors.dart';
 import '../../theme/font.dart';
 import '../../widgets/banner.dart';
 import '../../widgets/course_card.dart';
+import '../cart.dart';
 import '../categories.dart';
 
 class Home extends StatelessWidget {
@@ -38,7 +38,7 @@ class Home extends StatelessWidget {
           IconButton(
               onPressed: () {
                 Navigator.push(
-                    context, MaterialPageRoute(builder: (context) => cart()));
+                    context, MaterialPageRoute(builder: (context) => Cart()));
               },
               icon: const Icon(Icons.shopping_cart_outlined))
         ],
@@ -128,7 +128,7 @@ class Home extends StatelessWidget {
                 InkWell(
                   onTap: () {
                     Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => topCourses()));
+                        MaterialPageRoute(builder: (context) => AllCourses()));
                   },
                   child: Row(
                     children: const [

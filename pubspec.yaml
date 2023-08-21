@@ -37,11 +37,12 @@ dependencies:
   cupertino_icons: ^1.0.2
   carousel_slider: ^4.0.0
   otp_text_field: ^1.1.2
-  video_player: ^2.3.0
+#  video_player: ^2.3.0
   percent_indicator: ^4.0.0
   change_app_package_name: ^1.0.0
   get: ^4.6.5
   shared_preferences: ^2.2.0
+  appinio_video_player: ^1.2.1
 
 dev_dependencies:
   flutter_test:

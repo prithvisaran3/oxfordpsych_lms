@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../pages/courseDetail.dart';
 import '../theme/colors.dart';
 import '../theme/font.dart';
 
@@ -10,8 +11,8 @@ class CourseCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        // Navigator.push(
-        //     context, MaterialPageRoute(builder: (context) => courseDetail()));
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => CourseDetail()));
       },
       child: Container(
         margin: const EdgeInsets.only(right: 20),
