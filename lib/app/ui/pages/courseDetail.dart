@@ -1,8 +1,10 @@
 import 'package:appinio_video_player/appinio_video_player.dart';
+import 'package:deviraj_lms/app/ui/widgets/common/currency_text.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../theme/colors.dart';
 import '../theme/font.dart';
+import '../utility.dart';
 import '../widgets/common/appbar.dart';
 
 class CourseDetail extends StatefulWidget {
@@ -77,7 +79,7 @@ class _CourseDetailState extends State<CourseDetail> {
               description(),
 
               // curriculum data
-              curriculum(),
+              // curriculum(),
 
               // highlights
               highLights(),
@@ -241,7 +243,7 @@ class _CourseDetailState extends State<CourseDetail> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'Coding With Python \n Interface',
+              'Panic Attacks \nHistory',
               style: headText(),
             ),
             const SizedBox(
@@ -684,28 +686,25 @@ class _CourseDetailState extends State<CourseDetail> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          RichText(
-            text: const TextSpan(
-              text: 'OFFER PRICE : ',
-              style: TextStyle(fontFamily: 'regular', color: AppColors.white),
-              children: <TextSpan>[
-                TextSpan(
-                  text: ' \$30.50',
-                  style: TextStyle(
-                    fontFamily: 'semi-bold',
-                    fontSize: 32,
-                    color: AppColors.secondary,
-                  ),
-                ),
-                TextSpan(
-                  text: '  \$40.50',
-                  style: TextStyle(
-                      fontFamily: 'regular',
-                      color: AppColors.white,
-                      decoration: TextDecoration.lineThrough),
-                )
-              ],
-            ),
+          Text(
+            'Offer Price'.toUpperCase(),
+            style:
+                TextStyle(color: AppColors.white, fontWeight: FontWeight.bold),
+          ),
+          SizedBox(width: 10),
+          CurrencyText(
+            amount: "30.50",
+            fontSize: 30,
+            fontWEIGHT: FontWeight.bold,
+            color: AppColors.secondary,
+          ),
+          SizedBox(width: 5),
+          CurrencyText(
+            amount: "40.50",
+            fontSize: 20,
+            fontWEIGHT: FontWeight.bold,
+            color: AppColors.secondary,
+            isStrikeThrough: true,
           ),
         ],
       ),

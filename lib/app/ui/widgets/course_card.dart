@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../pages/courseDetail.dart';
 import '../theme/colors.dart';
 import '../theme/font.dart';
+import '../utility.dart';
 
 class CourseCard extends StatelessWidget {
   const CourseCard({super.key});
@@ -16,8 +17,8 @@ class CourseCard extends StatelessWidget {
       },
       child: Container(
         decoration: BoxDecoration(
-          // color: AppColors.black,
-        ),
+            // color: AppColors.black,
+            ),
         margin: const EdgeInsets.symmetric(horizontal: 20),
         width: 200,
         child: Column(
@@ -84,7 +85,7 @@ class CourseCard extends StatelessWidget {
               ],
             ),
             Text(
-              'Generator on there internet tend',
+              'Panic Attacks - History',
               style: headText(),
             ),
             Row(
@@ -103,10 +104,21 @@ class CourseCard extends StatelessWidget {
             const SizedBox(
               height: 5,
             ),
-            const Text(
-              '\$14.50',
-              style: TextStyle(
-                  color: AppColors.primary, fontFamily: 'medium', fontSize: 18),
+            Row(
+              children: [
+                Icon(
+                  Utility.currency_pound,
+                  color: AppColors.primary,
+                  size: 18,
+                ),
+                const Text(
+                  '14.50',
+                  style: TextStyle(
+                      color: AppColors.primary,
+                      fontFamily: 'medium',
+                      fontSize: 18),
+                ),
+              ],
             )
           ],
         ),

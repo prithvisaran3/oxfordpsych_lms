@@ -21,12 +21,21 @@ class Home extends StatelessWidget {
         automaticallyImplyLeading: false,
         centerTitle: true,
         iconTheme: const IconThemeData(color: AppColors.black),
-        leading: IconButton(
-            onPressed: () {}, icon: const Icon(Icons.window_rounded)),
+        leading: Padding(
+          padding: const EdgeInsets.only(left: 5.0),
+          child: Image.asset(
+            'assets/images/logo.png',
+            color: AppColors.black,
+            height: 40,
+            width: 40,
+            // fit: BoxFit.cover,
+          ),
+        ),
+        leadingWidth: 80,
         title: SizedBox(
           width: 250,
           child: Text(
-            'Hi,Jaydeep Hirani',
+            'Hi,Mason',
             overflow: TextOverflow.ellipsis,
             textAlign: TextAlign.center,
             maxLines: 1,
@@ -91,10 +100,10 @@ class Home extends StatelessWidget {
               physics: const BouncingScrollPhysics(),
               child: Row(
                 children: [
-                  categoryContainer('Design'),
-                  categoryContainer('Development'),
-                  categoryContainer('Business'),
-                  categoryContainer('IT & Software'),
+                  categoryContainer('Mind Healing'),
+                  categoryContainer('PTSD'),
+                  categoryContainer('Panic Attacks'),
+                  categoryContainer('Personal Issues'),
                 ],
               ),
             ),
@@ -108,9 +117,9 @@ class Home extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    categoryContainer('Health & Fitness'),
-                    categoryContainer('Business'),
-                    categoryContainer('Design'),
+                    categoryContainer('Depression'),
+                    categoryContainer('Work Pressure'),
+                    categoryContainer('Relationship Problems'),
                   ],
                 ),
               ),
@@ -183,8 +192,9 @@ class Home extends StatelessWidget {
       child: TextFormField(
         style: TextStyle(color: AppColors.black),
         decoration: InputDecoration(
+          contentPadding: EdgeInsets.all(8),
           border: InputBorder.none,
-          hintText: 'Search here...',
+          hintText: 'Search here',
           prefixIcon: Icon(Icons.search, color: AppColors.black),
           hintStyle: TextStyle(color: AppColors.grey),
           filled: true,
