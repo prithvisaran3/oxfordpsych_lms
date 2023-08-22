@@ -1,0 +1,36 @@
+import 'package:flutter/material.dart';
+
+import '../../../controller/profile.dart';
+import '../../theme/colors.dart';
+
+class ProfilePicture extends StatelessWidget {
+  const ProfilePicture({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+      alignment: Alignment.center,
+      height: 100,
+      width: 100,
+      decoration: BoxDecoration(
+        shape: BoxShape.circle,
+        color: AppColors.black,
+        boxShadow: [
+          BoxShadow(
+            color: AppColors.grey,
+          )
+        ],
+      ),
+      child: Text(
+        textAlign: TextAlign.center,
+        "${ProfileController.to.profileName.text.split(" ").first[0]}${ProfileController.to.profileName.text.split(" ").last[0]} ",
+        style: TextStyle(
+          color: AppColors.white,
+          fontSize: 30,
+          fontWeight: FontWeight.bold,
+        ),
+      ),
+    );
+  }
+}
