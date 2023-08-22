@@ -1,6 +1,5 @@
-import 'package:deviraj_lms/app/controller/main.dart';
 import 'package:deviraj_lms/app/controller/profile.dart';
-
+import 'package:deviraj_lms/app/ui/widgets/profile/smalldetails_box.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../theme/colors.dart';
