@@ -53,7 +53,7 @@ dev_dependencies:
     sdk: flutter
   flutter_lints: ^2.0.0
 flutter_native_splash:
-  color: "#000000"
+  color: "#062D47"
   image: assets/images/logo.png
 #  android_12:
 #    image: assets/images/google.png
