@@ -46,18 +46,18 @@ dependencies:
   ionicons: ^0.2.2
 #  loading_animation_widget: ^1.2.0+4
   font_awesome_flutter: ^10.5.0
+  flutter_native_splash: ^2.3.2
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-
-  # The "flutter_lints" package below contains a set of recommended lints to
-  # encourage good coding practices. The lint set provided by the package is
-  # activated in the `analysis_options.yaml` file located at the root of your
-  # package. See that file for information about deactivating specific lint
-  # rules and activating additional ones.
   flutter_lints: ^2.0.0
-
+flutter_native_splash:
+  color: "#f7f6f1"
+  image: assets/images/google.png
+  android_12:
+    image: assets/images/google.png
+    icon_background_color: "#f7f6f1"
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 
