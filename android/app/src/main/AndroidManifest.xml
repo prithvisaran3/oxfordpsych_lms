@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="deviraj.lms.deviraj_lms">
    <application
-        android:label="deviraj_lms"
+        android:label="Oxrod Pycsh"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
