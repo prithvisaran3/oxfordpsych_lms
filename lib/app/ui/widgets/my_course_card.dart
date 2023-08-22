@@ -75,7 +75,7 @@ class MyCourseCard extends StatelessWidget {
                     //   ],
                     // ),
                     Text(
-                      'Coding With Python Interface',
+                      'Risk Analysis',
                       style: headText(),
                     ),
                     Row(

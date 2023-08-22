@@ -1,9 +1,10 @@
+import 'package:deviraj_lms/app/ui/widgets/common/currency_text.dart';
 import 'package:flutter/material.dart';
 import '../theme/colors.dart';
 import '../theme/font.dart';
 
-class FavourtieCard extends StatelessWidget {
-  const FavourtieCard({super.key});
+class FavouriteCard extends StatelessWidget {
+  const FavouriteCard({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -19,6 +20,7 @@ class FavourtieCard extends StatelessWidget {
           Container(
             height: 120,
             width: 200,
+            margin: EdgeInsets.symmetric(horizontal: 5, vertical: 5),
             padding: const EdgeInsets.all(7),
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10),
@@ -76,7 +78,7 @@ class FavourtieCard extends StatelessWidget {
             ],
           ),
           Text(
-            'Generator on there internet tend',
+            'Work Stress Management',
             style: headText(),
           ),
           Row(
@@ -95,11 +97,12 @@ class FavourtieCard extends StatelessWidget {
           const SizedBox(
             height: 5,
           ),
-          const Text(
-            '\$14.50',
-            style: TextStyle(
-                color: AppColors.primary, fontFamily: 'medium', fontSize: 18),
-          )
+          CurrencyText(
+            amount: "14.50",
+            fontSize: 18,
+            fontWEIGHT: FontWeight.w800,
+            color: AppColors.primary,
+          ),
         ],
       ),
     );

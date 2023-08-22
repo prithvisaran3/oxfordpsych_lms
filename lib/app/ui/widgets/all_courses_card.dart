@@ -1,3 +1,4 @@
+import 'package:deviraj_lms/app/ui/utility.dart';
 import 'package:flutter/material.dart';
 import '../theme/colors.dart';
 import '../theme/font.dart';
@@ -77,7 +78,7 @@ class AllCoursesCard extends StatelessWidget {
                       ],
                     ),
                     Text(
-                      'Coding With Python Interface',
+                      'PTSD - MSE,RISK',
                       style: headText(),
                     ),
                     Row(
@@ -99,12 +100,21 @@ class AllCoursesCard extends StatelessWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        const Text(
-                          '\$14.50',
-                          style: TextStyle(
+                        Row(
+                          children: [
+                            Icon(
+                              Utility.currency_pound,
+                              size: 18,
                               color: Colors.teal,
-                              fontFamily: 'medium',
-                              fontSize: 18),
+                            ),
+                            const Text(
+                              '14.50',
+                              style: TextStyle(
+                                  color: Colors.teal,
+                                  fontFamily: 'medium',
+                                  fontSize: 18),
+                            ),
+                          ],
                         ),
                         Container(
                           padding: const EdgeInsets.all(3),

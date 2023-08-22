@@ -1,5 +1,6 @@
+import 'package:deviraj_lms/app/controller/main.dart';
 import 'package:deviraj_lms/app/controller/profile.dart';
-import 'package:deviraj_lms/app/ui/widgets/profile/smalldetails_box.dart';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../theme/colors.dart';
@@ -66,13 +67,108 @@ class _ProfileState extends State<Profile> {
                 style: TextStyle(color: AppColors.primary),
               ),
 
-              Row(
-                children: [
-                  SmallDetailsBox(title: "Total", content: "5"),
-                  SmallDetailsBox(title: "Completed", content: "25"),
-                  SmallDetailsBox(title: "Completed", content: "25"),
-                ],
-              )
+              Obx(() => Container(
+                    padding: EdgeInsets.symmetric(horizontal: 30, vertical: 10),
+                    margin: EdgeInsets.symmetric(vertical: 10),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      gradient: LinearGradient(
+                        begin: Alignment.topLeft,
+                        end: Alignment.bottomRight,
+                        colors: [
+                          AppColors.primary,
+                          AppColors.secondary,
+                        ],
+                      ),
+                      boxShadow: [
+                        BoxShadow(
+                            color: AppColors.grey,
+                            spreadRadius: 1,
+                            blurRadius: 1)
+                      ],
+                    ),
+                    child: Row(
+                      children: [
+                        MainController.to.isSubscribed == false
+                            ? Text(
+                                "Subscription Status  ",
+                                style: TextStyle(
+                                  fontSize: 12,
+                                  color: AppColors.white,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              )
+                            : Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    "Subscription Status ",
+                                    style: TextStyle(
+                                      fontSize: 12,
+                                      color: AppColors.white,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                  Text(
+                                    "Expiry Date ",
+                                    style: TextStyle(
+                                      fontSize: 12,
+                                      color: AppColors.white,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                  Text(
+                                    "Plan ",
+                                    style: TextStyle(
+                                      fontSize: 12,
+                                      color: AppColors.white,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                        Spacer(),
+                        MainController.to.isSubscribed == false
+                            ? Text(
+                                "Not Subscribed",
+                                style: TextStyle(
+                                  fontSize: 12,
+                                  color: AppColors.white,
+                                  fontWeight: FontWeight.w300,
+                                ),
+                              )
+                            : Column(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    "Subscribed",
+                                    style: TextStyle(
+                                      fontSize: 12,
+                                      color: AppColors.white,
+                                      fontWeight: FontWeight.w300,
+                                    ),
+                                  ),
+                                  Text(
+                                    "26th August,2023",
+                                    style: TextStyle(
+                                      fontSize: 12,
+                                      color: AppColors.white,
+                                      fontWeight: FontWeight.w300,
+                                    ),
+                                  ),
+                                  Text(
+                                    "Gold",
+                                    style: TextStyle(
+                                      fontSize: 12,
+                                      color: AppColors.amber,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                      ],
+                    ),
+                  )),
               // const SizedBox(
               //   height: 25,
               // ),

@@ -28,7 +28,7 @@ class Categories extends StatelessWidget {
                         itemCount: 15,
                         shrinkWrap: true,
                         itemBuilder: (context, index) {
-                          return category(Icons.design_services, 'Designing');
+                          return category(Icons.design_services, 'Psychology');
                         })
                   ],
                 ),

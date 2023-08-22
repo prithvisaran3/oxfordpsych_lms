@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
 import '../../../controller/main.dart';
 import '../../theme/colors.dart';
-import '../favourtie.dart';
+import '../favourite.dart';
 import '../myCourse.dart';
 import '../profile.dart';
 import 'home.dart';
@@ -39,7 +39,7 @@ class HomeMain extends StatelessWidget {
         )),
         body: TabBarView(
           physics: const NeverScrollableScrollPhysics(),
-          children: [Home(), Favourtie(), MyCourse(), Profile()],
+          children: [Home(), Favourite(), MyCourse(), Profile()],
         ),
       ),
     );
