@@ -1,4 +1,8 @@
 import 'package:deviraj_lms/app/controller/profile.dart';
+import 'package:deviraj_lms/app/ui/pages/profile/change_password.dart';
+import 'package:deviraj_lms/app/ui/pages/profile/edit_profile.dart';
+import 'package:deviraj_lms/app/ui/pages/profile/push_notifications.dart';
+import 'package:deviraj_lms/app/ui/pages/subscribe_now.dart';
 import 'package:deviraj_lms/app/ui/widgets/profile/logout_button.dart';
 import 'package:deviraj_lms/app/ui/widgets/profile/picture_container_widget.dart';
 import 'package:deviraj_lms/app/ui/widgets/profile/settings_options_card.dart';
@@ -97,20 +101,28 @@ class _ProfileState extends State<Profile> {
           ),
           SizedBox(height: 5),
           SettingsOptionsCard(
+            text: 'Check Subscription Status',
+            onTap: () {
+              Get.to(() => SubscribeNow());
+            },
+          ),
+          SettingsOptionsCard(
             text: 'Edit Profile',
-            onTap: () {},
+            onTap: () {
+              Get.to(() => EditProfile());
+            },
           ),
           SettingsOptionsCard(
-            text: 'Push Notifications',
-            onTap: () {},
-          ),
-          SettingsOptionsCard(
-            text: 'Email Notifications',
-            onTap: () {},
+            text: 'Notification Settings',
+            onTap: () {
+              Get.to(() => NotificationSettings());
+            },
           ),
           SettingsOptionsCard(
             text: 'Change Password',
-            onTap: () {},
+            onTap: () {
+              Get.to(() => ChangePassword());
+            },
           ),
           SettingsOptionsCard(
             text: 'Close Account',
@@ -149,7 +161,9 @@ class _ProfileState extends State<Profile> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               LogoutButton(
-                onTap: () {},
+                onTap: () {
+                  Get.back();
+                },
               ),
             ],
           ),

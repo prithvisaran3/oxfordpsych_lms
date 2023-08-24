@@ -18,6 +18,11 @@ class AuthController extends GetxController {
   final TextEditingController phone = TextEditingController();
   final TextEditingController password = TextEditingController();
 
+  ///change password
+  final TextEditingController currentPassword = TextEditingController();
+  final TextEditingController newPassword = TextEditingController();
+  final TextEditingController newConfirmPassword = TextEditingController();
+
   final _termsAndConditions = false.obs;
 
   get termsAndConditions => _termsAndConditions.value;
@@ -49,6 +54,24 @@ class AuthController extends GetxController {
       return true;
     } else {
       return false;
+    }
+  }
+
+  checkPasswordChange() async {
+    if (currentPassword.text == "" ||
+        newPassword == "" ||
+        newConfirmPassword == "") {
+      if (currentPassword.text == lPassword.text) {
+        if (newPassword.text == newConfirmPassword.text) {
+          //Password change API
+        } else {
+          print("New password doesn't match confirm password");
+        }
+      } else {
+        print("Current password is wrong");
+      }
+    } else {
+      print("Empty fields");
     }
   }
 }

@@ -17,6 +17,7 @@ class CurrencyText extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Icon(
           Utility.currency_pound,
