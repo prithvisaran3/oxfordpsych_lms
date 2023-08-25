@@ -1,4 +1,4 @@
-package deviraj.lms.deviraj_lms;
+package deviraj.lms;
 
 import io.flutter.embedding.android.FlutterActivity;
 

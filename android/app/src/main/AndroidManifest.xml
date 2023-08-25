@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="deviraj.lms.deviraj_lms">
+    package="deviraj.lms">
    <application
         android:label="Oxrod Pycsh"
         android:name="${applicationName}"

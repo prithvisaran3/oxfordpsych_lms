@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "755890391733",
+    "project_id": "oxfordpsych-967c5",
+    "storage_bucket": "oxfordpsych-967c5.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:755890391733:android:3e082ba0a0e9a274c88cfc",
+        "android_client_info": {
+          "package_name": "deviraj.lms"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "755890391733-ctn8sfp3rna8af0fn4kbktmll2ekfgra.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDW2_6nWNkEplfU2r9Rtda5tvkC37Eltwk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "755890391733-ctn8sfp3rna8af0fn4kbktmll2ekfgra.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,16 +1,32 @@
+import 'dart:io';
+
 import 'package:deviraj_lms/app/ui/pages/initial.dart';
 import 'package:deviraj_lms/helper/style.dart';
 import 'package:deviraj_lms/pages/accCreateSuccess.dart';
 import 'package:deviraj_lms/pages/forgotPassword.dart';
 import 'package:deviraj_lms/pages/orderSuccess.dart';
 import 'package:deviraj_lms/pages/payment.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
 import 'app/ui/theme/colors.dart';
 
-void main() {
+class MyHttpOverrides extends HttpOverrides {
+  @override
+  HttpClient createHttpClient(SecurityContext? context) {
+    return super.createHttpClient(context)
+      ..badCertificateCallback =
+          (X509Certificate cert, String host, int port) => true;
+  }
+}
+
+Future main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+  HttpOverrides.global = MyHttpOverrides();
+
   runApp(const MyApp());
   SystemChrome.setSystemUIOverlayStyle(
     const SystemUiOverlayStyle(
