@@ -41,39 +41,6 @@ class MyCourseCard extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    // Row(
-                    //   children: const [
-                    //     Text('4.5'),
-                    //     SizedBox(
-                    //       width: 10,
-                    //     ),
-                    //     Icon(
-                    //       Icons.star,
-                    //       color: Colors.amber,
-                    //       size: 20,
-                    //     ),
-                    //     Icon(
-                    //       Icons.star,
-                    //       color: Colors.amber,
-                    //       size: 20,
-                    //     ),
-                    //     Icon(
-                    //       Icons.star,
-                    //       size: 20,
-                    //       color: Colors.amber,
-                    //     ),
-                    //     Icon(
-                    //       Icons.star,
-                    //       size: 20,
-                    //       color: Colors.amber,
-                    //     ),
-                    //     Icon(
-                    //       Icons.star_outline,
-                    //       size: 20,
-                    //       color: Colors.amber,
-                    //     ),
-                    //   ],
-                    // ),
                     Text(
                       'Risk Analysis',
                       style: headText(),
@@ -104,8 +71,6 @@ class MyCourseCard extends StatelessWidget {
                       padding: const EdgeInsets.all(0),
                     ),
                     const Text("15% Complete"),
-
-
                     Text(
                       "Started at : 25.08.2023",
                       style: TextStyle(

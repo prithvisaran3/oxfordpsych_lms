@@ -45,13 +45,6 @@ class Login extends StatelessWidget {
                     style: headText(),
                   ),
                   const SizedBox(
-                    height: 10,
-                  ),
-                  const Text(
-                    'A handful of model sentence structures',
-                    textAlign: TextAlign.center,
-                  ),
-                  const SizedBox(
                     height: 20,
                   ),
                   CommonTextFormField(
@@ -66,25 +59,26 @@ class Login extends StatelessWidget {
                   Row(
                     children: [
                       Expanded(
-                        flex: 10,
+                        flex: 8,
                         child: CommonTextFormField(
-                            hintText: "Enter your password",
-                            obscureText: true,
-                            controller: AuthController.to.lPassword,
-                            validator: (data) {
-                              if (data!.isEmpty || data == "") {
-                                return "Password field required";
-                              } else if (data.length < 6) {
-                                return "Password at least 6 character";
-                              }
-                              return null;
-                            }),
+                          hintText: "Enter your password",
+                          obscureText: true,
+                          controller: AuthController.to.lPassword,
+                          validator: (data) {
+                            if (data!.isEmpty || data == "") {
+                              return "Password field required";
+                            } else if (data.length < 6) {
+                              return "Password at least 6 character";
+                            }
+                            return null;
+                          },
+                        ),
                       ),
                       const SizedBox(
-                        width: 10,
+                        width: 5,
                       ),
                       Expanded(
-                        flex: 2,
+                        flex: 1,
                         child: Container(
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(8),
@@ -92,7 +86,7 @@ class Login extends StatelessWidget {
                                 width: 1, color: Colors.grey.shade300),
                           ),
                           padding: const EdgeInsets.symmetric(
-                              vertical: 10, horizontal: 16),
+                              vertical: 10, horizontal: 5),
                           child: const Icon(Icons.fingerprint),
                         ),
                       ),
@@ -124,7 +118,9 @@ class Login extends StatelessWidget {
                   CommonButton(
                       text: "Login",
                       onPressed: () {
-                        Get.to(() => HomeMain());
+                        Get.to(
+                          () => HomeMain(),
+                        );
                       }),
                   const SizedBox(
                     height: 20,

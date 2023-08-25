@@ -43,13 +43,6 @@ class Register extends StatelessWidget {
                   style: headText(),
                 ),
                 const SizedBox(
-                  height: 10,
-                ),
-                const Text(
-                  'A handful of model sentence structures',
-                  textAlign: TextAlign.center,
-                ),
-                const SizedBox(
                   height: 20,
                 ),
                 Form(
@@ -57,14 +50,25 @@ class Register extends StatelessWidget {
                     child: Column(
                   children: [
                     CommonTextFormField(
-                        hintText: "Enter your name",
-                        controller: AuthController.to.name,
-                        validator: (data) {
-                          if (data!.isEmpty || data == "") {
-                            return "Name field required";
-                          }
-                          return null;
-                        }),
+                      hintText: "Enter your name",
+                      controller: AuthController.to.name,
+                      validator: (data) {
+                        if (data!.isEmpty || data == "") {
+                          return "Name field required";
+                        }
+                        return null;
+                      },
+                    ),
+                    CommonTextFormField(
+                      hintText: "Enter your number",
+                      controller: AuthController.to.name,
+                      validator: (data) {
+                        if (data!.isEmpty || data == "") {
+                          return "Name field required";
+                        }
+                        return null;
+                      },
+                    ),
                     CommonTextFormField(
                         hintText: "Enter your email",
                         controller: AuthController.to.email,

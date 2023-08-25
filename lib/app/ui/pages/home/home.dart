@@ -143,11 +143,11 @@ class Home extends StatelessWidget {
                     children: const [
                       Text(
                         'SEE ALL',
-                        style: TextStyle(color: AppColors.primary),
+                        style: TextStyle(color: AppColors.secondary),
                       ),
                       Icon(
                         Icons.arrow_right_alt,
-                        color: AppColors.primary,
+                        color: AppColors.secondary,
                         size: 20,
                       )
                     ],

@@ -156,7 +156,7 @@ class _ProfileState extends State<Profile> {
             text: 'Terms and Conditions',
             onTap: () {},
           ),
-          SizedBox(height: 20),
+          SizedBox(height: 40),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [

@@ -40,7 +40,7 @@ class MyCourse extends StatelessWidget {
         style: const TextStyle(color: AppColors.black),
         decoration: InputDecoration(
           border: InputBorder.none,
-          hintText: 'Search here...',
+          hintText: 'Search here',
           prefixIcon: const Icon(Icons.search, color: AppColors.black),
           hintStyle: const TextStyle(color: AppColors.grey),
           filled: true,

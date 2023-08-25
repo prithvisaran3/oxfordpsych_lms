@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import '../widgets/common/appbar.dart';
 
-import '../widgets/favourtie.dart';
+import '../widgets/favourite.dart';
 
 class Favourite extends StatelessWidget {
   const Favourite({Key? key}) : super(key: key);

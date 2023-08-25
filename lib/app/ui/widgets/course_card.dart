@@ -4,6 +4,7 @@ import '../pages/courseDetail.dart';
 import '../theme/colors.dart';
 import '../theme/font.dart';
 import '../utility.dart';
+import 'common/currency_text.dart';
 
 class CourseCard extends StatelessWidget {
   const CourseCard({super.key});
@@ -104,21 +105,11 @@ class CourseCard extends StatelessWidget {
             const SizedBox(
               height: 5,
             ),
-            Row(
-              children: [
-                Icon(
-                  Utility.currency_pound,
-                  color: AppColors.primary,
-                  size: 18,
-                ),
-                const Text(
-                  '14.50',
-                  style: TextStyle(
-                      color: AppColors.primary,
-                      fontFamily: 'medium',
-                      fontSize: 18),
-                ),
-              ],
+            CurrencyText(
+              amount: '14.50',
+              fontSize: 18,
+              fontWEIGHT: FontWeight.bold,
+              color: AppColors.secondary,
             )
           ],
         ),

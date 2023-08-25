@@ -1,3 +1,4 @@
+import 'package:deviraj_lms/app/ui/widgets/common/currency_text.dart';
 import 'package:flutter/material.dart';
 
 import '../theme/colors.dart';
@@ -37,12 +38,13 @@ class CartCard extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: const [
-                  Text('Get Started With Python'),
-                  Text(
-                    '\$40.50',
-                    style: TextStyle(
-                        color: Colors.teal, fontSize: 18, fontFamily: 'medium'),
-                  ),
+                  Text('Risk Analysis'),
+                  CurrencyText(
+                    amount: "40.50",
+                    fontSize: 16,
+                    fontWEIGHT: FontWeight.bold,
+                    color: AppColors.secondary,
+                  )
                 ],
               ),
             ),

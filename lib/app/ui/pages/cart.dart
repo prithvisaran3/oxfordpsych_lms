@@ -1,4 +1,4 @@
-import 'package:deviraj_lms/pages/payment.dart';
+import 'package:deviraj_lms/app/ui/pages/payment.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../theme/colors.dart';

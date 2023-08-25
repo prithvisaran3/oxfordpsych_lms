@@ -101,7 +101,7 @@ class FavouriteCard extends StatelessWidget {
             amount: "14.50",
             fontSize: 18,
             fontWEIGHT: FontWeight.w800,
-            color: AppColors.primary,
+            color: AppColors.secondary,
           ),
         ],
       ),
