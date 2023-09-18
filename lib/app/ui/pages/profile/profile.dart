@@ -1,3 +1,4 @@
+import 'package:deviraj_lms/app/controller/auth.dart';
 import 'package:deviraj_lms/app/controller/profile.dart';
 import 'package:deviraj_lms/app/ui/pages/profile/change_password.dart';
 import 'package:deviraj_lms/app/ui/pages/profile/edit_profile.dart';
@@ -9,68 +10,65 @@ import 'package:deviraj_lms/app/ui/widgets/profile/settings_options_card.dart';
 import 'package:deviraj_lms/app/ui/widgets/profile/subscription_status_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:ionicons/ionicons.dart';
-import '../../controller/main.dart';
-import '../theme/colors.dart';
-import '../theme/font.dart';
-import '../widgets/common/appbar.dart';
-import '../widgets/profile/subscribed_bar.dart';
 
-class Profile extends StatefulWidget {
+import '../../theme/colors.dart';
+
+import '../../widgets/common/appbar.dart';
+
+class Profile extends StatelessWidget {
   const Profile({Key? key}) : super(key: key);
 
   @override
-  State<Profile> createState() => _ProfileState();
-}
-
-class _ProfileState extends State<Profile> {
-  @override
   Widget build(BuildContext context) {
-    ProfileController.to.profileName.text = "Prithvi Saran";
-    return Scaffold(
-      backgroundColor: AppColors.white,
-      appBar: commonAppBar(title: "Profile", isSubscribeIcon: true),
-      body: SingleChildScrollView(
-        physics: BouncingScrollPhysics(),
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
-          child: Column(
-            // crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Center(
-                child: ProfilePicture(),
-              ),
-              SizedBox(height: 10),
-              Text(
-                "${ProfileController.to.profileName.text}",
-                style: TextStyle(
-                  fontWeight: FontWeight.w600,
-                  fontSize: 20,
+    return GetBuilder(
+        init: ProfileController(),
+        initState: (_) {},
+        builder: (_) {
+          return Scaffold(
+            backgroundColor: AppColors.white,
+            appBar: commonAppBar(title: "Profile", isSubscribeIcon: true),
+            body: SingleChildScrollView(
+              physics: const BouncingScrollPhysics(),
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+                child: Column(
+                  // crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    const Center(
+                      child: ProfilePicture(),
+                    ),
+                    const SizedBox(height: 10),
+                    Text(
+                      "${ProfileController.to.profileDetails.name}",
+                      style: const TextStyle(
+                        fontWeight: FontWeight.w600,
+                        fontSize: 20,
+                      ),
+                    ),
+                    const Text(
+                      "(3 days left)",
+                      style: TextStyle(color: AppColors.primary),
+                    ),
+                    const SubscriptionStatusCard(),
+                    const SizedBox(height: 20),
+                    profileSection(),
+                  ],
                 ),
               ),
-              Text(
-                "(3 days left)",
-                style: TextStyle(color: AppColors.primary),
-              ),
-              SubscriptionStatusCard(),
-              SizedBox(height: 20),
-              profileSection(),
-            ],
-          ),
-        ),
-      ),
-    );
+            ),
+          );
+        });
   }
 
   Container profileSection() {
     return Container(
-      padding: EdgeInsets.symmetric(
+      padding: const EdgeInsets.symmetric(
         horizontal: 10,
         vertical: 20,
       ),
       // height: Get.height,
       width: Get.width,
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
         color: AppColors.white,
         boxShadow: [
           BoxShadow(
@@ -89,7 +87,7 @@ class _ProfileState extends State<Profile> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Padding(
+          const Padding(
             padding: EdgeInsets.only(left: 10.0),
             child: Text(
               "Account Settings",
@@ -99,38 +97,38 @@ class _ProfileState extends State<Profile> {
               ),
             ),
           ),
-          SizedBox(height: 5),
+          const SizedBox(height: 5),
           SettingsOptionsCard(
             text: 'Check Subscription Status',
             onTap: () {
-              Get.to(() => SubscribeNow());
+              Get.to(() => const SubscribeNow());
             },
           ),
           SettingsOptionsCard(
             text: 'Edit Profile',
             onTap: () {
-              Get.to(() => EditProfile());
+              Get.to(() => const EditProfile());
             },
           ),
           SettingsOptionsCard(
             text: 'Notification Settings',
             onTap: () {
-              Get.to(() => NotificationSettings());
+              Get.to(() => const NotificationSettings());
             },
           ),
           SettingsOptionsCard(
             text: 'Change Password',
             onTap: () {
-              Get.to(() => ChangePassword());
+              Get.to(() => const ChangePassword());
             },
           ),
           SettingsOptionsCard(
             text: 'Close Account',
             onTap: () {},
           ),
-          SizedBox(height: 10),
-          Padding(
-            padding: const EdgeInsets.only(left: 10.0),
+          const SizedBox(height: 10),
+          const Padding(
+            padding: EdgeInsets.only(left: 10.0),
             child: Text(
               "Support",
               style: TextStyle(
@@ -139,7 +137,7 @@ class _ProfileState extends State<Profile> {
               ),
             ),
           ),
-          SizedBox(height: 5),
+          const SizedBox(height: 5),
           SettingsOptionsCard(
             text: 'About OxfordPsych',
             onTap: () {},
@@ -156,18 +154,18 @@ class _ProfileState extends State<Profile> {
             text: 'Terms and Conditions',
             onTap: () {},
           ),
-          SizedBox(height: 40),
+          const SizedBox(height: 40),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               LogoutButton(
                 onTap: () {
-                  Get.back();
+                  AuthController.to.logout();
                 },
               ),
             ],
           ),
-          SizedBox(height: 20)
+          const SizedBox(height: 20)
         ],
       ),
     );

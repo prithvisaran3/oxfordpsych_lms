@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:deviraj_lms/app/ui/pages/initial.dart';
+import 'package:deviraj_lms/app/ui/pages/auth/initial.dart';
 import 'package:deviraj_lms/helper/style.dart';
 import 'package:deviraj_lms/pages/accCreateSuccess.dart';
 import 'package:deviraj_lms/pages/forgotPassword.dart';
@@ -43,13 +43,13 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       themeMode: ThemeMode.dark,
-      title: 'E-Learning',
+      title: 'OxfordPsych',
       theme: ThemeData(
         brightness: Brightness.light,
         primaryColor: appColor,
         fontFamily: 'regular',
       ),
-      home: Initial(),
+      home: const Initial(),
       routes: {
         accCreateSuccess.page_id: (context) => accCreateSuccess(),
         forgotPassword.page_id: (context) => forgotPassword(),

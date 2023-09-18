@@ -51,6 +51,7 @@ class SubscriptionDurationBox extends StatelessWidget {
                 ),
               ),
               CurrencyText(
+                alignment: 'center',
                 amount: price,
                 fontSize: 14,
                 fontWEIGHT: FontWeight.bold,

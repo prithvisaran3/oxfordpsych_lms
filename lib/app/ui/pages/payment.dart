@@ -6,6 +6,7 @@
   terms found in the Website https://initappz.com/license
   Copyright and Good Faith Purchasers © 2021-present initappz.
 */
+import 'package:deviraj_lms/app/controller/profile.dart';
 import 'package:deviraj_lms/helper/style.dart';
 import 'package:deviraj_lms/pages/orderSuccess.dart';
 import 'package:flutter/material.dart';
@@ -49,7 +50,7 @@ class _paymentState extends State<payment> {
       title: SizedBox(
         width: 250,
         child: Text(
-          'Hi,Jaydeep Hirani',
+          'Hi, ${ProfileController.to.profileDetails.name}',
           overflow: TextOverflow.ellipsis,
           textAlign: TextAlign.center,
           maxLines: 1,
@@ -70,7 +71,6 @@ class _paymentState extends State<payment> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            searchbar(),
             SizedBox(
               height: 30,
             ),

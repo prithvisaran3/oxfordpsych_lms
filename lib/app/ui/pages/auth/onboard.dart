@@ -2,9 +2,9 @@ import 'package:deviraj_lms/app/controller/auth.dart';
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:get/get.dart';
-import '../theme/colors.dart';
-import '../theme/font.dart';
-import 'logIn.dart';
+import '../../theme/colors.dart';
+import '../../theme/font.dart';
+import 'login.dart';
 
 class Onboard extends StatefulWidget {
   const Onboard({Key? key}) : super(key: key);

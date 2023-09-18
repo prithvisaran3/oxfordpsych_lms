@@ -3,9 +3,10 @@ import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
 import '../../../controller/main.dart';
 import '../../theme/colors.dart';
-import '../favourite.dart';
-import '../myCourse.dart';
-import '../profile.dart';
+import '../favourite/favourite.dart';
+
+import '../myprogress/myCourse.dart';
+import '../profile/profile.dart';
 import 'home.dart';
 
 class HomeMain extends StatelessWidget {
@@ -37,9 +38,9 @@ class HomeMain extends StatelessWidget {
             buildTab(icon: Icons.person_outline, index: 3),
           ],
         )),
-        body: TabBarView(
-          physics: const NeverScrollableScrollPhysics(),
-          children: [Home(), Favourite(), MyCourse(), Profile()],
+        body: const TabBarView(
+          physics: NeverScrollableScrollPhysics(),
+          children: [Home(), Favourite(), ProgressScreen(), Profile()],
         ),
       ),
     );

@@ -1,5 +1,9 @@
 import 'package:appinio_video_player/appinio_video_player.dart';
+import 'package:deviraj_lms/app/controller/course.dart';
+import 'package:deviraj_lms/app/controller/home.dart';
+import 'package:deviraj_lms/app/controller/main.dart';
 import 'package:deviraj_lms/app/ui/widgets/common/currency_text.dart';
+import 'package:deviraj_lms/app/ui/widgets/common/text.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../theme/colors.dart';
@@ -8,7 +12,8 @@ import '../utility.dart';
 import '../widgets/common/appbar.dart';
 
 class CourseDetail extends StatefulWidget {
-  const CourseDetail({Key? key}) : super(key: key);
+  const CourseDetail({Key? key, required this.data}) : super(key: key);
+  final dynamic data;
 
   @override
   State<CourseDetail> createState() => _CourseDetailState();
@@ -22,22 +27,23 @@ class _CourseDetailState extends State<CourseDetail> {
   @override
   void initState() {
     super.initState();
+
     videoPlayerController =
         VideoPlayerController.asset('assets/images/demo.mp4');
 
     customVideoPlayerController = CustomVideoPlayerController(
         context: context,
         videoPlayerController: videoPlayerController,
-        customVideoPlayerSettings: CustomVideoPlayerSettings(
+        customVideoPlayerSettings: const CustomVideoPlayerSettings(
             settingsButton: Row(
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: const [
-            Icon(
-              Icons.settings,
-              color: AppColors.white,
-            ),
-          ],
-        )));
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                Icon(
+                  Icons.settings,
+                  color: AppColors.white,
+                ),
+              ],
+            )));
     videoPlayerFuture = videoPlayerController.initialize();
     videoPlayerController.setLooping(true);
     videoPlayerController.setVolume(100.0);
@@ -54,7 +60,56 @@ class _CourseDetailState extends State<CourseDetail> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: commonAppBar(title: "Course Detail", isBackIcon: true),
+      appBar: AppBar(
+        backgroundColor: AppColors.white,
+        elevation: 0,
+        centerTitle: true,
+        automaticallyImplyLeading: false,
+        iconTheme: const IconThemeData(color: AppColors.black),
+        title: GestureDetector(
+          onTap: () {
+            Get.back();
+          },
+          child: Row(
+            children: [
+              const Icon(
+                Icons.arrow_back_ios_new_outlined,
+                size: 18,
+              ),
+              const SizedBox(
+                width: 5,
+              ),
+              Text(
+                "Course Detail",
+                overflow: TextOverflow.ellipsis,
+                textAlign: TextAlign.center,
+                maxLines: 1,
+                softWrap: false,
+                style: headText(),
+              ),
+            ],
+          ),
+        ),
+        actions: [
+          Obx(
+                () =>
+                IconButton(
+                  onPressed: () {
+                    MainController.to.isFavourite =
+                    !MainController.to.isFavourite;
+                  },
+                  icon: MainController.to.isFavourite == false
+                      ? Icon(
+                    Icons.favorite_outline,
+                    color: Colors.black,
+                  ):Icon(
+                    Icons.favorite_outlined,
+                    color: Colors.red,
+                  ),
+                ),
+          ),
+        ],
+      ),
       body: SingleChildScrollView(
         physics: const BouncingScrollPhysics(),
         child: Padding(
@@ -88,7 +143,7 @@ class _CourseDetailState extends State<CourseDetail> {
               courseInfo(context),
 
               // about instructer
-              aboutInstructer(),
+              aboutInstructor(),
 
               //price card
               priceCard(),
@@ -104,7 +159,9 @@ class _CourseDetailState extends State<CourseDetail> {
 
   Column description() {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
+        const SizedBox(height: 20),
         Text(
           'Description',
           style: headText(),
@@ -112,21 +169,7 @@ class _CourseDetailState extends State<CourseDetail> {
         const SizedBox(
           height: 10,
         ),
-        const Text(
-            'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been text of the printing and'),
-        Row(
-          children: const [
-            Text(
-              'SEE ALL',
-              style: TextStyle(color: AppColors.secondary),
-            ),
-            Icon(
-              Icons.arrow_right_alt,
-              color: AppColors.secondary,
-              size: 20,
-            )
-          ],
-        )
+        Text('${widget.data['description']}'),
       ],
     );
   }
@@ -173,7 +216,7 @@ class _CourseDetailState extends State<CourseDetail> {
                       // child: VideoPlayer(videoPlayerController),
                       child: CustomVideoPlayer(
                         customVideoPlayerController:
-                            customVideoPlayerController,
+                        customVideoPlayerController,
                       ),
                     );
                   } else {
@@ -238,92 +281,90 @@ class _CourseDetailState extends State<CourseDetail> {
 
   courseTitle() {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              'Panic Attacks \nHistory',
-              style: headText(),
-            ),
-            const SizedBox(
-              width: 20,
-            ),
-            Container(
-              padding: const EdgeInsets.all(3),
-              decoration: BoxDecoration(
-                  color: AppColors.secondary,
-                  borderRadius: BorderRadius.circular(10)),
-              child: const Text(
-                'BEST SELLER',
-                style: TextStyle(fontSize: 12),
-              ),
-            ),
-          ],
+        CommonText(
+          textAlign: TextAlign.left,
+          text: '${widget.data["title"]}',
+          style: headText(),
         ),
+        // const SizedBox(
+        //   width: 20,
+        // ),
         const SizedBox(
           height: 5,
         ),
-        Row(
-          children: const [
-            Text('4.5'),
-            SizedBox(
-              width: 10,
-            ),
-            Icon(
-              Icons.star,
-              color: Colors.amber,
-              size: 20,
-            ),
-            Icon(
-              Icons.star,
-              color: Colors.amber,
-              size: 20,
-            ),
-            Icon(
-              Icons.star,
-              size: 20,
-              color: Colors.amber,
-            ),
-            Icon(
-              Icons.star,
-              size: 20,
-              color: Colors.amber,
-            ),
-            Icon(
-              Icons.star_outline,
-              size: 20,
-              color: Colors.amber,
-            ),
-            SizedBox(
-              width: 10,
-            ),
-            Text(
-              '(122 ratings) 25,190 Students',
-              style: TextStyle(fontSize: 12),
-            )
-          ],
+        CommonText(
+          textAlign: TextAlign.left,
+          text: '${widget.data["curriculum"]}',
+          style: TextStyle(fontSize: 14, fontWeight: FontWeight.w400),
         ),
+
+        CommonText(
+          textAlign: TextAlign.left,
+          text: '${widget.data["languages"]}',
+          style: TextStyle(fontSize: 12, color: AppColors.primary),
+        ),
+        // Row(
+        //   children: const [
+        //     Text('4.5'),
+        //     SizedBox(
+        //       width: 10,
+        //     ),
+        //     Icon(
+        //       Icons.star,
+        //       color: Colors.amber,
+        //       size: 20,
+        //     ),
+        //     Icon(
+        //       Icons.star,
+        //       color: Colors.amber,
+        //       size: 20,
+        //     ),
+        //     Icon(
+        //       Icons.star,
+        //       size: 20,
+        //       color: Colors.amber,
+        //     ),
+        //     Icon(
+        //       Icons.star,
+        //       size: 20,
+        //       color: Colors.amber,
+        //     ),
+        //     Icon(
+        //       Icons.star_outline,
+        //       size: 20,
+        //       color: Colors.amber,
+        //     ),
+        //     SizedBox(
+        //       width: 10,
+        //     ),
+        //     Text(
+        //       '(122 ratings) 25,190 Students',
+        //       style: TextStyle(fontSize: 12),
+        //     )
+        //   ],
+        // ),
         const SizedBox(
           height: 10,
         ),
-        RichText(
-          text: const TextSpan(
-            text:
-                'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry... ',
-            style: TextStyle(
-                fontFamily: 'regular', color: Colors.black, height: 1.5),
-            children: <TextSpan>[
-              // TextSpan(
-              //   text: ' Read more',
-              //   style: TextStyle(
-              //     fontFamily: 'regular',
-              //     color: AppColors.primary,
-              //   ),
-              // ),
-            ],
-          ),
-        ),
+        // RichText(
+        //   text:  TextSpan(
+        //     text:
+        //         '${widget.data['description']} ',
+        //     style: TextStyle(
+        //         fontFamily: 'regular', color: Colors.black, height: 1.5),
+        //     children: <TextSpan>[
+        //       // TextSpan(
+        //       //   text: ' Read more',
+        //       //   style: TextStyle(
+        //       //     fontFamily: 'regular',
+        //       //     color: AppColors.primary,
+        //       //   ),
+        //       // ),
+        //     ],
+        //   ),
+        // ),
       ],
     );
   }
@@ -359,11 +400,11 @@ class _CourseDetailState extends State<CourseDetail> {
               itemBuilder: (context, index) {
                 return Container(
                   margin: const EdgeInsets.only(bottom: 10),
-                  child: Row(
+                  child: const Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.start,
                     mainAxisSize: MainAxisSize.min,
-                    children: const [
+                    children: [
                       Icon(
                         Icons.circle,
                         color: AppColors.green,
@@ -424,7 +465,7 @@ class _CourseDetailState extends State<CourseDetail> {
                 return const Padding(
                   padding: EdgeInsets.symmetric(vertical: 2.0),
                   child:
-                      Text('Episode 1 - Introduction to 3D Animations & tools'),
+                  Text('Episode 1 - Introduction to 3D Animations & tools'),
                 );
               })
         ],
@@ -453,8 +494,8 @@ class _CourseDetailState extends State<CourseDetail> {
                       index == 0
                           ? Icons.phone_android
                           : index == 1
-                              ? Icons.person
-                              : Icons.language,
+                          ? Icons.person
+                          : Icons.language,
                       color: Colors.teal,
                       size: 20,
                     ),
@@ -463,26 +504,26 @@ class _CourseDetailState extends State<CourseDetail> {
                     ),
                     index == 0 || index == 1
                         ? Text(index == 0
-                            ? 'Last uploaded on Jan 21, 2022'
-                            : "English, French")
+                        ? 'Last uploaded on Jan 21, 2022'
+                        : "English, French")
                         : RichText(
-                            text: const TextSpan(
-                              text: 'Author : ',
-                              style: TextStyle(
-                                  fontFamily: 'regular',
-                                  color: Colors.black,
-                                  height: 1.5),
-                              children: [
-                                TextSpan(
-                                  text: ' STEPHEN MORIS',
-                                  style: TextStyle(
-                                    fontFamily: 'regular',
-                                    color: Colors.teal,
-                                  ),
-                                ),
-                              ],
+                      text: const TextSpan(
+                        text: 'Author : ',
+                        style: TextStyle(
+                            fontFamily: 'regular',
+                            color: Colors.black,
+                            height: 1.5),
+                        children: [
+                          TextSpan(
+                            text: ' STEPHEN MORIS',
+                            style: TextStyle(
+                              fontFamily: 'regular',
+                              color: Colors.teal,
                             ),
                           ),
+                        ],
+                      ),
+                    ),
                   ],
                 ),
               );
@@ -507,8 +548,8 @@ class _CourseDetailState extends State<CourseDetail> {
                     index == 0
                         ? Icons.insert_drive_file_outlined
                         : index == 1
-                            ? Icons.celebration_outlined
-                            : Icons.thumb_up_outlined,
+                        ? Icons.celebration_outlined
+                        : Icons.thumb_up_outlined,
                     color: AppColors.secondary,
                     size: 20,
                   ),
@@ -518,8 +559,8 @@ class _CourseDetailState extends State<CourseDetail> {
                   Text(index == 0
                       ? "250 Courses Uploaded"
                       : index == 1
-                          ? "Best Seller Award"
-                          : "5+ Million Students Followed")
+                      ? "Best Seller Award"
+                      : "5+ Million Students Followed")
                 ],
               ),
             );
@@ -527,12 +568,12 @@ class _CourseDetailState extends State<CourseDetail> {
     );
   }
 
-  aboutInstructer() {
+  aboutInstructor() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          'About Instructer:',
+          'About Instructor:',
           style: headText(),
         ),
         const SizedBox(
@@ -549,71 +590,71 @@ class _CourseDetailState extends State<CourseDetail> {
                       image: AssetImage('assets/images/course.jpg'),
                       fit: BoxFit.cover)),
             ),
-            Expanded(
+            const Expanded(
               child: Padding(
-                padding: const EdgeInsets.only(left: 10),
+                padding: EdgeInsets.only(left: 10),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Row(
                       children: [
-                        const Text(
+                        Text(
                           'Stephen Moris',
                           style: TextStyle(fontSize: 18),
                         ),
-                        const SizedBox(
+                        SizedBox(
                           width: 20,
                         ),
-                        Container(
-                          padding: const EdgeInsets.all(3),
-                          decoration: BoxDecoration(
-                              color: AppColors.secondary,
-                              borderRadius: BorderRadius.circular(10)),
-                          child: const Text(
-                            'BEST SELLER',
-                            style: TextStyle(fontSize: 12),
-                          ),
-                        ),
+                        // Container(
+                        //   padding: const EdgeInsets.all(3),
+                        //   decoration: BoxDecoration(
+                        //       color: AppColors.secondary,
+                        //       borderRadius: BorderRadius.circular(10)),
+                        //   child: const Text(
+                        //     'BEST SELLER',
+                        //     style: TextStyle(fontSize: 12),
+                        //   ),
+                        // ),
                       ],
                     ),
-                    const Text(
+                    Text(
                       'Top Rated Instructor',
                       style: TextStyle(color: Colors.teal),
                     ),
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: const [
-                        Text('4.5'),
-                        SizedBox(
-                          width: 10,
-                        ),
-                        Icon(
-                          Icons.star,
-                          color: Colors.amber,
-                          size: 20,
-                        ),
-                        Icon(
-                          Icons.star,
-                          color: Colors.amber,
-                          size: 20,
-                        ),
-                        Icon(
-                          Icons.star,
-                          size: 20,
-                          color: Colors.amber,
-                        ),
-                        Icon(
-                          Icons.star,
-                          size: 20,
-                          color: Colors.amber,
-                        ),
-                        Icon(
-                          Icons.star_outline,
-                          size: 20,
-                          color: Colors.amber,
-                        ),
-                      ],
-                    ),
+                    // Row(
+                    //   crossAxisAlignment: CrossAxisAlignment.start,
+                    //   children: const [
+                    //     Text('4.5'),
+                    //     SizedBox(
+                    //       width: 10,
+                    //     ),
+                    //     Icon(
+                    //       Icons.star,
+                    //       color: Colors.amber,
+                    //       size: 20,
+                    //     ),
+                    //     Icon(
+                    //       Icons.star,
+                    //       color: Colors.amber,
+                    //       size: 20,
+                    //     ),
+                    //     Icon(
+                    //       Icons.star,
+                    //       size: 20,
+                    //       color: Colors.amber,
+                    //     ),
+                    //     Icon(
+                    //       Icons.star,
+                    //       size: 20,
+                    //       color: Colors.amber,
+                    //     ),
+                    //     Icon(
+                    //       Icons.star_outline,
+                    //       size: 20,
+                    //       color: Colors.amber,
+                    //     ),
+                    //   ],
+                    // ),
                   ],
                 ),
               ),
@@ -688,19 +729,19 @@ class _CourseDetailState extends State<CourseDetail> {
         children: [
           Text(
             'Offer Price'.toUpperCase(),
-            style:
-                TextStyle(color: AppColors.white, fontWeight: FontWeight.bold),
+            style: const TextStyle(
+                color: AppColors.white, fontWeight: FontWeight.bold),
           ),
-          SizedBox(width: 10),
+          const SizedBox(width: 10),
           CurrencyText(
-            amount: "30.50",
+            amount: widget.data['price'],
             fontSize: 30,
             fontWEIGHT: FontWeight.bold,
             color: AppColors.secondary,
           ),
-          SizedBox(width: 5),
+          const SizedBox(width: 5),
           CurrencyText(
-            amount: "40.50",
+            amount: (int.parse(widget.data['price']) + 100).toString(),
             fontSize: 20,
             fontWEIGHT: FontWeight.bold,
             color: AppColors.secondary,

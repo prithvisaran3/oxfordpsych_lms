@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import '../widgets/common/appbar.dart';
+import '../../widgets/common/appbar.dart';
 
-import '../widgets/favourite.dart';
+import '../../widgets/favourite.dart';
 
 class Favourite extends StatelessWidget {
   const Favourite({Key? key}) : super(key: key);
@@ -11,9 +11,11 @@ class Favourite extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: commonAppBar(
-        centerTitle: false,
+        centerTitle: true,
         title: "Favourite",
+
       ),
+
       body: GridView.builder(
         padding: const EdgeInsets.all(15),
         physics: const BouncingScrollPhysics(),

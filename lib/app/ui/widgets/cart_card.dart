@@ -49,25 +49,6 @@ class CartCard extends StatelessWidget {
               ),
             ),
           ),
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 2),
-            decoration: BoxDecoration(
-                border: Border.all(color: AppColors.primary),
-                borderRadius: BorderRadius.circular(10)),
-            child: Column(
-              children: const [
-                Icon(
-                  Icons.remove,
-                  size: 20,
-                ),
-                Text('1'),
-                Icon(
-                  Icons.add,
-                  size: 20,
-                ),
-              ],
-            ),
-          )
         ],
       ),
     );

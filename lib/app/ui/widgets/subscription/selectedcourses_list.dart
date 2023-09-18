@@ -10,6 +10,12 @@ class SelectedCoursesList extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
+        Icon(
+          Icons.remove_circle,
+          size: 16,
+          color: Colors.red,
+        ),
+        SizedBox(width: 10),
         Text(
           'Risk Analysis and STD Risks',
           style: TextStyle(

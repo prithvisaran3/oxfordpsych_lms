@@ -6,7 +6,9 @@ import '../../theme/colors.dart';
 
 class LogoutButton extends StatelessWidget {
   const LogoutButton({super.key, required this.onTap});
-final Function() onTap;
+
+  final Function() onTap;
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -15,9 +17,15 @@ final Function() onTap;
         width: Get.width * 0.25,
         padding: EdgeInsets.symmetric(horizontal: 5, vertical: 5),
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(10),
-          color: AppColors.primary,
-        ),
+            borderRadius: BorderRadius.circular(10),
+            color: AppColors.primary,
+            gradient: LinearGradient(
+              colors: [
+                AppColors.primary,
+                AppColors.secondary,
+              ],
+            ),
+            boxShadow: [BoxShadow(color: Colors.black26, blurRadius: 10)]),
         child: Row(
           children: [
             Icon(

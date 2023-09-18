@@ -23,7 +23,7 @@ class ChangePassword extends StatelessWidget {
               controller: AuthController.to.currentPassword,
               validator: (data) {
                 if (data!.isEmpty || data == "") {
-                  return "Email field required";
+                  return "Current Password field required";
                 }
                 return null;
               }),
@@ -33,9 +33,9 @@ class ChangePassword extends StatelessWidget {
               controller: AuthController.to.newPassword,
               validator: (data) {
                 if (data!.isEmpty || data == "") {
-                  return "Password field required";
+                  return "New Password field required";
                 } else if (data.length < 6) {
-                  return "Password at least 6 character";
+                  return "New Password at least 6 character";
                 }
                 return null;
               }),
@@ -45,9 +45,9 @@ class ChangePassword extends StatelessWidget {
             controller: AuthController.to.newConfirmPassword,
             validator: (data) {
               if (data!.isEmpty || data == "") {
-                return "Password field required";
+                return "Confirm Password field required";
               } else if (data.length < 6) {
-                return "Password at least 6 character";
+                return "Confirm Password at least 6 character";
               }
               return null;
             },
@@ -57,6 +57,7 @@ class ChangePassword extends StatelessWidget {
             child: CommonButton(
               text: "Confirm",
               onPressed: () {
+                print("${AuthController.to.lEmail.text}");
                 AuthController.to.checkPasswordChange();
               },
             ),

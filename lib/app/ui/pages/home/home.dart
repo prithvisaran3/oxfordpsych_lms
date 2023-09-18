@@ -1,215 +1,259 @@
+import 'package:deviraj_lms/app/controller/auth.dart';
+import 'package:deviraj_lms/app/controller/profile.dart';
+import 'package:deviraj_lms/app/ui/widgets/home/curriculum_box.dart';
+import 'package:deviraj_lms/app/ui/widgets/home/search_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../all_courses.dart';
+import '../../../controller/course.dart';
+import '../../../controller/home.dart';
+import 'all_courses.dart';
 import '../../theme/colors.dart';
 import '../../theme/font.dart';
 import '../../widgets/banner.dart';
 import '../../widgets/course_card.dart';
 import '../cart.dart';
-import '../categories.dart';
+
+import '../courseDetail.dart';
 
 class Home extends StatelessWidget {
   const Home({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: AppColors.white,
-      appBar: AppBar(
-        backgroundColor: AppColors.white,
-        elevation: 0,
-        automaticallyImplyLeading: false,
-        centerTitle: true,
-        iconTheme: const IconThemeData(color: AppColors.black),
-        leading: Padding(
-          padding: const EdgeInsets.only(left: 5.0),
-          child: Image.asset(
-            'assets/images/logo.png',
-            color: AppColors.black,
-            height: 40,
-            width: 40,
-            // fit: BoxFit.cover,
-          ),
-        ),
-        leadingWidth: 80,
-        title: SizedBox(
-          width: 250,
-          child: Text(
-            'Hi,Mason',
-            overflow: TextOverflow.ellipsis,
-            textAlign: TextAlign.center,
-            maxLines: 1,
-            softWrap: false,
-            style: headText(),
-          ),
-        ),
-        actions: [
-          IconButton(
-              onPressed: () {
-                Navigator.push(
-                    context, MaterialPageRoute(builder: (context) => Cart()));
-              },
-              icon: const Icon(Icons.shopping_cart_outlined))
-        ],
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(16),
-        child: ListView(
-          physics: const BouncingScrollPhysics(),
-          children: [
-            searchbar(),
-            const SizedBox(
-              height: 20,
-            ),
-            const ImageBanner(),
-            const SizedBox(
-              height: 20,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  'Categories',
-                  style: headText(),
-                ),
-                GestureDetector(
-                  onTap: () {
-                    Get.to(() => Categories());
-                  },
-                  child: Row(
-                    children: const [
-                      Text(
-                        'SEE ALL',
-                        style: TextStyle(color: AppColors.secondary),
-                      ),
-                      Icon(
-                        Icons.arrow_right_alt,
-                        color: AppColors.secondary,
-                        size: 20,
-                      )
-                    ],
-                  ),
-                )
-              ],
-            ),
-            const SizedBox(
-              height: 20,
-            ),
-            SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              physics: const BouncingScrollPhysics(),
-              child: Row(
-                children: [
-                  categoryContainer('Mind Healing'),
-                  categoryContainer('PTSD'),
-                  categoryContainer('Panic Attacks'),
-                  categoryContainer('Personal Issues'),
-                ],
+    return GetBuilder(
+      init: HomeController(),
+      initState: (_) {
+        // ProfileController.to.getProfile();
+
+        HomeController.to.getCurriculum();
+        // HomeController.to.getTopic();
+        CourseController.to.getCourse();
+        ProfileController.to.getProfile();
+      },
+      builder: (_) {
+        return Scaffold(
+          backgroundColor: AppColors.white,
+          appBar: AppBar(
+            backgroundColor: AppColors.white,
+            elevation: 0,
+            automaticallyImplyLeading: false,
+            centerTitle: true,
+            iconTheme: const IconThemeData(color: AppColors.black),
+            leading: Padding(
+              padding: const EdgeInsets.only(left: 5.0),
+              child: Image.asset(
+                'assets/images/logo.png',
+                color: AppColors.black,
+                height: 40,
+                width: 40,
+                // fit: BoxFit.cover,
               ),
             ),
-            const SizedBox(
-              height: 10,
+            leadingWidth: 80,
+            title: SizedBox(
+              width: 250,
+              child: Obx(
+                () => ProfileController.to.getProfileLoading == true
+                    ? SizedBox()
+                    : Text(
+                        'Hi, ${ProfileController.to.profileDetails.name}',
+                        overflow: TextOverflow.ellipsis,
+                        textAlign: TextAlign.center,
+                        maxLines: 1,
+                        softWrap: false,
+                        style: headText(),
+                      ),
+              ),
             ),
-            Center(
-              child: SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                physics: const BouncingScrollPhysics(),
+            actions: [
+              IconButton(
+                  onPressed: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => Cart()));
+                  },
+                  icon: const Icon(Icons.shopping_cart_outlined))
+            ],
+          ),
+          body: Padding(
+              padding: const EdgeInsets.all(16),
+              child: Obx(
+                () => HomeController.to.getCurriculumLoading == true
+                    ? Center(
+                        child: CircularProgressIndicator(),
+                      )
+                    : ListView(
+                        physics: const BouncingScrollPhysics(),
+                        children: [
+                          const HomeSearchBar(),
+
+                          const SizedBox(
+                            height: 20,
+                          ),
+                          const ImageBanner(),
+                          const SizedBox(
+                            height: 20,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                'Categories',
+                                style: headText(),
+                              ),
+                              // GestureDetector(
+                              //   onTap: () {
+                              //     Get.to(() => Categories());
+                              //   },
+                              //   child: Row(
+                              //     children: const [
+                              //       Text(
+                              //         'SEE ALL',
+                              //         style: TextStyle(color: AppColors.secondary),
+                              //       ),
+                              //       Icon(
+                              //         Icons.arrow_right_alt,
+                              //         color: AppColors.secondary,
+                              //         size: 20,
+                              //       )
+                              //     ],
+                              //   ),
+                              // )
+                            ],
+                          ),
+                          const SizedBox(
+                            height: 20,
+                          ),
+                          SizedBox(
+                            height: Get.height * 0.05,
+                            child: ListView.builder(
+                                itemCount:
+                                    HomeController.to.curriculumDetails.length,
+                                physics: BouncingScrollPhysics(),
+                                scrollDirection: Axis.horizontal,
+                                shrinkWrap: true,
+                                itemBuilder: (context, int index) {
+                                  return CurriculumBox(
+                                      text:
+                                          "${HomeController.to.curriculumDetails[index]['name']}");
+                                }),
+                          ),
+                          // SingleChildScrollView(
+                          //   scrollDirection: Axis.horizontal,
+                          //   physics: const BouncingScrollPhysics(),
+                          //   child: Row(
+                          //     children: [
+                          //       categoryContainer('Mind Healing'),
+                          //       categoryContainer('PTSD'),
+                          //       categoryContainer('Panic Attacks'),
+                          // categoryContainer('Personal Issues'),
+                          //     ],
+                          //   ),
+                          // ),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          Center(
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                CurriculumBox(text: 'Beginner'),
+                                CurriculumBox(text: 'Intermediate'),
+                                CurriculumBox(text: 'Expert'),
+                              ],
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 20,
+                          ),
+
+                          curriculumColumn(context,
+                              name:
+                                  '${HomeController.to.curriculumDetails[0]['name']}',
+                              curriculum: "CASC Courses"),
+                          curriculumColumn(context,
+                              name:
+                                  '${HomeController.to.curriculumDetails[1]['name']}',
+                              curriculum: "Mock CASEC Exams"),
+                          curriculumColumn(context,
+                              name:
+                                  '${HomeController.to.curriculumDetails[2]['name']}',
+                              curriculum: "Online CASC Courses"),
+                          curriculumColumn(context,
+                              name:
+                                  '${HomeController.to.curriculumDetails[3]['name']}',
+                              curriculum: "Oxfordpsych Overseas"),
+                        ],
+                      ),
+              )),
+        );
+      },
+    );
+  }
+
+  curriculumColumn(BuildContext context,
+      {required String name, required String curriculum}) {
+    return Obx(
+      () => Column(
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                name,
+                style: headText(),
+              ),
+              InkWell(
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => AllCourses(
+                                data: CourseController.to.courseDetails,
+                                curriculum: curriculum,
+                              )));
+                },
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    categoryContainer('Depression'),
-                    categoryContainer('Work Pressure'),
-                    categoryContainer('Relationship Problems'),
+                  children: const [
+                    Text(
+                      'SEE ALL',
+                      style: TextStyle(color: AppColors.secondary),
+                    ),
+                    Icon(
+                      Icons.arrow_right_alt,
+                      color: AppColors.secondary,
+                      size: 20,
+                    )
                   ],
                 ),
-              ),
-            ),
-            const SizedBox(
-              height: 20,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  'Top Courses',
-                  style: headText(),
-                ),
-                InkWell(
-                  onTap: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => AllCourses()));
-                  },
-                  child: Row(
-                    children: const [
-                      Text(
-                        'SEE ALL',
-                        style: TextStyle(color: AppColors.secondary),
-                      ),
-                      Icon(
-                        Icons.arrow_right_alt,
-                        color: AppColors.secondary,
-                        size: 20,
+              )
+            ],
+          ),
+          const SizedBox(
+            height: 20,
+          ),
+          Container(
+            height: Get.height * 0.28,
+            width: Get.width,
+            child: ListView.builder(
+              scrollDirection: Axis.horizontal,
+              itemCount: CourseController.to.courseDetails.length,
+              shrinkWrap: true,
+              itemBuilder: (context, index) {
+                return CourseController.to.courseDetails[index]["curriculum"] ==
+                        curriculum
+                    ? CourseCard(
+                        onTap: () {
+                          Get.to(() => CourseDetail(
+                                data: CourseController.to.courseDetails[index],
+                              ));
+                        },
+                        courseData: CourseController.to.courseDetails[index],
                       )
-                    ],
-                  ),
-                )
-              ],
+                    : const SizedBox();
+              },
             ),
-            const SizedBox(
-              height: 20,
-            ),
-            Container(
-              height: Get.height * 0.3,
-              width: Get.width,
-              child: ListView.builder(
-                  scrollDirection: Axis.horizontal,
-                  itemCount: 3,
-                  shrinkWrap: true,
-                  itemBuilder: (context, index) {
-                    return const CourseCard();
-                  }),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  categoryContainer(text) {
-    return Container(
-      margin: const EdgeInsets.only(right: 10),
-      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-      decoration: BoxDecoration(
-          border: Border.all(width: 1),
-          borderRadius: BorderRadius.circular(15)),
-      child: Text(text),
-    );
-  }
-
-  searchbar() {
-    return SizedBox(
-      height: 50,
-      child: TextFormField(
-        style: TextStyle(color: AppColors.black),
-        decoration: InputDecoration(
-          contentPadding: EdgeInsets.all(8),
-          border: InputBorder.none,
-          hintText: 'Search here',
-          prefixIcon: Icon(Icons.search, color: AppColors.black),
-          hintStyle: TextStyle(color: AppColors.grey),
-          filled: true,
-          focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(25),
-              borderSide: BorderSide(
-                color: AppColors.grey,
-              )),
-          enabledBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(25),
-              borderSide: BorderSide(
-                color: AppColors.grey,
-              )),
-          fillColor: AppColors.white,
-        ),
+          ),
+        ],
       ),
     );
   }

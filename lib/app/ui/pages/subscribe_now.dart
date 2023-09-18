@@ -1,7 +1,9 @@
+import 'package:deviraj_lms/app/controller/course.dart';
 import 'package:deviraj_lms/app/ui/theme/colors.dart';
 import 'package:deviraj_lms/app/ui/theme/font.dart';
 import 'package:deviraj_lms/app/ui/widgets/common/common_button.dart';
 import 'package:deviraj_lms/app/ui/widgets/common/currency_text.dart';
+import 'package:deviraj_lms/app/ui/widgets/common/text.dart';
 import 'package:deviraj_lms/app/ui/widgets/subscription/ProceedToPay_button.dart';
 import 'package:deviraj_lms/app/ui/widgets/subscription/course_list_box.dart';
 import 'package:deviraj_lms/app/ui/widgets/subscription/duration_box.dart';
@@ -18,58 +20,64 @@ class SubscribeNow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        backgroundColor: AppColors.primary,
-        body: SingleChildScrollView(
-          physics: BouncingScrollPhysics(),
-          child: Stack(
-            children: [
-              Positioned(
-                bottom: 20,
-                left: 0,
-                right: 0,
-                child: ProceedToPayButton(),
-              ),
-              Container(
-                height: Get.height,
-                width: Get.width,
-                decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomCenter,
-                    colors: [
-                      AppColors.primary,
-                      AppColors.secondary,
-                    ],
-                  ),
+    return GetBuilder(
+        init: CourseController(),
+        initState: (_) {},
+        builder: (_) {
+          return SafeArea(
+            child: Scaffold(
+              backgroundColor: AppColors.primary,
+              body: SingleChildScrollView(
+                physics: const BouncingScrollPhysics(),
+                child: Stack(
+                  children: [
+                    const Positioned(
+                      bottom: 20,
+                      left: 0,
+                      right: 0,
+                      child: ProceedToPayButton(),
+                    ),
+                    Container(
+                      height: Get.height,
+                      width: Get.width,
+                      decoration: const BoxDecoration(
+                        gradient: LinearGradient(
+                          begin: Alignment.topCenter,
+                          end: Alignment.bottomCenter,
+                          colors: [
+                            AppColors.primary,
+                            AppColors.secondary,
+                          ],
+                        ),
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 20.0, vertical: 10),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            IntroSection(),
+                            DurationSection(),
+                            CourseListSection(),
+                            SelectedCoursesSection(),
+                            const ProceedToPayButton(),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
-                child: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 10),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      IntroSection(),
-                      DurationSection(),
-                      CourseListSection(),
-                      SelectedCoursesSection(),
-                      ProceedToPayButton(),
-                    ],
-                  ),
-                ),
               ),
-            ],
-          ),
-        ),
-      ),
-    );
+            ),
+          );
+        });
   }
 
   Row IntroSection() {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
+        const Text(
           "Subscribe \nNow!",
           style: TextStyle(
             color: AppColors.white,
@@ -77,12 +85,12 @@ class SubscribeNow extends StatelessWidget {
             fontSize: 45,
           ),
         ),
-        Spacer(),
+        const Spacer(),
         GestureDetector(
           onTap: () {
             Get.back();
           },
-          child: Icon(
+          child: const Icon(
             Ionicons.close,
             color: AppColors.white,
             size: 30,
@@ -96,13 +104,13 @@ class SubscribeNow extends StatelessWidget {
     return Container(
       // height: Get.height * 0.20,
       width: Get.width,
-      padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-      margin: EdgeInsets.symmetric(vertical: 20),
+      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+      margin: const EdgeInsets.symmetric(vertical: 20),
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(20),
           color: Colors.white,
           boxShadow: [
-            BoxShadow(
+            const BoxShadow(
               color: AppColors.grey,
               spreadRadius: 1,
               blurRadius: 1,
@@ -115,7 +123,7 @@ class SubscribeNow extends StatelessWidget {
           ),
       child: Column(
         children: [
-          Center(
+          const Center(
             child: Text(
               'Selected Courses',
               textAlign: TextAlign.center,
@@ -125,14 +133,14 @@ class SubscribeNow extends StatelessWidget {
                   fontWeight: FontWeight.bold),
             ),
           ),
-          SizedBox(height: 10),
+          const SizedBox(height: 10),
           ListView.builder(
             itemCount: 6,
             shrinkWrap: true,
             scrollDirection: Axis.vertical,
-            physics: BouncingScrollPhysics(),
+            physics: const BouncingScrollPhysics(),
             itemBuilder: (context, int index) {
-              return SelectedCoursesList();
+              return const SelectedCoursesList();
             },
           ),
         ],
@@ -140,34 +148,59 @@ class SubscribeNow extends StatelessWidget {
     );
   }
 
-  Container CourseListSection() {
-    return Container(
-      height: Get.height * 0.20,
-      width: Get.width,
-      padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-      margin: EdgeInsets.symmetric(vertical: 20),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(20),
-        color: Colors.transparent,
-        border: Border.all(
-          width: 3,
-          color: AppColors.white,
+  CourseListSection() {
+    return Column(
+      children: [
+        Container(
+          height: Get.height * 0.20,
+          width: Get.width,
+          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+          margin: const EdgeInsets.symmetric(vertical: 20),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(20),
+            color: Colors.transparent,
+            border: Border.all(
+              width: 3,
+              color: AppColors.white,
+            ),
+          ),
+          child: ListView.builder(
+            itemCount: 4,
+            shrinkWrap: true,
+            scrollDirection: Axis.vertical,
+            physics: const BouncingScrollPhysics(),
+            itemBuilder: (context, int index) {
+              return CourseListBox(index: index);
+            },
+          ),
         ),
-      ),
-      child: ListView.builder(
-        itemCount: 4,
-        shrinkWrap: true,
-        scrollDirection: Axis.vertical,
-        physics: BouncingScrollPhysics(),
-        itemBuilder: (context, int index) {
-          return CourseListBox(index: index);
-        },
-      ),
+        Container(
+          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+          margin: const EdgeInsets.symmetric(horizontal: 50),
+          width: double.infinity,
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(8),
+              boxShadow: [
+                const BoxShadow(
+                  color: Colors.black26,
+                  blurRadius: 10,
+                ),
+              ],
+              color: Colors.black),
+          child: const CommonText(
+            text: "Add",
+            style: TextStyle(
+              color: Colors.white,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        )
+      ],
     );
   }
 
   Row DurationSection() {
-    return Row(
+    return const Row(
       children: [
         SubscriptionDurationBox(
           duration: '1 month',

@@ -1,5 +1,5 @@
 import 'package:deviraj_lms/app/controller/profile.dart';
-import 'package:deviraj_lms/app/ui/pages/profile.dart';
+import 'package:deviraj_lms/app/ui/pages/profile/profile.dart';
 import 'package:deviraj_lms/app/ui/theme/colors.dart';
 import 'package:deviraj_lms/app/ui/widgets/common/appbar.dart';
 import 'package:deviraj_lms/app/ui/widgets/profile/push_notification_toggle.dart';

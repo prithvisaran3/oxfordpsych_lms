@@ -3,8 +3,8 @@ import 'package:percent_indicator/linear_percent_indicator.dart';
 import '../theme/colors.dart';
 import '../theme/font.dart';
 
-class MyCourseCard extends StatelessWidget {
-  const MyCourseCard({super.key});
+class ProgressCard extends StatelessWidget {
+  const ProgressCard({super.key});
 
   @override
   Widget build(BuildContext context) {

@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
-import '../theme/colors.dart';
-import '../widgets/common/appbar.dart';
-import '../widgets/my_course_card.dart';
+import '../../theme/colors.dart';
+import '../../widgets/common/appbar.dart';
+import '../../widgets/my_course_card.dart';
 
-class MyCourse extends StatelessWidget {
-  const MyCourse({Key? key}) : super(key: key);
+class ProgressScreen extends StatelessWidget {
+  const ProgressScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: commonAppBar(title: "My Courses"),
+      appBar: commonAppBar(title: "Progress"),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(16),
@@ -24,7 +24,7 @@ class MyCourse extends StatelessWidget {
                   itemCount: 3,
                   shrinkWrap: true,
                   itemBuilder: (context, index) {
-                    return const MyCourseCard();
+                    return const ProgressCard();
                   })
             ],
           ),

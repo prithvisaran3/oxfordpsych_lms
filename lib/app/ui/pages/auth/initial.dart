@@ -1,11 +1,11 @@
 import 'dart:async';
-import 'package:deviraj_lms/app/ui/pages/onboard.dart';
+import 'package:deviraj_lms/app/ui/pages/auth/onboard.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../../controller/auth.dart';
-import '../widgets/common/exit_alert.dart';
-import 'home/main.dart';
-import 'logIn.dart';
+import '../../../controller/auth.dart';
+import '../../widgets/common/exit_alert.dart';
+import '../home/main.dart';
+import 'login.dart';
 
 class Initial extends StatefulWidget {
   const Initial({Key? key}) : super(key: key);

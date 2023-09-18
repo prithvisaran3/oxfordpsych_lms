@@ -9,11 +9,11 @@ class ProfilePicture extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+      margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
       alignment: Alignment.center,
       height: 100,
       width: 100,
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
         shape: BoxShape.circle,
         color: AppColors.black,
         boxShadow: [
@@ -24,8 +24,10 @@ class ProfilePicture extends StatelessWidget {
       ),
       child: Text(
         textAlign: TextAlign.center,
-        "${ProfileController.to.profileName.text.split(" ").first[0]}${ProfileController.to.profileName.text.split(" ").last[0]} ",
-        style: TextStyle(
+
+        // "${ProfileController.to.profileDetails.name.toString().split(" ").first[0]}${ProfileController.to.profileDetails.name.toString().split(" ").last[0]} ",
+        "${ProfileController.to.profileDetails.name.toString().split(" ").first[0]}",
+        style: const TextStyle(
           color: AppColors.white,
           fontSize: 30,
           fontWeight: FontWeight.bold,

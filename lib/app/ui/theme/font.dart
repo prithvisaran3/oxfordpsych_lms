@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-headText() {
-  return const TextStyle(
-      fontSize: 18.0, fontFamily: 'semi-bold', color: Colors.black);
+headText({double fontSize = 18.0}) {
+  return TextStyle(
+      fontSize: fontSize, fontFamily: 'semi-bold', color: Colors.black);
 }

@@ -1,16 +1,23 @@
 import 'package:flutter/material.dart';
-import '../theme/colors.dart';
-import '../widgets/all_courses_card.dart';
-import '../widgets/common/appbar.dart';
+import 'package:get/get.dart';
+import '../../../controller/course.dart';
+import '../../theme/colors.dart';
+import '../../widgets/all_courses_card.dart';
+import '../../widgets/common/appbar.dart';
+import '../courseDetail.dart';
 
 class AllCourses extends StatelessWidget {
-  const AllCourses({Key? key}) : super(key: key);
+  const AllCourses({Key? key, required this.data, required this.curriculum})
+      : super(key: key);
+  final dynamic data;
+  final String curriculum;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: Colors.white,
-        appBar: commonAppBar(title: "All Courses", isBackIcon: true),
+        appBar:
+            commonAppBar(title: "All Courses", isBackIcon: true, isLogo: false),
         body: Padding(
           padding: const EdgeInsets.all(16),
           child: Stack(
@@ -27,12 +34,26 @@ class AllCourses extends StatelessWidget {
                       height: 20,
                     ),
                     ListView.builder(
-                        itemCount: 6,
-                        shrinkWrap: true,
-                        physics: const NeverScrollableScrollPhysics(),
-                        itemBuilder: (context, index) {
-                          return const AllCoursesCard();
-                        })
+                      itemCount: data.length,
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
+                      itemBuilder: (context, index) {
+                        print("DATA is ${data[index]['curriculum']}");
+                        return data[index]['curriculum'] == curriculum
+                            ? AllCoursesCard(
+                                cardData: data[index],
+                                onTap: () {
+                                  Get.to(
+                                    () => CourseDetail(
+                                      data: CourseController
+                                          .to.courseDetails[index],
+                                    ),
+                                  );
+                                },
+                              )
+                            : SizedBox();
+                      },
+                    )
                   ],
                 ),
               ),

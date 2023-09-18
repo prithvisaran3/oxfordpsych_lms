@@ -1,12 +1,13 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../../../pages/accCreateSuccess.dart';
-import '../../controller/auth.dart';
-import '../theme/colors.dart';
-import '../theme/font.dart';
-import '../widgets/common/common_button.dart';
-import '../widgets/common/common_textform_field.dart';
+
+import '../../../../helper/style.dart';
+import '../../../controller/auth.dart';
+import '../../theme/colors.dart';
+import '../../widgets/common/common_button.dart';
+import '../../widgets/common/common_textform_field.dart';
+
 
 class Register extends StatelessWidget {
   const Register({Key? key}) : super(key: key);
@@ -61,7 +62,7 @@ class Register extends StatelessWidget {
                     ),
                     CommonTextFormField(
                       hintText: "Enter your number",
-                      controller: AuthController.to.name,
+                      controller: AuthController.to.mobile,
                       validator: (data) {
                         if (data!.isEmpty || data == "") {
                           return "Name field required";
@@ -132,10 +133,7 @@ class Register extends StatelessWidget {
                 CommonButton(
                   text: "Create Account",
                   onPressed: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => accCreateSuccess()));
+                    AuthController.to.register();
                   },
                 ),
                 const SizedBox(

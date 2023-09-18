@@ -1,14 +1,14 @@
+import 'package:deviraj_lms/app/ui/pages/auth/register.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../../../pages/forgotPassword.dart';
-import 'home/main.dart';
-import 'register.dart';
-import '../../controller/auth.dart';
-import '../theme/colors.dart';
-import '../theme/font.dart';
-import '../widgets/common/common_button.dart';
-import '../widgets/common/common_textform_field.dart';
+import '../../../../pages/forgotPassword.dart';
+import '../home/main.dart';
+import '../../../controller/auth.dart';
+import '../../theme/colors.dart';
+import '../../theme/font.dart';
+import '../../widgets/common/common_button.dart';
+import '../../widgets/common/common_textform_field.dart';
 
 class Login extends StatelessWidget {
   const Login({Key? key}) : super(key: key);
@@ -74,22 +74,6 @@ class Login extends StatelessWidget {
                           },
                         ),
                       ),
-                      const SizedBox(
-                        width: 5,
-                      ),
-                      Expanded(
-                        flex: 1,
-                        child: Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(8),
-                            border: Border.all(
-                                width: 1, color: Colors.grey.shade300),
-                          ),
-                          padding: const EdgeInsets.symmetric(
-                              vertical: 10, horizontal: 5),
-                          child: const Icon(Icons.fingerprint),
-                        ),
-                      ),
                     ],
                   ),
                   const SizedBox(
@@ -118,9 +102,7 @@ class Login extends StatelessWidget {
                   CommonButton(
                       text: "Login",
                       onPressed: () {
-                        Get.to(
-                          () => HomeMain(),
-                        );
+                        AuthController.to.login();
                       }),
                   const SizedBox(
                     height: 20,

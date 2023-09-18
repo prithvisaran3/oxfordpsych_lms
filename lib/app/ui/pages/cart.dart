@@ -1,6 +1,8 @@
 import 'package:deviraj_lms/app/ui/pages/payment.dart';
+import 'package:deviraj_lms/app/ui/widgets/common/text.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import '../../../helper/style.dart';
 import '../theme/colors.dart';
 import '../widgets/cart_card.dart';
 import '../widgets/common/appbar.dart';
@@ -13,7 +15,62 @@ class Cart extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.white,
-      appBar: commonAppBar(title: "Cart", isCartIcon: true,isBackIcon: true),
+      appBar: AppBar(
+        backgroundColor: AppColors.white,
+        elevation: 0,
+        centerTitle: true,
+        automaticallyImplyLeading: false,
+        iconTheme: const IconThemeData(color: AppColors.black),
+        title: GestureDetector(
+          onTap: () {
+            Get.back();
+          },
+          child: Row(
+            children: [
+              const Icon(
+                Icons.arrow_back_ios_new_outlined,
+                size: 18,
+              ),
+              const SizedBox(
+                width: 5,
+              ),
+              Text(
+                "Course Detail",
+                overflow: TextOverflow.ellipsis,
+                textAlign: TextAlign.center,
+                maxLines: 1,
+                softWrap: false,
+                style: headText(),
+              ),
+            ],
+          ),
+        ),
+        actions: [
+          Row(
+            children: [
+              Container(
+                height: 30,
+                width: 30,
+                padding: EdgeInsets.all(5),
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: Colors.red,
+                ),
+                child: CommonText(
+                  text: "10",
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
+              ),
+              SizedBox(width: 5),
+              CommonText(
+                  text: "items",
+                  style: TextStyle(
+                      color: Colors.black, fontWeight: FontWeight.bold)),
+              SizedBox(width: 20),
+            ],
+          )
+        ],
+      ),
       body: Padding(
         padding: const EdgeInsets.all(16),
         child: ListView(
@@ -96,7 +153,7 @@ class Cart extends StatelessWidget {
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: const [Text('Shipping'), Text('Free')],
+              children: const [Text('Tax'), Text('Free')],
             ),
             const SizedBox(
               height: 10,
