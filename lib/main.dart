@@ -1,6 +1,4 @@
 import 'dart:io';
-
-import 'package:deviraj_lms/app/ui/pages/auth/initial.dart';
 import 'package:deviraj_lms/helper/style.dart';
 import 'package:deviraj_lms/pages/accCreateSuccess.dart';
 import 'package:deviraj_lms/pages/forgotPassword.dart';
@@ -11,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
+import 'app/ui/pages/auth/initial.dart';
 import 'app/ui/theme/colors.dart';
 
 class MyHttpOverrides extends HttpOverrides {
@@ -43,13 +42,12 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       themeMode: ThemeMode.dark,
-      title: 'OxfordPsych',
       theme: ThemeData(
         brightness: Brightness.light,
         primaryColor: appColor,
         fontFamily: 'regular',
       ),
-      home: const Initial(),
+      home: Initial(),
       routes: {
         accCreateSuccess.page_id: (context) => accCreateSuccess(),
         forgotPassword.page_id: (context) => forgotPassword(),

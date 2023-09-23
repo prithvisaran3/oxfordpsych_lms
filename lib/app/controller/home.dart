@@ -43,12 +43,20 @@ class HomeController extends GetxController {
     _topicDetails.value = value;
   }
 
-  final _courseLength=0.obs;
+  final _courseLength = 0.obs;
 
   get courseLength => _courseLength.value;
 
   set courseLength(value) {
     _courseLength.value = value;
+  }
+
+  final _isFirstLoading = true.obs;
+
+  get isFirstLoading => _isFirstLoading.value;
+
+  set isFirstLoading(value) {
+    _isFirstLoading.value = value;
   }
 
   getCurriculum() async {
@@ -57,6 +65,7 @@ class HomeController extends GetxController {
     try {
       var res = await repository.getCurriculum();
       if (statusCode == 200) {
+        isFirstLoading = false;
         if (res['status'] == "200") {
           getCurriculumLoading = false;
           if (res['data'] == null || res['data'] == "") {
@@ -73,12 +82,14 @@ class HomeController extends GetxController {
           commonPrint(status: "${res['status']}", msg: "UnProcessable Data");
         }
       } else {
+        isFirstLoading = true;
         commonPrint(
             status: "${res['status']}",
             msg: "Error from server on get curriculum");
         getCurriculumLoading = false;
       }
     } catch (e) {
+      isFirstLoading = true;
       commonPrint(status: "500", msg: "Curriculum get error due to $e");
       getCurriculumLoading = false;
     }

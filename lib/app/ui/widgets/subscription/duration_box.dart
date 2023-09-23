@@ -24,11 +24,11 @@ class SubscriptionDurationBox extends StatelessWidget {
           SubscriptionController.to.isClickDuration = index;
         },
         child: Container(
-          width: Get.width * 0.25,
-          padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+          // width: Get.width * 0.25,
+          padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
           margin: EdgeInsets.symmetric(horizontal: 10, vertical: 20),
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(20),
+            borderRadius: BorderRadius.circular(10),
             color: SubscriptionController.to.isClickDuration == index
                 ? Colors.white
                 : Colors.transparent,

@@ -1,9 +1,7 @@
-import 'package:deviraj_lms/app/controller/course.dart';
 import 'package:deviraj_lms/app/ui/theme/colors.dart';
 import 'package:deviraj_lms/app/ui/theme/font.dart';
 import 'package:deviraj_lms/app/ui/widgets/common/common_button.dart';
 import 'package:deviraj_lms/app/ui/widgets/common/currency_text.dart';
-import 'package:deviraj_lms/app/ui/widgets/common/text.dart';
 import 'package:deviraj_lms/app/ui/widgets/subscription/ProceedToPay_button.dart';
 import 'package:deviraj_lms/app/ui/widgets/subscription/course_list_box.dart';
 import 'package:deviraj_lms/app/ui/widgets/subscription/duration_box.dart';
@@ -13,7 +11,9 @@ import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:shimmer/shimmer.dart';
 
+import '../../controller/course.dart';
 import '../../controller/subscription.dart';
+import '../widgets/common/text.dart';
 
 class SubscribeNow extends StatelessWidget {
   const SubscribeNow({super.key});
@@ -200,7 +200,8 @@ class SubscribeNow extends StatelessWidget {
   }
 
   Row DurationSection() {
-    return const Row(
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
         SubscriptionDurationBox(
           duration: '1 month',

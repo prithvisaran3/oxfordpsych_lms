@@ -1,15 +1,12 @@
 import 'package:appinio_video_player/appinio_video_player.dart';
-import 'package:deviraj_lms/app/controller/course.dart';
-import 'package:deviraj_lms/app/controller/home.dart';
-import 'package:deviraj_lms/app/controller/main.dart';
-import 'package:deviraj_lms/app/ui/widgets/common/currency_text.dart';
-import 'package:deviraj_lms/app/ui/widgets/common/text.dart';
+import 'package:deviraj_lms/app/config/config.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import '../../controller/main.dart';
 import '../theme/colors.dart';
 import '../theme/font.dart';
-import '../utility.dart';
-import '../widgets/common/appbar.dart';
+import '../widgets/common/currency_text.dart';
+import '../widgets/common/text.dart';
 
 class CourseDetail extends StatefulWidget {
   const CourseDetail({Key? key, required this.data}) : super(key: key);
@@ -28,22 +25,22 @@ class _CourseDetailState extends State<CourseDetail> {
   void initState() {
     super.initState();
 
-    videoPlayerController =
-        VideoPlayerController.asset('assets/images/demo.mp4');
+    videoPlayerController = VideoPlayerController.networkUrl(Uri.parse(
+        "${AppConfig.videoUrl}${widget.data['curriculum_id']}/${widget.data['video']}"));
 
     customVideoPlayerController = CustomVideoPlayerController(
         context: context,
         videoPlayerController: videoPlayerController,
         customVideoPlayerSettings: const CustomVideoPlayerSettings(
             settingsButton: Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                Icon(
-                  Icons.settings,
-                  color: AppColors.white,
-                ),
-              ],
-            )));
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            Icon(
+              Icons.settings,
+              color: AppColors.white,
+            ),
+          ],
+        )));
     videoPlayerFuture = videoPlayerController.initialize();
     videoPlayerController.setLooping(true);
     videoPlayerController.setVolume(100.0);
@@ -92,21 +89,20 @@ class _CourseDetailState extends State<CourseDetail> {
         ),
         actions: [
           Obx(
-                () =>
-                IconButton(
-                  onPressed: () {
-                    MainController.to.isFavourite =
-                    !MainController.to.isFavourite;
-                  },
-                  icon: MainController.to.isFavourite == false
-                      ? Icon(
-                    Icons.favorite_outline,
-                    color: Colors.black,
-                  ):Icon(
-                    Icons.favorite_outlined,
-                    color: Colors.red,
-                  ),
-                ),
+            () => IconButton(
+              onPressed: () {
+                MainController.to.isFavourite = !MainController.to.isFavourite;
+              },
+              icon: MainController.to.isFavourite == false
+                  ? const Icon(
+                      Icons.favorite_outline,
+                      color: Colors.black,
+                    )
+                  : const Icon(
+                      Icons.favorite_outlined,
+                      color: Colors.red,
+                    ),
+            ),
           ),
         ],
       ),
@@ -216,7 +212,7 @@ class _CourseDetailState extends State<CourseDetail> {
                       // child: VideoPlayer(videoPlayerController),
                       child: CustomVideoPlayer(
                         customVideoPlayerController:
-                        customVideoPlayerController,
+                            customVideoPlayerController,
                       ),
                     );
                   } else {
@@ -297,13 +293,13 @@ class _CourseDetailState extends State<CourseDetail> {
         CommonText(
           textAlign: TextAlign.left,
           text: '${widget.data["curriculum"]}',
-          style: TextStyle(fontSize: 14, fontWeight: FontWeight.w400),
+          style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w400),
         ),
 
         CommonText(
           textAlign: TextAlign.left,
           text: '${widget.data["languages"]}',
-          style: TextStyle(fontSize: 12, color: AppColors.primary),
+          style: const TextStyle(fontSize: 12, color: AppColors.primary),
         ),
         // Row(
         //   children: const [
@@ -465,7 +461,7 @@ class _CourseDetailState extends State<CourseDetail> {
                 return const Padding(
                   padding: EdgeInsets.symmetric(vertical: 2.0),
                   child:
-                  Text('Episode 1 - Introduction to 3D Animations & tools'),
+                      Text('Episode 1 - Introduction to 3D Animations & tools'),
                 );
               })
         ],
@@ -494,8 +490,8 @@ class _CourseDetailState extends State<CourseDetail> {
                       index == 0
                           ? Icons.phone_android
                           : index == 1
-                          ? Icons.person
-                          : Icons.language,
+                              ? Icons.person
+                              : Icons.language,
                       color: Colors.teal,
                       size: 20,
                     ),
@@ -504,26 +500,28 @@ class _CourseDetailState extends State<CourseDetail> {
                     ),
                     index == 0 || index == 1
                         ? Text(index == 0
-                        ? 'Last uploaded on Jan 21, 2022'
-                        : "English, French")
+                            ? 'Last uploaded on Jan 21, 2022'
+                            : "${widget.data['languages']}")
                         : RichText(
-                      text: const TextSpan(
-                        text: 'Author : ',
-                        style: TextStyle(
-                            fontFamily: 'regular',
-                            color: Colors.black,
-                            height: 1.5),
-                        children: [
-                          TextSpan(
-                            text: ' STEPHEN MORIS',
-                            style: TextStyle(
-                              fontFamily: 'regular',
-                              color: Colors.teal,
+                            text: TextSpan(
+                              text: 'Author : ',
+                              style: const TextStyle(
+                                  fontFamily: 'regular',
+                                  color: Colors.black,
+                                  height: 1.5),
+                              children: [
+                                TextSpan(
+                                  text: widget.data['topic']
+                                      .toString()
+                                      .split(" ")[0],
+                                  style: const TextStyle(
+                                    fontFamily: 'regular',
+                                    color: Colors.teal,
+                                  ),
+                                ),
+                              ],
                             ),
                           ),
-                        ],
-                      ),
-                    ),
                   ],
                 ),
               );
@@ -548,8 +546,8 @@ class _CourseDetailState extends State<CourseDetail> {
                     index == 0
                         ? Icons.insert_drive_file_outlined
                         : index == 1
-                        ? Icons.celebration_outlined
-                        : Icons.thumb_up_outlined,
+                            ? Icons.celebration_outlined
+                            : Icons.thumb_up_outlined,
                     color: AppColors.secondary,
                     size: 20,
                   ),
@@ -559,8 +557,8 @@ class _CourseDetailState extends State<CourseDetail> {
                   Text(index == 0
                       ? "250 Courses Uploaded"
                       : index == 1
-                      ? "Best Seller Award"
-                      : "5+ Million Students Followed")
+                          ? "Best Seller Award"
+                          : "5+ Million Students Followed")
                 ],
               ),
             );
@@ -586,11 +584,12 @@ class _CourseDetailState extends State<CourseDetail> {
               width: 70,
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
-                  image: const DecorationImage(
-                      image: AssetImage('assets/images/course.jpg'),
+                  image: DecorationImage(
+                      image: NetworkImage(
+                          '${AppConfig.imageUrl}${widget.data['curriculum_id']}/${widget.data['photos']}'),
                       fit: BoxFit.cover)),
             ),
-            const Expanded(
+            Expanded(
               child: Padding(
                 padding: EdgeInsets.only(left: 10),
                 child: Column(
@@ -599,8 +598,8 @@ class _CourseDetailState extends State<CourseDetail> {
                     Row(
                       children: [
                         Text(
-                          'Stephen Moris',
-                          style: TextStyle(fontSize: 18),
+                          widget.data['topic'].toString().split(" ")[0],
+                          style: const TextStyle(fontSize: 18),
                         ),
                         SizedBox(
                           width: 20,
@@ -734,14 +733,16 @@ class _CourseDetailState extends State<CourseDetail> {
           ),
           const SizedBox(width: 10),
           CurrencyText(
-            amount: widget.data['price'],
+            amount: widget.data['price'] == "" ? "0" : widget.data['price'],
             fontSize: 30,
             fontWEIGHT: FontWeight.bold,
             color: AppColors.secondary,
           ),
           const SizedBox(width: 5),
           CurrencyText(
-            amount: (int.parse(widget.data['price']) + 100).toString(),
+            amount: widget.data['price'] == ""
+                ? "100"
+                : (int.parse(widget.data['price']) + 100).toString(),
             fontSize: 20,
             fontWEIGHT: FontWeight.bold,
             color: AppColors.secondary,

@@ -23,12 +23,14 @@ class Home extends StatelessWidget {
     return GetBuilder(
       init: HomeController(),
       initState: (_) {
-        // ProfileController.to.getProfile();
+        if (HomeController.to.isFirstLoading == true) {
+          // ProfileController.to.getProfile();
 
-        HomeController.to.getCurriculum();
-        // HomeController.to.getTopic();
-        CourseController.to.getCourse();
-        ProfileController.to.getProfile();
+          HomeController.to.getCurriculum();
+          // HomeController.to.getTopic();
+          CourseController.to.getCourse();
+          ProfileController.to.getProfile();
+        }
       },
       builder: (_) {
         return Scaffold(
@@ -68,8 +70,8 @@ class Home extends StatelessWidget {
             actions: [
               IconButton(
                   onPressed: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => Cart()));
+                    // Navigator.push(context,
+                    //     MaterialPageRoute(builder: (context) => Cart()));
                   },
                   icon: const Icon(Icons.shopping_cart_outlined))
             ],

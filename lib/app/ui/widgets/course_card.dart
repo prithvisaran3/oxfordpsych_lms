@@ -1,3 +1,4 @@
+import 'package:deviraj_lms/app/config/config.dart';
 import 'package:deviraj_lms/app/ui/theme/font_size.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -41,7 +42,8 @@ class CourseCard extends StatelessWidget {
                           image: AssetImage('assets/images/home.jpg'),
                           fit: BoxFit.cover)
                       : DecorationImage(
-                          image: NetworkImage('${courseData['photos']}'),
+                          image: NetworkImage(
+                              '${AppConfig.imageUrl}${courseData['curriculum_id']}/${courseData['photos']}'),
                           fit: BoxFit.cover)),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
