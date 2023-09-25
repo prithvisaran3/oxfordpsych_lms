@@ -4,10 +4,10 @@ import 'package:deviraj_lms/app/ui/pages/home/home.dart';
 import 'package:deviraj_lms/app/ui/pages/home/main.dart';
 import 'package:deviraj_lms/app/ui/pages/auth/login.dart';
 import 'package:deviraj_lms/app/ui/widgets/common/alert.dart';
-import 'package:firebase_remote_config/firebase_remote_config.dart';
+// import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
-import 'package:package_info_plus/package_info_plus.dart';
+// import 'package:package_info_plus/package_info_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -300,7 +300,7 @@ class AuthController extends GetxController {
   //     debugPrint("update available");
   //     if (Platform.isAndroid || Platform.isIOS) {
   //       final appId =
-  //       Platform.isAndroid ? 'deviraj.lms' : 'YOUR_IOS_APP_ID';
+  //       Platform.isAndroid ? 'com.limorg.OxfordMindCare' : 'YOUR_IOS_APP_ID';
   //       final url = Uri.parse(
   //         Platform.isAndroid
   //             ? "https://play.google.com/store/apps/details?id=$appId"

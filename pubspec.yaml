@@ -46,23 +46,24 @@ dependencies:
   ionicons: ^0.2.2
 #  loading_animation_widget: ^1.2.0+4
   font_awesome_flutter: ^10.5.0
-  flutter_native_splash: ^2.3.2
+#  flutter_native_splash: ^2.3.2
   shimmer: ^3.0.0
-  firebase_core: ^2.15.1
-  firebase_auth: ^4.8.0
-  firebase_remote_config: ^4.2.5
-  package_info_plus: ^4.1.0
+#  firebase_core: ^2.15.1
+#  firebase_auth: ^4.10.0
+#  firebase_remote_config: ^4.2.5
+#  package_info_plus: ^4.1.0
   url_launcher: ^6.1.11
   intl:
+  http: ^1.1.0
 
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^2.0.0
-flutter_native_splash:
-  color: "#062D47"
-  image: assets/images/logo.png
+#flutter_native_splash:
+#  color: "#062D47"
+#  image: assets/images/logo.png
 #  android_12:
 #    image: assets/images/google.png
 #    icon_background_color: "#f7f6f1"

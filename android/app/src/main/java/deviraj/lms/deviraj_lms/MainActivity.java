@@ -1,4 +1,4 @@
-package deviraj.lms;
+package com.limorg.OxfordMindCare;
 
 import io.flutter.embedding.android.FlutterActivity;
 

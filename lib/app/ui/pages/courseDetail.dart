@@ -742,7 +742,7 @@ class _CourseDetailState extends State<CourseDetail> {
           CurrencyText(
             amount: widget.data['price'] == ""
                 ? "100"
-                : (int.parse(widget.data['price']) + 100).toString(),
+                : (double.parse(widget.data['price']) + 100).toString(),
             fontSize: 20,
             fontWEIGHT: FontWeight.bold,
             color: AppColors.secondary,
