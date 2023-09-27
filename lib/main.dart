@@ -4,7 +4,7 @@ import 'package:deviraj_lms/pages/accCreateSuccess.dart';
 import 'package:deviraj_lms/pages/forgotPassword.dart';
 import 'package:deviraj_lms/pages/orderSuccess.dart';
 import 'package:deviraj_lms/app/ui/pages/payment.dart';
-// import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -23,7 +23,7 @@ class MyHttpOverrides extends HttpOverrides {
 
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  // await Firebase.initializeApp();
+  await Firebase.initializeApp();
   HttpOverrides.global = MyHttpOverrides();
 
   runApp(const MyApp());

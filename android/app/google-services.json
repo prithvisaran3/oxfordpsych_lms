@@ -7,14 +7,14 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:755890391733:android:3e082ba0a0e9a274c88cfc",
+        "mobilesdk_app_id": "1:755890391733:android:196cc1fea85b3fe0c88cfc",
         "android_client_info": {
           "package_name": "com.limorg.OxfordMindCare"
         }
       },
       "oauth_client": [
         {
-          "client_id": "755890391733-ctn8sfp3rna8af0fn4kbktmll2ekfgra.apps.googleusercontent.com",
+          "client_id": "755890391733-rav7nh7s1qgfrp4646l6nhklmdt531uf.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
@@ -29,6 +29,13 @@
             {
               "client_id": "755890391733-ctn8sfp3rna8af0fn4kbktmll2ekfgra.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "755890391733-rd00cj716lc5qspcu8630mh2vi0g49mo.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.limorg.OxfordMindCare"
+              }
             }
           ]
         }

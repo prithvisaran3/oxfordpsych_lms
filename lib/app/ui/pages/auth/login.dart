@@ -114,19 +114,24 @@ class Login extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Image.asset(
-                        'assets/images/google.png',
-                        height: 20,
-                        width: 20,
-                        fit: BoxFit.cover,
+                      GestureDetector(
+                        onTap: () {
+                          AuthController.to.googleSignIn();
+                        },
+                        child: Image.asset(
+                          'assets/images/google.png',
+                          height: 25,
+                          width: 25,
+                          fit: BoxFit.cover,
+                        ),
                       ),
                       const SizedBox(
                         width: 25,
                       ),
                       Image.asset(
-                        'assets/images/google.png',
-                        height: 20,
-                        width: 20,
+                        'assets/images/apple.png',
+                        height: 30,
+                        width: 30,
                         fit: BoxFit.cover,
                       ),
                     ],
