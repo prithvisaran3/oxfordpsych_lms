@@ -1,4 +1,5 @@
 import 'package:appinio_video_player/appinio_video_player.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:deviraj_lms/app/config/config.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -55,6 +56,12 @@ class _CourseDetailState extends State<CourseDetail> {
 
   @override
   Widget build(BuildContext context) {
+    print("coures data ${widget.data}");
+    print(
+        "video  data ${AppConfig.videoUrl}${widget.data['curriculum_id']}/${widget.data['video']}");
+    print(
+        "image ${AppConfig.imageUrl}${widget.data['curriculum_id']}/${widget.data['photos']}");
+
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -120,11 +127,11 @@ class _CourseDetailState extends State<CourseDetail> {
               //video
               video(),
 
-              // course includes
-              courseIncludes(),
+              // // course includes
+              // courseIncludes(),
 
-              //what will learn
-              whatWillLearn(),
+              // //what will learn
+              // whatWillLearn(),
 
               // course description
               description(),
@@ -470,95 +477,108 @@ class _CourseDetailState extends State<CourseDetail> {
   }
 
   courseInfo(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          'Course Info :',
-          style: headText(),
-        ),
-        ListView.builder(
-            itemCount: 3,
-            shrinkWrap: true,
-            physics: const NeverScrollableScrollPhysics(),
-            itemBuilder: (context, index) {
-              return Padding(
-                padding: const EdgeInsets.symmetric(vertical: 4.0),
-                child: Row(
-                  children: [
-                    Icon(
-                      index == 0
-                          ? Icons.phone_android
-                          : index == 1
-                              ? Icons.person
-                              : Icons.language,
-                      color: Colors.teal,
-                      size: 20,
-                    ),
-                    const SizedBox(
-                      width: 10,
-                    ),
-                    index == 0 || index == 1
-                        ? Text(index == 0
-                            ? 'Last uploaded on Jan 21, 2022'
-                            : "${widget.data['languages']}")
-                        : RichText(
-                            text: TextSpan(
-                              text: 'Author : ',
-                              style: const TextStyle(
-                                  fontFamily: 'regular',
-                                  color: Colors.black,
-                                  height: 1.5),
-                              children: [
-                                TextSpan(
-                                  text: widget.data['topic']
-                                      .toString()
-                                      .split(" ")[0],
-                                  style: const TextStyle(
-                                    fontFamily: 'regular',
-                                    color: Colors.teal,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                  ],
-                ),
-              );
-            }),
-      ],
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 8.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            'Course Info :',
+            style: headText(),
+          ),
+          ListView.builder(
+              itemCount: 2,
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
+              itemBuilder: (context, index) {
+                return Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 4.0),
+                  child: Row(
+                    children: [
+                      Icon(
+                        // index == 0
+                        //     ? Icons.phone_android
+                        //     : index == 1
+                        //         ? Icons.person
+                        //         : Icons.language,
+
+                        index == 0 ? Icons.phone_android : Icons.language,
+                        color: Colors.teal,
+                        size: 20,
+                      ),
+                      const SizedBox(
+                        width: 10,
+                      ),
+                      // index == 0 || index == 1
+                      //     ? Text(index == 0
+                      //         ? 'Last uploaded on Jan 21, 2022'
+                      //         : "${widget.data['languages']}")
+                      //     : RichText(
+                      //         text: TextSpan(
+                      //           text: 'Author : ',
+                      //           style: const TextStyle(
+                      //               fontFamily: 'regular',
+                      //               color: Colors.black,
+                      //               height: 1.5),
+                      //           children: [
+                      //             TextSpan(
+                      //               text: widget.data['topic']
+                      //                   .toString()
+                      //                   .split(" ")[0],
+                      //               style: const TextStyle(
+                      //                 fontFamily: 'regular',
+                      //                 color: Colors.teal,
+                      //               ),
+                      //             ),
+                      //           ],
+                      //         ),
+                      //       ),
+
+                      Text(index == 0
+                          ? 'Last uploaded on Jan 21, 2022'
+                          : "${widget.data['languages']}")
+                    ],
+                  ),
+                );
+              }),
+        ],
+      ),
     );
   }
 
   highLights() {
     return Padding(
-      padding: const EdgeInsets.only(top: 20.0),
+      padding: const EdgeInsets.only(top: 20.0, bottom: 10.0),
       child: ListView.builder(
           physics: const NeverScrollableScrollPhysics(),
-          itemCount: 3,
+          itemCount: 1,
           shrinkWrap: true,
           itemBuilder: (context, index) {
-            return Padding(
-              padding: const EdgeInsets.symmetric(vertical: 4.0),
+            return const Padding(
+              padding: EdgeInsets.symmetric(vertical: 4.0),
               child: Row(
                 children: [
                   Icon(
-                    index == 0
-                        ? Icons.insert_drive_file_outlined
-                        : index == 1
-                            ? Icons.celebration_outlined
-                            : Icons.thumb_up_outlined,
+                    Icons.celebration_outlined,
+
+                    // index == 0
+                    //     ? Icons.insert_drive_file_outlined
+                    //     : index == 1
+                    //     ? Icons.celebration_outlined
+                    //     : Icons.thumb_up_outlined,
                     color: AppColors.secondary,
                     size: 20,
                   ),
-                  const SizedBox(
+                  SizedBox(
                     width: 10,
                   ),
-                  Text(index == 0
-                      ? "250 Courses Uploaded"
-                      : index == 1
-                          ? "Best Seller Award"
-                          : "5+ Million Students Followed")
+                  // Text(index == 0
+                  //     ? "250 Courses Uploaded"
+                  //     : index == 1
+                  //         ? "Best Seller Award"
+                  //         : "5+ Million Students Followed")
+
+                  Text("Best Seller Award")
                 ],
               ),
             );
@@ -583,15 +603,68 @@ class _CourseDetailState extends State<CourseDetail> {
               height: 70,
               width: 70,
               decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                  image: DecorationImage(
-                      image: NetworkImage(
-                          '${AppConfig.imageUrl}${widget.data['curriculum_id']}/${widget.data['photos']}'),
-                      fit: BoxFit.cover)),
+                borderRadius: BorderRadius.circular(10),
+                // image: DecorationImage(
+                //     image: NetworkImage(
+                //         '${AppConfig.imageUrl}${widget.data['curriculum_id']}/${widget.data['photos']}'),
+                //     fit: BoxFit.cover)
+              ),
+              child:
+                  "${AppConfig.imageUrl}${widget.data['curriculum_id']}/${widget.data['photos']}" ==
+                          ""
+                      ? Center(
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(10.0),
+                            child: Container(
+                              color: Colors.black,
+                              width: double.infinity,
+                              height: double.infinity,
+                              padding: const EdgeInsets.all(12),
+                              child: Image.asset(
+                                "assets/images/logo.png",
+                                fit: BoxFit.contain,
+                                width: double.infinity,
+                              ),
+                            ),
+                          ),
+                        )
+                      : ClipRRect(
+                          borderRadius: BorderRadius.circular(10.0),
+                          child: CachedNetworkImage(
+                              imageUrl:
+                                  "${AppConfig.imageUrl}${widget.data['curriculum_id']}/${widget.data['photos']}",
+                              fit: BoxFit.cover,
+                              width: double.infinity,
+                              progressIndicatorBuilder:
+                                  (context, url, downloadProgress) =>
+                                      const Center(
+                                          child: CircularProgressIndicator(
+                                        color: Colors.grey,
+                                        strokeWidth: 2,
+                                      )),
+                              errorWidget: (context, url, error) {
+                                return Center(
+                                  child: Container(
+                                    color: Colors.black,
+                                    width: double.infinity,
+                                    height: double.infinity,
+                                    padding: const EdgeInsets.all(4),
+                                    child: ClipRRect(
+                                        borderRadius:
+                                            BorderRadius.circular(10.0),
+                                        child: Image.asset(
+                                          "assets/images/logo.png",
+                                          fit: BoxFit.contain,
+                                          width: double.infinity,
+                                        )),
+                                  ),
+                                );
+                              }),
+                        ),
             ),
             Expanded(
               child: Padding(
-                padding: EdgeInsets.only(left: 10),
+                padding: const EdgeInsets.only(left: 10),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -601,7 +674,7 @@ class _CourseDetailState extends State<CourseDetail> {
                           widget.data['topic'].toString().split(" ")[0],
                           style: const TextStyle(fontSize: 18),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           width: 20,
                         ),
                         // Container(
@@ -616,7 +689,7 @@ class _CourseDetailState extends State<CourseDetail> {
                         // ),
                       ],
                     ),
-                    Text(
+                    const Text(
                       'Top Rated Instructor',
                       style: TextStyle(color: Colors.teal),
                     ),

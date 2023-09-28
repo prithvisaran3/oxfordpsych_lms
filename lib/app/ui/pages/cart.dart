@@ -18,7 +18,7 @@ class Cart extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: AppColors.white,
         elevation: 0,
-        centerTitle: true,
+        centerTitle: false,
         automaticallyImplyLeading: false,
         iconTheme: const IconThemeData(color: AppColors.black),
         title: GestureDetector(
@@ -46,28 +46,36 @@ class Cart extends StatelessWidget {
           ),
         ),
         actions: [
-          Row(
-            children: [
-              Container(
-                height: 30,
-                width: 30,
-                padding: EdgeInsets.all(5),
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: Colors.red,
+          GestureDetector(
+            onTap: () {},
+            child: Stack(
+              children: [
+                const Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 8),
+                  child: Icon(
+                    Icons.shopping_cart_outlined,
+                    size: 25,
+                  ),
                 ),
-                child: CommonText(
-                  text: "10",
-                  style: TextStyle(fontWeight: FontWeight.bold),
+                Positioned(
+                  right: 8,
+                  top: 5,
+                  child: Container(
+                    height: 16,
+                    width: 16,
+                    alignment: Alignment.center,
+                    decoration: const BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: Colors.red,
+                    ),
+                    child: const CommonText(
+                      text: "10",
+                      style: TextStyle(fontSize: 12),
+                    ),
+                  ),
                 ),
-              ),
-              SizedBox(width: 5),
-              CommonText(
-                  text: "items",
-                  style: TextStyle(
-                      color: Colors.black, fontWeight: FontWeight.bold)),
-              SizedBox(width: 20),
-            ],
+              ],
+            ),
           )
         ],
       ),
@@ -86,81 +94,81 @@ class Cart extends StatelessWidget {
                 itemBuilder: (context, index) {
                   return const CartCard();
                 }),
-            Container(
-              height: 50,
-              width: Get.width,
-              margin: const EdgeInsets.symmetric(horizontal: 5),
-              decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(10),
-                  boxShadow: [
-                    BoxShadow(
-                        color: AppColors.grey.withOpacity(.3),
-                        spreadRadius: 1,
-                        blurRadius: 1)
-                  ]),
-              child: Row(
-                children: [
-                  Expanded(
-                    flex: 8,
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(10),
-                      child: TextField(
-                        style: const TextStyle(color: AppColors.black),
-                        decoration: InputDecoration(
-                          border: InputBorder.none,
-                          contentPadding: const EdgeInsets.all(5),
-                          hintText: 'Coupon Code',
-                          hintStyle:
-                              TextStyle(color: AppColors.black.withOpacity(.3)),
-                          filled: true,
-                          fillColor: AppColors.white,
-                        ),
-                      ),
-                    ),
-                  ),
-                  Expanded(
-                    flex: 4,
-                    child: ElevatedButton(
-                      onPressed: () {},
-                      style: ElevatedButton.styleFrom(
-                        foregroundColor: AppColors.white,
-                        backgroundColor: AppColors.secondary,
-                        elevation: 0,
-                        minimumSize: const Size.fromHeight(40),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                      ),
-                      child: const Text('Apply Now'),
-                    ),
-                  ),
-                  const SizedBox(
-                    width: 5,
-                  )
-                ],
-              ),
-            ),
-            const SizedBox(
-              height: 30,
-            ),
-            Row(
+            // Container(
+            //   height: 50,
+            //   width: Get.width,
+            //   margin: const EdgeInsets.symmetric(horizontal: 5),
+            //   decoration: BoxDecoration(
+            //       color: Colors.white,
+            //       borderRadius: BorderRadius.circular(10),
+            //       boxShadow: [
+            //         BoxShadow(
+            //             color: AppColors.grey.withOpacity(.3),
+            //             spreadRadius: 1,
+            //             blurRadius: 1)
+            //       ]),
+            //   child: Row(
+            //     children: [
+            //       Expanded(
+            //         flex: 8,
+            //         child: ClipRRect(
+            //           borderRadius: BorderRadius.circular(10),
+            //           child: TextField(
+            //             style: const TextStyle(color: AppColors.black),
+            //             decoration: InputDecoration(
+            //               border: InputBorder.none,
+            //               contentPadding: const EdgeInsets.all(5),
+            //               hintText: 'Coupon Code',
+            //               hintStyle:
+            //                   TextStyle(color: AppColors.black.withOpacity(.3)),
+            //               filled: true,
+            //               fillColor: AppColors.white,
+            //             ),
+            //           ),
+            //         ),
+            //       ),
+            //       Expanded(
+            //         flex: 4,
+            //         child: ElevatedButton(
+            //           onPressed: () {},
+            //           style: ElevatedButton.styleFrom(
+            //             foregroundColor: AppColors.white,
+            //             backgroundColor: AppColors.secondary,
+            //             elevation: 0,
+            //             minimumSize: const Size.fromHeight(40),
+            //             shape: RoundedRectangleBorder(
+            //               borderRadius: BorderRadius.circular(10),
+            //             ),
+            //           ),
+            //           child: const Text('Apply Now'),
+            //         ),
+            //       ),
+            //       const SizedBox(
+            //         width: 5,
+            //       )
+            //     ],
+            //   ),
+            // ),
+            // const SizedBox(
+            //   height: 30,
+            // ),
+            const Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: const [Text('Subtotal'), Text('\$40.95')],
-            ),
-            const SizedBox(
-              height: 10,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: const [Text('Tax'), Text('Free')],
+              children: [Text('Subtotal'), Text('\$40.95')],
             ),
             const SizedBox(
               height: 10,
             ),
-            Row(
+            const Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: const [
+              children: [Text('Tax'), Text('Free')],
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+            const Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
                 Text('Total'),
                 Text(
                   '\$40.95',

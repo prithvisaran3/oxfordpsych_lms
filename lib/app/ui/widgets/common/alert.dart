@@ -59,12 +59,12 @@ commonAlertDialog(BuildContext context,
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        Icon(
+        const Icon(
           Icons.warning_amber_rounded,
           color: Colors.red,
           size: 30,
         ),
-        SizedBox(
+        const SizedBox(
           width: 10,
         ),
         CommonText(
@@ -298,12 +298,12 @@ rejectDialog(BuildContext context,
     title: Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Icon(
+        const Icon(
           Icons.warning_amber_rounded,
           color: Colors.red,
           size: 25,
         ),
-        SizedBox(
+        const SizedBox(
           width: 10,
         ),
         CommonText(
@@ -436,7 +436,7 @@ updateAlertDialog(BuildContext context,
   );
 }
 
-dynamic loadingAlertDialog(BuildContext context, {required Widget child}) {
+dynamic loadingAlertDialog(BuildContext context, {valueColor}) {
   // set up the AlertDialog
   AlertDialog alert = AlertDialog(
       alignment: Alignment.center,
@@ -445,8 +445,25 @@ dynamic loadingAlertDialog(BuildContext context, {required Widget child}) {
           Radius.circular(15.0),
         ),
       ),
-      backgroundColor: Colors.transparent,
-      content: child);
+      backgroundColor: Colors.black54,
+      content: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          const Text(
+            "Please wait...",
+            style: TextStyle(color: AppColors.white),
+          ),
+          const SizedBox(
+            height: 20.0,
+          ),
+          CircularProgressIndicator(
+            backgroundColor: Colors.white,
+            valueColor: valueColor,
+            strokeCap: StrokeCap.round,
+            strokeWidth: 6,
+          )
+        ],
+      ));
 
   // show the dialog
   showDialog(

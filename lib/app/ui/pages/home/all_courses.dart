@@ -14,10 +14,17 @@ class AllCourses extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var ar = [];
+    data.forEach((e) {
+      if (e['curriculum'] == curriculum) {
+        ar.add(e['curriculum']);
+      }
+      debugPrint("Category Course data length: ${ar.length}");
+    });
     return Scaffold(
         backgroundColor: Colors.white,
         appBar:
-            commonAppBar(title: "All Courses", isBackIcon: true, isLogo: false),
+            commonAppBar(title: curriculum, isBackIcon: true, isLogo: false),
         body: Padding(
           padding: const EdgeInsets.all(16),
           child: Stack(
@@ -27,9 +34,6 @@ class AllCourses extends StatelessWidget {
                 child: ListView(
                   physics: const BouncingScrollPhysics(),
                   children: [
-                    const SizedBox(
-                      height: 20,
-                    ),
                     const SizedBox(
                       height: 20,
                     ),
@@ -51,7 +55,7 @@ class AllCourses extends StatelessWidget {
                                   );
                                 },
                               )
-                            : SizedBox();
+                            : const SizedBox();
                       },
                     )
                   ],

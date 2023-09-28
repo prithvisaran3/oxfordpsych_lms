@@ -52,7 +52,7 @@ class _CommonTextFormFieldState extends State<CommonTextFormField> {
             hintText: widget.hintText,
             errorText: widget.errorText,
             errorStyle: const TextStyle(
-                fontWeight: FontWeight.w400, color: Colors.white),
+                fontWeight: FontWeight.w400, color: Colors.black),
             hintStyle:
                 const TextStyle(fontFamily: "medium", color: AppColors.grey),
             counterText: "",

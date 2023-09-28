@@ -56,7 +56,7 @@ class Home extends StatelessWidget {
               width: 250,
               child: Obx(
                 () => ProfileController.to.getProfileLoading == true
-                    ? SizedBox()
+                    ? const SizedBox()
                     : Text(
                         'Hi, ${ProfileController.to.profileDetails.name}',
                         overflow: TextOverflow.ellipsis,
@@ -70,8 +70,8 @@ class Home extends StatelessWidget {
             actions: [
               IconButton(
                   onPressed: () {
-                    // Navigator.push(context,
-                    //     MaterialPageRoute(builder: (context) => Cart()));
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => Cart()));
                   },
                   icon: const Icon(Icons.shopping_cart_outlined))
             ],
@@ -80,7 +80,7 @@ class Home extends StatelessWidget {
               padding: const EdgeInsets.all(16),
               child: Obx(
                 () => HomeController.to.getCurriculumLoading == true
-                    ? Center(
+                    ? const Center(
                         child: CircularProgressIndicator(),
                       )
                     : ListView(
@@ -130,13 +130,30 @@ class Home extends StatelessWidget {
                             child: ListView.builder(
                                 itemCount:
                                     HomeController.to.curriculumDetails.length,
-                                physics: BouncingScrollPhysics(),
+                                physics: const BouncingScrollPhysics(),
                                 scrollDirection: Axis.horizontal,
                                 shrinkWrap: true,
                                 itemBuilder: (context, int index) {
-                                  return CurriculumBox(
-                                      text:
-                                          "${HomeController.to.curriculumDetails[index]['name']}");
+                                  return GestureDetector(
+                                    onTap: () {
+                                      print(
+                                          "categores ${HomeController.to.curriculumDetails[index]['name']}");
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) => AllCourses(
+                                                    data: CourseController
+                                                        .to.courseDetails,
+                                                    curriculum: HomeController
+                                                            .to
+                                                            .curriculumDetails[
+                                                        index]["name"],
+                                                  )));
+                                    },
+                                    child: CurriculumBox(
+                                        text:
+                                            "${HomeController.to.curriculumDetails[index]['name']}"),
+                                  );
                                 }),
                           ),
                           // SingleChildScrollView(
@@ -151,19 +168,6 @@ class Home extends StatelessWidget {
                           //     ],
                           //   ),
                           // ),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          Center(
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                CurriculumBox(text: 'Beginner'),
-                                CurriculumBox(text: 'Intermediate'),
-                                CurriculumBox(text: 'Expert'),
-                              ],
-                            ),
-                          ),
                           const SizedBox(
                             height: 20,
                           ),
@@ -214,8 +218,8 @@ class Home extends StatelessWidget {
                                 curriculum: curriculum,
                               )));
                 },
-                child: Row(
-                  children: const [
+                child: const Row(
+                  children: [
                     Text(
                       'SEE ALL',
                       style: TextStyle(color: AppColors.secondary),
@@ -235,12 +239,12 @@ class Home extends StatelessWidget {
           ),
           Container(
             height: Get.height * 0.28,
-            width: Get.width,
             child: ListView.builder(
               scrollDirection: Axis.horizontal,
               itemCount: CourseController.to.courseDetails.length,
               shrinkWrap: true,
               itemBuilder: (context, index) {
+               print("lenth ${CourseController.to.courseDetails[index].length}") ;
                 return CourseController.to.courseDetails[index]["curriculum"] ==
                         curriculum
                     ? CourseCard(

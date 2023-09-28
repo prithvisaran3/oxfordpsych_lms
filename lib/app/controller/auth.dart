@@ -9,6 +9,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 // import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
@@ -44,6 +45,9 @@ class AuthController extends GetxController {
   final TextEditingController currentPassword = TextEditingController();
   final TextEditingController newPassword = TextEditingController();
   final TextEditingController newConfirmPassword = TextEditingController();
+
+  ///login form key
+  final registerKey = GlobalKey<FormState>();
 
   final _termsAndConditions = false.obs;
 
@@ -156,19 +160,30 @@ class AuthController extends GetxController {
     }
   }
 
-  register() async {
+  register({isGoogleLogin, gName, gEmail, gMobile, gPassword}) async {
     registerLoading = true;
-    var body = {
-      "name": name.text,
-      "email": email.text.trimRight(),
-      "mobile": mobile.text,
-      "password": password.text,
-    };
+    Map<String, String> body = {};
+    if (isGoogleLogin == true) {
+      body = {
+        "name": gName,
+        "email": gEmail,
+        "mobile": gMobile ?? "",
+        "password": gPassword,
+      };
+    } else {
+      body = {
+        "name": name.text,
+        "email": email.text.trimRight(),
+        "mobile": mobile.text,
+        "password": password.text,
+      };
+    }
+
     try {
       var res = await repository.register(body: body);
       if (statusCode == 200) {
         if (res['status'] == "200") {
-          if (res['message'] == "Email Duplicated") {
+          if (res['message'] == "Duplicated") {
             registerLoading = false;
             commonPrint(status: res['status'], msg: res['message']);
             errorAlert(Get.context!,
@@ -179,9 +194,9 @@ class AuthController extends GetxController {
           } else {
             registerLoading = false;
             commonPrint(status: res['status'], msg: res['message']);
-            // Map storedData = {"token": "${res['user_id']}"};
-            // storeLocalDevice(body: storedData);
-            Get.off(() => const Initial());
+            Map storedData = {"token": "${res['user_id']}"};
+            storeLocalDevice(body: storedData);
+            Get.off(() => const HomeMain());
             commonSnackBar(title: "Success", msg: "Register Successfully");
             registerFieldsEmpty();
           }
@@ -352,7 +367,15 @@ class AuthController extends GetxController {
     }
   }
 
-  googleSignIn() async {
+  final _isAlreadyGoogleLogin = false.obs;
+
+  get isAlreadyGoogleLogin => _isAlreadyGoogleLogin.value;
+
+  set isAlreadyGoogleLogin(value) {
+    _isAlreadyGoogleLogin.value = value;
+  }
+
+  googleSignIn({context}) async {
     FirebaseAuth auth = FirebaseAuth.instance;
     User? user;
     final GoogleSignIn googleSignIn = GoogleSignIn();
@@ -361,13 +384,14 @@ class AuthController extends GetxController {
         await googleSignIn.signIn();
 
     if (await googleSignIn.isSignedIn()) {
-      print("already signin");
+      isAlreadyGoogleLogin = true;
+      commonSnackBar(title: "Already registered", msg: "Please Login");
+    } else {
+      isAlreadyGoogleLogin = false;
     }
     if (googleSignInAccount != null) {
       final GoogleSignInAuthentication googleSignInAuthentication =
           await googleSignInAccount.authentication;
-      print("lkjlkjljj $googleSignInAuthentication");
-
       final AuthCredential credential = GoogleAuthProvider.credential(
         accessToken: googleSignInAuthentication.accessToken,
         idToken: googleSignInAuthentication.idToken,
@@ -378,6 +402,15 @@ class AuthController extends GetxController {
             await auth.signInWithCredential(credential);
 
         user = userCredential.user;
+        if (user != null) {
+          register(
+              isGoogleLogin: true,
+              gName: user.displayName,
+              gEmail: user.email,
+              gMobile: user.phoneNumber,
+              gPassword: user.uid);
+        }
+
         commonPrint(
             status: "200",
             msg:
@@ -402,6 +435,7 @@ class AuthController extends GetxController {
     } else {
       commonPrint(status: "501", msg: "Google singing account null ");
     }
+
     // return user;
   }
 }
