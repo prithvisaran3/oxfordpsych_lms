@@ -6,8 +6,9 @@ import '../../theme/colors.dart';
 import '../common/currency_text.dart';
 
 class CourseListBox extends StatelessWidget {
-  const CourseListBox({super.key, required this.index});
+  const CourseListBox({super.key, required this.index, required this.text});
   final int index;
+  final String text;
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +30,7 @@ class CourseListBox extends StatelessWidget {
           child: Row(
             children: [
               Text(
-                "Risk Analysis & STD risks",
+                "$text",
                 style: TextStyle(
                   fontSize: 16,
                   fontWeight: SubscriptionController

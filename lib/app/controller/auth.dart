@@ -5,6 +5,7 @@ import 'package:deviraj_lms/app/ui/pages/home/main.dart';
 import 'package:deviraj_lms/app/ui/pages/auth/login.dart';
 import 'package:deviraj_lms/app/ui/widgets/common/alert.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 
 // import 'package:firebase_remote_config/firebase_remote_config.dart';
@@ -13,6 +14,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 
 // import 'package:package_info_plus/package_info_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -210,16 +212,40 @@ class AuthController extends GetxController {
             commonSnackBar(title: "Success", msg: "Register Successfully");
             registerFieldsEmpty();
           }
+
+            if (res['message'] == "Duplicated") {
+              registerLoading = false;
+              commonPrint(status: res['status'], msg: res['message']);
+              // errorAlert(Get.context!,
+              //     content: "${res['message']}\nEmail already exist",
+              //     confirmButtonPressed: () {
+              //   Get.back();
+              // });
+              commonSnackBar(
+                  title: "Email already exists", msg: "${res['message']}");
+            } else {
+              registerLoading = false;
+              commonPrint(status: res['status'], msg: res['message']);
+              Map storedData = {"token": "${res['user_id']}"};
+              storeLocalDevice(body: storedData);
+              Get.off(() => const HomeMain());
+              commonSnackBar(title: "Success", msg: "Registered Successfully");
+              registerFieldsEmpty();
+            }
+
         } else if (res['status'] == "422") {
           registerLoading = false;
           commonPrint(status: res['status'], msg: "All fields are required");
-          errorAlert(Get.context!, content: "All fields are required",
-              confirmButtonPressed: () {
-            Get.back();
-          });
+          commonSnackBar(title: res['status'], msg: "All fields are required");
+          // errorAlert(Get.context!, content: "All fields are required",
+          //     confirmButtonPressed: () {
+          //   Get.back();
+          // });
         }
       } else {
         registerLoading = false;
+        commonSnackBar(
+            title: "Error 500", msg: "Error from server or No Internet");
         commonPrint(status: "500", msg: "Error from server or No Internet");
       }
     } catch (e) {
@@ -227,6 +253,7 @@ class AuthController extends GetxController {
       commonPrint(
           status: "$statusCode",
           msg: "Error from register due to data mismatch or format $e");
+      commonSnackBar(title: "$statusCode", msg: "Error from register due to data mismatch or format $e");
     }
   }
 
@@ -305,52 +332,52 @@ class AuthController extends GetxController {
     // }
   }
 
-  // checkIsUpdateAvailable() async {
-  //   final FirebaseRemoteConfig remoteConfig = FirebaseRemoteConfig.instance;
-  //   await remoteConfig.fetch();
-  //   await remoteConfig.fetchAndActivate();
-  //   final info = await PackageInfo.fromPlatform();
-  //
-  //   // get local app version and change to int
-  //   var lv = info.version;
-  //   var split = lv.replaceAll(".", "");
-  //   var localVersion = int.parse(split);
-  //   debugPrint("local version $lv");
-  //   debugPrint("convert local version $localVersion");
-  //
-  //   // get remote app version and change to int
-  //   var rv = remoteConfig.getString('app');
-  //   print("rc is $rv");
-  //   var rSplit = rv.replaceAll(".", "");
-  //   var remoteVersion = int.parse(rSplit);
-  //   debugPrint("remote version $rv");
-  //   debugPrint("convert remote version $remoteVersion");
-  //
-  //   if (localVersion > remoteVersion) {
-  //     debugPrint("update available");
-  //     if (Platform.isAndroid || Platform.isIOS) {
-  //       final appId =
-  //       Platform.isAndroid ? 'com.limorg.OxfordMindCare' : 'YOUR_IOS_APP_ID';
-  //       final url = Uri.parse(
-  //         Platform.isAndroid
-  //             ? "https://play.google.com/store/apps/details?id=$appId"
-  //             : "https://apps.apple.com/app/id$appId",
-  //       );
-  //
-  //       commonAlertDialog(Get.context!,
-  //           content:
-  //           "Update required for \nOxfordPsych App",
-  //           confirmButtonPressed: () {
-  //             launchUrl(
-  //               url,
-  //               mode: LaunchMode.externalApplication,
-  //             );
-  //           });
-  //     }
-  //   } else {
-  //     debugPrint("update not available");
-  //   }
-  // }
+  checkIsUpdateAvailable() async {
+    final FirebaseRemoteConfig remoteConfig = FirebaseRemoteConfig.instance;
+    await remoteConfig.fetch();
+    await remoteConfig.fetchAndActivate();
+    final info = await PackageInfo.fromPlatform();
+
+    // get local app version and change to int
+    var lv = info.version;
+    var split = lv.replaceAll(".", "");
+    var localVersion = int.parse(split);
+    debugPrint("local version $lv");
+    debugPrint("convert local version $localVersion");
+
+    // get remote app version and change to int
+    var rv = remoteConfig.getString('app');
+    print("rc is $rv");
+    var rSplit = rv.replaceAll(".", "");
+    var remoteVersion = int.parse(rSplit);
+    debugPrint("remote version $rv");
+    debugPrint("convert remote version $remoteVersion");
+
+    if (localVersion > remoteVersion) {
+      debugPrint("update available");
+      if (Platform.isAndroid || Platform.isIOS) {
+        final appId =
+        Platform.isAndroid ? 'com.limorg.OxfordMindCare' : 'YOUR_IOS_APP_ID';
+        final url = Uri.parse(
+          Platform.isAndroid
+              ? "https://play.google.com/store/apps/details?id=$appId"
+              : "https://apps.apple.com/app/id$appId",
+        );
+
+        commonAlertDialog(Get.context!,
+            content:
+            "Update required for \nOxfordPsych App",
+            confirmButtonPressed: () {
+              launchUrl(
+                url,
+                mode: LaunchMode.externalApplication,
+              );
+            });
+      }
+    } else {
+      debugPrint("update not available");
+    }
+  }
 
   checkPasswordChange() async {
     if (currentPassword.text == lPassword.text) {

@@ -135,7 +135,7 @@ class AllCoursesCard extends StatelessWidget {
             ),
           ),
           Positioned(
-              right: 5,
+              right: 10,bottom: 0,
               child: GestureDetector(
                 onTap: () {},
                 child: const Icon(
