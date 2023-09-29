@@ -57,6 +57,10 @@ dependencies:
   flutter_automation:
   google_sign_in: ^6.1.5
   cached_network_image: ^3.3.0
+  flutter_local_notifications: ^15.1.1
+  firebase_messaging: ^14.6.8
+  audioplayers: ^1.1.1
+  firebase_analytics: ^10.5.0
 
 
 dev_dependencies:
@@ -83,6 +87,7 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
      - assets/images/
+     - assets/audio/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

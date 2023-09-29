@@ -70,6 +70,7 @@ class HomeController extends GetxController {
           getCurriculumLoading = false;
           if (res['data'] == null || res['data'] == "") {
             commonPrint(status: res['status'], msg: "No data or id wrong");
+            curriculumDetails = [];
           } else {
             curriculumDetails = res['data'];
             // print("PROFILE DATA: ${res["data]}");

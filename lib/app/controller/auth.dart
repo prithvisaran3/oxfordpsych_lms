@@ -5,6 +5,7 @@ import 'package:deviraj_lms/app/ui/pages/home/main.dart';
 import 'package:deviraj_lms/app/ui/pages/auth/login.dart';
 import 'package:deviraj_lms/app/ui/widgets/common/alert.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 
 // import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:flutter/cupertino.dart';
@@ -121,6 +122,8 @@ class AuthController extends GetxController {
 
   login() async {
     loginLoading = true;
+    var fcmToken = await FirebaseMessaging.instance.getToken();
+
     var body = {
       "username": lEmail.text.trimRight(),
       "password": lPassword.text,
@@ -163,10 +166,12 @@ class AuthController extends GetxController {
   register({isGoogleLogin, gName, gEmail, gMobile, gPassword}) async {
     registerLoading = true;
     Map<String, String> body = {};
+    var fcmToken = await FirebaseMessaging.instance.getToken();
     if (isGoogleLogin == true) {
       body = {
         "name": gName,
         "email": gEmail,
+        "fcm_token": fcmToken!,
         "mobile": gMobile ?? "",
         "password": gPassword,
       };
@@ -174,6 +179,7 @@ class AuthController extends GetxController {
       body = {
         "name": name.text,
         "email": email.text.trimRight(),
+        "fcm_token": fcmToken!,
         "mobile": mobile.text,
         "password": password.text,
       };
@@ -194,7 +200,11 @@ class AuthController extends GetxController {
           } else {
             registerLoading = false;
             commonPrint(status: res['status'], msg: res['message']);
-            Map storedData = {"token": "${res['user_id']}"};
+            debugPrint("fcm token is $fcmToken");
+            Map storedData = {
+              "token": "${res['user_id']}",
+              "fcm_token": fcmToken
+            };
             storeLocalDevice(body: storedData);
             Get.off(() => const HomeMain());
             commonSnackBar(title: "Success", msg: "Register Successfully");
@@ -358,10 +368,16 @@ class AuthController extends GetxController {
   logout() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     var token = preferences.getString('token');
+    var fcmToken = preferences.getString('fcm_token');
     debugPrint("token $token");
     if (token != null && token.isNotEmpty) {
       preferences.remove('token');
-      await Get.off(() => const Initial());
+      if (fcmToken != null && fcmToken.isNotEmpty) {
+        preferences.remove('fcm_token');
+        await Get.off(() => const Initial());
+      } else {
+        return false;
+      }
     } else {
       return false;
     }

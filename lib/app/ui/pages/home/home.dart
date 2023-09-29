@@ -2,6 +2,7 @@ import 'package:deviraj_lms/app/controller/auth.dart';
 import 'package:deviraj_lms/app/controller/profile.dart';
 import 'package:deviraj_lms/app/ui/widgets/home/curriculum_box.dart';
 import 'package:deviraj_lms/app/ui/widgets/home/search_bar.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../controller/course.dart';
@@ -22,7 +23,7 @@ class Home extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetBuilder(
       init: HomeController(),
-      initState: (_) {
+      initState: (_) async {
         if (HomeController.to.isFirstLoading == true) {
           // ProfileController.to.getProfile();
 
@@ -244,7 +245,8 @@ class Home extends StatelessWidget {
               itemCount: CourseController.to.courseDetails.length,
               shrinkWrap: true,
               itemBuilder: (context, index) {
-               print("lenth ${CourseController.to.courseDetails[index].length}") ;
+                print(
+                    "lenth ${CourseController.to.courseDetails[index].length}");
                 return CourseController.to.courseDetails[index]["curriculum"] ==
                         curriculum
                     ? CourseCard(
