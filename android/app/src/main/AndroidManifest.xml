@@ -1,6 +1,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.limorg.OxfordMindCare">
-    <uses-permission android:name="com.android.vending.BILLING"/>
+
+    <uses-permission android:name="com.android.vending.BILLING"></uses-permission>
+    <uses-permission android:name="android.permission.INTERNET"></uses-permission>
+
     <application
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher"
