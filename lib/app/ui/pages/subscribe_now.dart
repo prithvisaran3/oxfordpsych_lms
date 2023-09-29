@@ -165,7 +165,7 @@ final List? packages;
             ),
           ),
           child: ListView.builder(
-            itemCount: packages!=null?packages!.length:1,
+            itemCount:  packages!=null?packages!.length:1,
             shrinkWrap: true,
             scrollDirection: Axis.vertical,
             physics: const BouncingScrollPhysics(),
