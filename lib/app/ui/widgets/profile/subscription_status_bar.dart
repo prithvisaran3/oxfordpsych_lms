@@ -14,7 +14,7 @@ class SubscriptionStatusCard extends StatelessWidget {
       () => GestureDetector(
         onTap: () {
           MainController.to.isSubscribed == false? Get.to(
-            () => SubscribeNow(),
+            () => SubscribeNow(packages: [],),
           ):null;
         },
         child: Container(

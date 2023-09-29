@@ -183,33 +183,40 @@ class AuthController extends GetxController {
       var res = await repository.register(body: body);
       if (statusCode == 200) {
         if (res['status'] == "200") {
-          if (res['message'] == "Duplicated") {
-            registerLoading = false;
-            commonPrint(status: res['status'], msg: res['message']);
-            errorAlert(Get.context!,
-                content: "${res['message']}\nEmail already exist",
-                confirmButtonPressed: () {
-              Get.back();
-            });
-          } else {
-            registerLoading = false;
-            commonPrint(status: res['status'], msg: res['message']);
-            Map storedData = {"token": "${res['user_id']}"};
-            storeLocalDevice(body: storedData);
-            Get.off(() => const HomeMain());
-            commonSnackBar(title: "Success", msg: "Register Successfully");
-            registerFieldsEmpty();
-          }
+
+            if (res['message'] == "Duplicated") {
+              registerLoading = false;
+              commonPrint(status: res['status'], msg: res['message']);
+              // errorAlert(Get.context!,
+              //     content: "${res['message']}\nEmail already exist",
+              //     confirmButtonPressed: () {
+              //   Get.back();
+              // });
+              commonSnackBar(
+                  title: "Email already exists", msg: "${res['message']}");
+            } else {
+              registerLoading = false;
+              commonPrint(status: res['status'], msg: res['message']);
+              Map storedData = {"token": "${res['user_id']}"};
+              storeLocalDevice(body: storedData);
+              Get.off(() => const HomeMain());
+              commonSnackBar(title: "Success", msg: "Registered Successfully");
+              registerFieldsEmpty();
+            }
+
         } else if (res['status'] == "422") {
           registerLoading = false;
           commonPrint(status: res['status'], msg: "All fields are required");
-          errorAlert(Get.context!, content: "All fields are required",
-              confirmButtonPressed: () {
-            Get.back();
-          });
+          commonSnackBar(title: res['status'], msg: "All fields are required");
+          // errorAlert(Get.context!, content: "All fields are required",
+          //     confirmButtonPressed: () {
+          //   Get.back();
+          // });
         }
       } else {
         registerLoading = false;
+        commonSnackBar(
+            title: "Error 500", msg: "Error from server or No Internet");
         commonPrint(status: "500", msg: "Error from server or No Internet");
       }
     } catch (e) {
@@ -217,6 +224,7 @@ class AuthController extends GetxController {
       commonPrint(
           status: "$statusCode",
           msg: "Error from register due to data mismatch or format $e");
+      commonSnackBar(title: "$statusCode", msg: "Error from register due to data mismatch or format $e");
     }
   }
 
@@ -361,7 +369,7 @@ class AuthController extends GetxController {
     debugPrint("token $token");
     if (token != null && token.isNotEmpty) {
       preferences.remove('token');
-      await Get.off(() => const Initial());
+      Get.off(() => const Initial());
     } else {
       return false;
     }

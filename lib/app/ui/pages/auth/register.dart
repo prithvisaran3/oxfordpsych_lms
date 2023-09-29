@@ -6,8 +6,8 @@ import '../../../../helper/style.dart';
 import '../../../controller/auth.dart';
 import '../../theme/colors.dart';
 import '../../widgets/common/common_button.dart';
+import '../../widgets/common/common_snackbar.dart';
 import '../../widgets/common/common_textform_field.dart';
-
 
 class Register extends StatelessWidget {
   const Register({Key? key}) : super(key: key);
@@ -133,7 +133,13 @@ class Register extends StatelessWidget {
                 CommonButton(
                   text: "Create Account",
                   onPressed: () {
-                    AuthController.to.register();
+                    if (AuthController.to.termsAndConditions == false) {
+                      commonSnackBar(
+                          title: "Terms and Condition",
+                          msg: "Please agree to the terms to continue");
+                    } else {
+                      AuthController.to.register(isGoogleLogin: false);
+                    }
                   },
                 ),
                 const SizedBox(
