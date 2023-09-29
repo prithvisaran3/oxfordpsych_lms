@@ -353,7 +353,7 @@ class AuthController extends GetxController {
     debugPrint("remote version $rv");
     debugPrint("convert remote version $remoteVersion");
 
-    if (localVersion > remoteVersion) {
+    if (localVersion < remoteVersion) {
       debugPrint("update available");
       if (Platform.isAndroid || Platform.isIOS) {
         final appId =
