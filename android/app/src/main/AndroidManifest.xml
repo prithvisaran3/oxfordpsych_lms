@@ -2,7 +2,7 @@
     package="com.limorg.OxfordMindCare">
     <uses-permission android:name="com.android.vending.BILLING"/>
    <application
-        android:label="Oxrod Pycsh"
+        android:label="Oxrod Pycsh"></application>
 
     <application
         android:name="${applicationName}"
