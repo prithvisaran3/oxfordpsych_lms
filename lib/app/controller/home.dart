@@ -96,11 +96,23 @@ class HomeController extends GetxController {
     }
   }
 
-  getTopic() async {
-    getTopicLoading = true;
+  final _getTopicParams = "".obs;
 
+  get getTopicParams => _getTopicParams.value;
+
+  set getTopicParams(value) {
+    _getTopicParams.value = value;
+  }
+
+  getTopic({cid}) async {
+    getTopicLoading = true;
+    if (cid != null) {
+      getTopicParams = "&cid=$cid";
+    } else {
+      getTopicParams = "";
+    }
     try {
-      var res = await repository.getTopic();
+      var res = await repository.getTopic(params: getTopicParams);
       if (statusCode == 200) {
         if (res["status"] == "200") {
           getTopicLoading = false;
@@ -127,4 +139,5 @@ class HomeController extends GetxController {
       getTopicLoading = false;
     }
   }
+
 }

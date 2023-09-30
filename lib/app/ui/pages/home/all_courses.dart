@@ -42,7 +42,6 @@ class AllCourses extends StatelessWidget {
                       shrinkWrap: true,
                       physics: const NeverScrollableScrollPhysics(),
                       itemBuilder: (context, index) {
-                        print("DATA is ${data[index]['curriculum']}");
                         return data[index]['curriculum'] == curriculum
                             ? AllCoursesCard(
                                 cardData: data[index],

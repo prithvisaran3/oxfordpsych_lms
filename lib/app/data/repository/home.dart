@@ -24,8 +24,8 @@ class HomeRepository {
     return res;
   }
 
-  Future<dynamic> getTopic() async {
-    var response = await helper.get(url: "${ApiService.getTopic}");
+  Future<dynamic> getTopic({params}) async {
+    var response = await helper.get(url: "${ApiService.getTopic}$params");
     var res = jsonDecode(response);
     return res;
   }

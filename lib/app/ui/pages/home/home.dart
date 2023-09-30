@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../controller/course.dart';
 import '../../../controller/home.dart';
+import '../../widgets/home/categories_main_card.dart';
 import 'all_courses.dart';
 import '../../theme/colors.dart';
 import '../../theme/font.dart';
@@ -21,6 +22,7 @@ class Home extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // HomeController.to.getTopic(cid: "2");
     return GetBuilder(
       init: HomeController(),
       initState: (_) async {
@@ -103,24 +105,6 @@ class Home extends StatelessWidget {
                                 'Categories',
                                 style: headText(),
                               ),
-                              // GestureDetector(
-                              //   onTap: () {
-                              //     Get.to(() => Categories());
-                              //   },
-                              //   child: Row(
-                              //     children: const [
-                              //       Text(
-                              //         'SEE ALL',
-                              //         style: TextStyle(color: AppColors.secondary),
-                              //       ),
-                              //       Icon(
-                              //         Icons.arrow_right_alt,
-                              //         color: AppColors.secondary,
-                              //         size: 20,
-                              //       )
-                              //     ],
-                              //   ),
-                              // )
                             ],
                           ),
                           const SizedBox(
@@ -137,8 +121,6 @@ class Home extends StatelessWidget {
                                 itemBuilder: (context, int index) {
                                   return GestureDetector(
                                     onTap: () {
-                                      print(
-                                          "categores ${HomeController.to.curriculumDetails[index]['name']}");
                                       Navigator.push(
                                           context,
                                           MaterialPageRoute(
@@ -157,38 +139,55 @@ class Home extends StatelessWidget {
                                   );
                                 }),
                           ),
-                          // SingleChildScrollView(
-                          //   scrollDirection: Axis.horizontal,
-                          //   physics: const BouncingScrollPhysics(),
-                          //   child: Row(
-                          //     children: [
-                          //       categoryContainer('Mind Healing'),
-                          //       categoryContainer('PTSD'),
-                          //       categoryContainer('Panic Attacks'),
-                          // categoryContainer('Personal Issues'),
-                          //     ],
-                          //   ),
-                          // ),
                           const SizedBox(
                             height: 20,
                           ),
 
-                          curriculumColumn(context,
-                              name:
-                                  '${HomeController.to.curriculumDetails[0]['name']}',
-                              curriculum: "CASC Courses"),
-                          curriculumColumn(context,
-                              name:
-                                  '${HomeController.to.curriculumDetails[1]['name']}',
-                              curriculum: "Mock CASEC Exams"),
-                          curriculumColumn(context,
-                              name:
-                                  '${HomeController.to.curriculumDetails[2]['name']}',
-                              curriculum: "Online CASC Courses"),
-                          curriculumColumn(context,
-                              name:
-                                  '${HomeController.to.curriculumDetails[3]['name']}',
-                              curriculum: "Oxfordpsych Overseas"),
+                          /// categories card
+                          ListView.builder(
+                              physics: const NeverScrollableScrollPhysics(),
+                              itemCount:
+                                  HomeController.to.curriculumDetails.length,
+                              // itemCount: 1,
+                              shrinkWrap: true,
+                              itemBuilder: (context, index) {
+                                var curriculumIndex = index;
+                                return Column(
+                                  children: [
+                                    // category title
+                                    categoryTitle(index),
+
+                                    //sub categories list
+                                    subCategoryList(
+                                        curriculum: index == 0
+                                            ? "Assessment"
+                                            : index == 1
+                                                ? "CASC Courses"
+                                                : index == 2
+                                                    ? "Discussion"
+                                                    : index == 3
+                                                        ? "Explanation"
+                                                        : "Mock CASC Exams"),
+                                  ],
+                                );
+                              }),
+
+                          // curriculumColumn(context,
+                          //     name:
+                          //         '${HomeController.to.curriculumDetails[0]['name']}',
+                          //     curriculum: "CASC Courses"),
+                          // curriculumColumn(context,
+                          //     name:
+                          //         '${HomeController.to.curriculumDetails[1]['name']}',
+                          //     curriculum: "Mock CASEC Exams"),
+                          // curriculumColumn(context,
+                          //     name:
+                          //         '${HomeController.to.curriculumDetails[2]['name']}',
+                          //     curriculum: "Online CASC Courses"),
+                          // curriculumColumn(context,
+                          //     name:
+                          //         '${HomeController.to.curriculumDetails[3]['name']}',
+                          //     curriculum: "Oxfordpsych Overseas"),
                         ],
                       ),
               )),
@@ -197,72 +196,157 @@ class Home extends StatelessWidget {
     );
   }
 
-  curriculumColumn(BuildContext context,
-      {required String name, required String curriculum}) {
-    return Obx(
-      () => Column(
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+  subCategoryList({curriculumIndex, curriculum}) {
+    // HomeController.to.getTopic(cid: "1");
+
+    // String text = "";
+    // return SizedBox(
+    //   height: text.length > 25 ? Get.height * 0.25 : Get.height * 0.20,
+    //   child: ListView.builder(
+    //     scrollDirection: Axis.horizontal,
+    //     itemCount: HomeController.to.topicDetails.length,
+    //     shrinkWrap: true,
+    //     itemBuilder: (context, index) {
+    //       if (HomeController.to.topicDetails.length != 0) {
+    //         text = HomeController.to.topicDetails[index]['name'];
+    //         return CategoriesMainCard(
+    //           name: "${HomeController.to.topicDetails[index]['name']}",
+    //           image: "",
+    //           onTap: () {},
+    //         );
+    //       } else {
+    //         return Text("nkjjk");
+    //       }
+    //     },
+    //   ),
+    // );
+
+    return SizedBox(
+        height: Get.height * 0.28,
+        child: ListView.builder(
+          scrollDirection: Axis.horizontal,
+          itemCount: CourseController.to.courseDetails.length,
+          shrinkWrap: true,
+          itemBuilder: (context, index) {
+            CourseController.to.addParticularCategoryCourse();
+            return CourseController.to.courseDetails[index]["curriculum"] ==
+                    curriculum
+                ? CourseCard(
+                    onTap: () {
+                      Get.to(() => CourseDetail(
+                            data: CourseController.to.courseDetails[index],
+                          ));
+                    },
+                    courseData: CourseController.to.courseDetails[index],
+                  )
+                : const SizedBox();
+          },
+        ));
+  }
+
+  categoryTitle(int index) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Text(
+          "${HomeController.to.curriculumDetails[index]['name']}",
+          // "${HomeController.to.curriculumDetails[1]['name']}",
+          style: headText(),
+        ),
+        InkWell(
+          onTap: () {
+            // Navigator.push(
+            //     context,
+            //     MaterialPageRoute(
+            //         builder: (context) =>
+            //             AllCourses(
+            //               data: CourseController
+            //                   .to.courseDetails,
+            //               curriculum: curriculum,
+            //             )));
+          },
+          child: const Row(
             children: [
               Text(
-                name,
-                style: headText(),
+                'SEE ALL',
+                style: TextStyle(color: AppColors.secondary),
               ),
-              InkWell(
-                onTap: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => AllCourses(
-                                data: CourseController.to.courseDetails,
-                                curriculum: curriculum,
-                              )));
-                },
-                child: const Row(
-                  children: [
-                    Text(
-                      'SEE ALL',
-                      style: TextStyle(color: AppColors.secondary),
-                    ),
-                    Icon(
-                      Icons.arrow_right_alt,
-                      color: AppColors.secondary,
-                      size: 20,
-                    )
-                  ],
-                ),
+              Icon(
+                Icons.arrow_right_alt,
+                color: AppColors.secondary,
+                size: 20,
               )
             ],
           ),
-          const SizedBox(
-            height: 20,
-          ),
-          Container(
-            height: Get.height * 0.28,
-            child: ListView.builder(
-              scrollDirection: Axis.horizontal,
-              itemCount: CourseController.to.courseDetails.length,
-              shrinkWrap: true,
-              itemBuilder: (context, index) {
-                print(
-                    "lenth ${CourseController.to.courseDetails[index].length}");
-                return CourseController.to.courseDetails[index]["curriculum"] ==
-                        curriculum
-                    ? CourseCard(
-                        onTap: () {
-                          Get.to(() => CourseDetail(
-                                data: CourseController.to.courseDetails[index],
-                              ));
-                        },
-                        courseData: CourseController.to.courseDetails[index],
-                      )
-                    : const SizedBox();
-              },
-            ),
-          ),
-        ],
-      ),
+        )
+      ],
     );
   }
+
+// curriculumColumn(BuildContext context,
+//     {required String name, required String curriculum}) {
+//   return Obx(
+//     () => Column(
+//       children: [
+//         Row(
+//           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//           children: [
+//             Text(
+//               name,
+//               style: headText(),
+//             ),
+//             InkWell(
+//               onTap: () {
+//                 Navigator.push(
+//                     context,
+//                     MaterialPageRoute(
+//                         builder: (context) => AllCourses(
+//                               data: CourseController.to.courseDetails,
+//                               curriculum: curriculum,
+//                             )));
+//               },
+//               child: const Row(
+//                 children: [
+//                   Text(
+//                     'SEE ALL',
+//                     style: TextStyle(color: AppColors.secondary),
+//                   ),
+//                   Icon(
+//                     Icons.arrow_right_alt,
+//                     color: AppColors.secondary,
+//                     size: 20,
+//                   )
+//                 ],
+//               ),
+//             )
+//           ],
+//         ),
+//         const SizedBox(
+//           height: 20,
+//         ),
+//         SizedBox(
+//           height: Get.height * 0.28,
+//           child: ListView.builder(
+//             scrollDirection: Axis.horizontal,
+//             itemCount: CourseController.to.courseDetails.length,
+//             shrinkWrap: true,
+//             itemBuilder: (context, index) {
+//               return CourseController.to.courseDetails[index]["curriculum"] ==
+//                       curriculum
+//                   ? CourseCard(
+//                       onTap: () {
+//                         Get.to(() => CourseDetail(
+//                               data: CourseController.to.courseDetails[index],
+//                             ));
+//                       },
+//                       courseData: CourseController.to.courseDetails[index],
+//                     )
+//                   : const SizedBox();
+//             },
+//           ),
+//         ),
+//       ],
+//     ),
+//   );
+// }
 }

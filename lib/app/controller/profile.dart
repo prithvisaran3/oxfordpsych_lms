@@ -75,7 +75,6 @@ class ProfileController extends GetxController {
     getProfileLoading = true;
     SharedPreferences preferences = await SharedPreferences.getInstance();
     var id = preferences.getString('token');
-    print("user id is: $id");
     try {
       var res = await repository.getProfile(id: id);
       if (statusCode == 200) {

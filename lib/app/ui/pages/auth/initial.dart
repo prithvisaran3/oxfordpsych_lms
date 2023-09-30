@@ -17,14 +17,10 @@ class Initial extends StatefulWidget {
 class _InitialState extends State<Initial> {
   String? isLogin;
 
-  Future<bool> onWillPop() async {
-    return (exitAlert(context)) ?? false;
-  }
-
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
-        onWillPop: onWillPop,
+        onWillPop: backAlert,
         child: Scaffold(
             body: GetBuilder<AuthController>(
                 init: AuthController(),
