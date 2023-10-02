@@ -214,21 +214,21 @@ class Home extends StatelessWidget {
                     style: headText(color: AppColors.secondary),
                   ),
 
-                  SizedBox(
-                    height: MediaQuery.of(context).size.height * 0.30,
-                    child: ListView.builder(
-                        itemCount: 4,
-                        scrollDirection: Axis.horizontal,
-                        physics: const BouncingScrollPhysics(),
-                        shrinkWrap: true,
-                        itemBuilder: (context, index) {
-                          return MainCourseCard(
-                            onTap: () {},
-                            courseData:
-                                CourseController.to.initialCourseDetails[index],
-                          );
-                        }),
-                  )
+                  // SizedBox(
+                  //   height: MediaQuery.of(context).size.height * 0.30,
+                  //   child: ListView.builder(
+                  //       itemCount: 4,
+                  //       scrollDirection: Axis.horizontal,
+                  //       physics: const BouncingScrollPhysics(),
+                  //       shrinkWrap: true,
+                  //       itemBuilder: (context, index) {
+                  //         return MainCourseCard(
+                  //           onTap: () {},
+                  //           // courseData:
+                  //           //     CourseController.to.initialCourseDetails[index],
+                  //         );
+                  //       }),
+                  // )
 
                   // /// categories card
                   // ListView.builder(

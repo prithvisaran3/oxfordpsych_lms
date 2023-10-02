@@ -123,7 +123,7 @@ class CourseCard extends StatelessWidget {
 
 class MainCourseCard extends StatelessWidget {
   const MainCourseCard(
-      {Key? key, required this.onTap, required this.courseData})
+      {Key? key, required this.onTap,  this.courseData})
       : super(key: key);
 
   final dynamic courseData;
