@@ -4,7 +4,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
 import '../../theme/colors.dart';
-import '../../theme/font.dart';
+import '../../theme/font_size.dart';
 import '../profile/subscribed_bar.dart';
 
 PreferredSizeWidget commonAppBar({

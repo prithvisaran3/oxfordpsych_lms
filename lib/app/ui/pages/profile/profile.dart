@@ -22,7 +22,10 @@ class Profile extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetBuilder(
         init: ProfileController(),
-        initState: (_) {},
+        initState: (_) async {
+          await ProfileController.to.getSubscriptionDetail();
+          ProfileController.to.checkExpiry();
+        },
         builder: (_) {
           return Scaffold(
             backgroundColor: AppColors.white,
@@ -45,11 +48,11 @@ class Profile extends StatelessWidget {
                         fontSize: 20,
                       ),
                     ),
-                    // const Text(
-                    //   "(3 days left)",
-                    //   style: TextStyle(color: AppColors.primary),
-                    // ),
-                    // const SubscriptionStatusCard(),
+                    Obx(() => Text(
+                          "(${ProfileController.to.remainingDays.toString().split('-')[1]} days left)",
+                          style: TextStyle(color: AppColors.primary),
+                        )),
+                    const SubscriptionStatusCard(),
                     const SizedBox(height: 20),
                     profileSection(),
                   ],

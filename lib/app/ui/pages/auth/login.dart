@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import '../../../../pages/forgotPassword.dart';
 import '../../../controller/auth.dart';
 import '../../theme/colors.dart';
-import '../../theme/font.dart';
+import '../../theme/font_size.dart';
 import '../../widgets/common/common_button.dart';
 import '../../widgets/common/common_textform_field.dart';
 import '../../widgets/common/loading.dart';

@@ -80,7 +80,15 @@ String getIsoToLocalTime({required String date}) {
 String getIsoToLocalDate({required String date}) {
   var dateTime = DateFormat("yyyy-MM-dd HH:mm:ss").parse(date, true);
   // var localTime = dateTime.toLocal();
-  var outputFormat = DateFormat('dd-MM-yy');
+  var outputFormat = DateFormat('dd-MM-yyyy');
+  var outputDate = outputFormat.format(dateTime);
+  return outputDate;
+}
+
+String getIsoToLocalYearMonthDate({required String date}) {
+  var dateTime = DateFormat("yyyy-MM-dd HH:mm:ss").parse(date, true);
+  // var localTime = dateTime.toLocal();
+  var outputFormat = DateFormat('yyyy-MM-dd');
   var outputDate = outputFormat.format(dateTime);
   return outputDate;
 }

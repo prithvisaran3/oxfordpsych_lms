@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../controller/main.dart';
 import '../theme/colors.dart';
-import '../theme/font.dart';
+import '../theme/font_size.dart';
 import '../widgets/common/currency_text.dart';
 import '../widgets/common/text.dart';
 

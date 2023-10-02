@@ -26,6 +26,14 @@ class CourseController extends GetxController {
     _courseDetails.value = value;
   }
 
+  final _initialCourseDetails = <dynamic>[].obs;
+
+  get initialCourseDetails => _initialCourseDetails.value;
+
+  set initialCourseDetails(value) {
+    _initialCourseDetails.value = value;
+  }
+
   final _getCourseParams = "".obs;
 
   get getCourseParams => _getCourseParams.value;
@@ -34,19 +42,60 @@ class CourseController extends GetxController {
     _getCourseParams.value = value;
   }
 
-  getCourse() async {
+  final _perPage = 10.obs;
+
+  get perPage => _perPage.value;
+
+  set perPage(value) {
+    _perPage.value = value;
+  }
+
+  final _pageNumber = 1.obs;
+
+  get pageNumber => _pageNumber.value;
+
+  set pageNumber(value) {
+    _pageNumber.value = value;
+  }
+
+  final _isCourseEmpty = false.obs;
+
+  get isCourseEmpty => _isCourseEmpty.value;
+
+  set isCourseEmpty(value) {
+    _isCourseEmpty.value = value;
+  }
+
+  getCourse({curriculumId, isInitial}) async {
     getCourseLoading = true;
-    getCourseParams = "&pageID=1&limit=50";
+    if (curriculumId != null) {
+      if (isInitial == true) {
+        getCourseParams = "&pageID=$pageNumber&limit=5&cid=$curriculumId";
+      } else {
+        getCourseParams =
+            "&pageID=$pageNumber&limit=$perPage&cid=$curriculumId";
+      }
+    } else {
+      getCourseParams = "&pageID=$pageNumber&limit=$perPage";
+    }
     try {
       var res = await repository.getCourses(params: getCourseParams);
       if (statusCode == 200) {
         if (res["status"] == "200") {
-          getCourseLoading = false;
           if (res["data"] == null || res["data"] == "") {
             commonPrint(status: res["status"], msg: "No data or id wrong");
+            getCourseLoading = false;
+            isCourseEmpty = true;
           } else {
-            courseDetails = res["data"];
-
+            if (isInitial == true) {
+              getCourseLoading = false;
+              isCourseEmpty = false;
+              initialCourseDetails = res['data'];
+            } else {
+              getCourseLoading = false;
+              isCourseEmpty = false;
+              courseDetails = res["data"];
+            }
             commonPrint(
                 status: res["status"],
                 msg: "Course get successfully with data : ${res["data"]}");
@@ -64,39 +113,6 @@ class CourseController extends GetxController {
     } catch (e) {
       commonPrint(status: "500", msg: "Course get error due to $e");
       getCourseLoading = false;
-    }
-  }
-
-  var _temp = [].obs;
-
-  get temp => _temp.value;
-
-  set temp(value) {
-    _temp.value = value;
-  }
-
-  addParticularCategoryCourse() {
-    temp = [];
-    courseDetails.forEach((h){
-      print("jkjhlkjk ${h['curriculum'] == "Discussion"}");
-    });
-    for (int i = 0; i < courseDetails.length; i++) {
-      print("${courseDetails[i]['curriculum'] == "Discussion"}");
-
-      // temp.add({
-      //   "id": "86",
-      //   "title": "",
-      //   "description": "",
-      //   "curriculum_id": "2",
-      //   "price": "299",
-      //   "photos": "",
-      //   "video": "",
-      //   "log_date": "2023-09-28 16:55:45",
-      //   "category": "Gold",
-      //   "languages": "English",
-      //   "curriculum": "CASC Courses",
-      //   "topic": "CASC - OCM 2"
-      // });
     }
   }
 }

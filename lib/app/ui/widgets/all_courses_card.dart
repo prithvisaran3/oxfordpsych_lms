@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:deviraj_lms/app/controller/wishlist.dart';
 import 'package:flutter/material.dart';
 import '../../config/config.dart';
 import '../utility.dart';
@@ -26,7 +27,7 @@ class AllCoursesCard extends StatelessWidget {
       child: Stack(
         children: [
           GestureDetector(
-            onTap: onTap,
+            // onTap: onTap,
             child: Padding(
               padding: const EdgeInsets.only(top: 10.0),
               child: Row(
@@ -135,14 +136,18 @@ class AllCoursesCard extends StatelessWidget {
             ),
           ),
           Positioned(
-              right: 10,bottom: 0,
+              right: 10,
+              bottom: 0,
               child: GestureDetector(
-                onTap: () {},
+                onTap: () {
+                  WishListController.to
+                      .addWishList(courseId: "${cardData['id']}");
+                },
                 child: const Icon(
                   Icons.favorite_border,
                   size: 25,
                 ),
-              ))
+              )),
         ],
       ),
     );

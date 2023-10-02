@@ -21,4 +21,11 @@ class ApiService {
   static const getLanguage = "${AppConfig.baseUrl}?action=getlanguage";
   static const getTopic = "${AppConfig.baseUrl}?action=getTopic";
   static const getCourses = "${AppConfig.baseUrl}?action=getcourses";
+
+  //wishlist
+  static const addWishList = "${AppConfig.baseUrl}?action=whishlistAdd";
+  static const getWishList = "${AppConfig.baseUrl}?action=whishlisted";
+
+  //get subscription details
+  static const subscriptionDetail = "${AppConfig.baseUrl}?action=myPayments";
 }

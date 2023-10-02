@@ -1,3 +1,4 @@
+import 'package:deviraj_lms/app/controller/profile.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
@@ -15,13 +16,12 @@ class SubscriptionStatusBar extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         MainController.to.isSubscribed = !MainController.to.isSubscribed;
-        print("SUBSCRIBED: ${MainController.to.isSubscribed}");
       },
       child: Obx(
         () => Container(
           height: 30,
-          margin: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
-          padding: EdgeInsets.symmetric(horizontal: 10),
+          margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+          padding: const EdgeInsets.symmetric(horizontal: 10),
           decoration: BoxDecoration(
             color: MainController.to.isSubscribed == true
                 ? AppColors.black
@@ -29,29 +29,29 @@ class SubscriptionStatusBar extends StatelessWidget {
             border: Border.all(color: AppColors.black),
             borderRadius: BorderRadius.circular(30),
           ),
-          child: MainController.to.isSubscribed == true
+          child: ProfileController.to.isSubscriptionExpiry == false
               ? Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    Icon(
+                    const Icon(
                       FontAwesomeIcons.crown,
                       color: AppColors.amber,
                       size: 16,
                     ),
-                    SizedBox(
+                    const SizedBox(
                       width: 10,
                     ),
                     Text(
-                      "Premium",
-                      style: TextStyle(
+                      "${ProfileController.to.subscriptionDetail.packageName}",
+                      style: const TextStyle(
                         fontWeight: FontWeight.bold,
-                        fontSize: 12,
+                        fontSize: 14,
                         color: AppColors.white,
                       ),
                     ),
                   ],
                 )
-              : Row(
+              : const Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     Text(

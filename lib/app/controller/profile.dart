@@ -3,10 +3,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../data/model/profileRes.dart';
+import '../data/model/profileRes.dart' as profile;
+import '../data/model/subscription_detail.dart';
 import '../ui/widgets/common/alert.dart';
 import '../ui/widgets/common/common_print.dart';
 import '../ui/widgets/common/common_snackbar.dart';
+import '../utility/utility.dart';
 import 'auth.dart';
 import 'main.dart';
 
@@ -16,7 +18,7 @@ class ProfileController extends GetxController {
 
   final TextEditingController profileName = TextEditingController();
 
-  var _isPushNotification = true.obs;
+  final _isPushNotification = true.obs;
 
   get isPushNotification => _isPushNotification.value;
 
@@ -24,7 +26,7 @@ class ProfileController extends GetxController {
     _isPushNotification.value = value;
   }
 
-  var _isSubscriptionNotification = true.obs;
+  final _isSubscriptionNotification = true.obs;
 
   get isSubscriptionNotification => _isSubscriptionNotification.value;
 
@@ -32,7 +34,7 @@ class ProfileController extends GetxController {
     _isSubscriptionNotification.value = value;
   }
 
-  var _isSpecialOffersNotification = true.obs;
+  final _isSpecialOffersNotification = true.obs;
 
   get isSpecialOffersNotification => _isSpecialOffersNotification.value;
 
@@ -40,7 +42,7 @@ class ProfileController extends GetxController {
     _isSpecialOffersNotification.value = value;
   }
 
-  var _isEmailNotification = true.obs;
+  final _isEmailNotification = true.obs;
 
   get isEmailNotification => _isEmailNotification.value;
 
@@ -63,7 +65,8 @@ class ProfileController extends GetxController {
   set updateProfileLoading(value) {
     _updateProfileLoading.value = value;
   }
-  final _profileDetails=Data().obs;
+
+  final _profileDetails = profile.Data().obs;
 
   get profileDetails => _profileDetails.value;
 
@@ -101,8 +104,7 @@ class ProfileController extends GetxController {
         }
       } else {
         commonPrint(
-            status: "${res.status}",
-            msg: "Error from server on get profile");
+            status: "${res.status}", msg: "Error from server on get profile");
         getProfileLoading = false;
       }
     } catch (e) {
@@ -146,5 +148,97 @@ class ProfileController extends GetxController {
           status: "$statusCode",
           msg: "Error from register due to data mismatch or format $e");
     }
+  }
+
+  final _subscriptionDetail = Data().obs;
+
+  get subscriptionDetail => _subscriptionDetail.value;
+
+  set subscriptionDetail(value) {
+    _subscriptionDetail.value = value;
+  }
+
+  final _subscriptionLoading = false.obs;
+
+  get subscriptionLoading => _subscriptionLoading.value;
+
+  set subscriptionLoading(value) {
+    _subscriptionLoading.value = value;
+  }
+
+  final _isSubscribed = false.obs;
+
+  get isSubscribed => _isSubscribed.value;
+
+  set isSubscribed(value) {
+    _isSubscribed.value = value;
+  }
+
+  getSubscriptionDetail() async {
+    subscriptionLoading = true;
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    var id = preferences.getString('token');
+    var params = "&user=$id";
+    try {
+      var res = await repository.getSubscriptionDetails(params: params);
+      if (statusCode == 200) {
+        subscriptionLoading = false;
+        if (res.status == "200") {
+          if (res.data == null) {
+            isSubscribed = false;
+            commonPrint(
+                status: "200", msg: "get subscription detail without data");
+          } else {
+            commonPrint(
+                status: "200", msg: "get subscription detail with data");
+            subscriptionDetail = res.data;
+            isSubscribed = true;
+          }
+        }
+      } else {
+        subscriptionLoading = false;
+        commonPrint(
+            status: "Failed", msg: "Failed to get subscription details");
+      }
+    } catch (e) {
+      subscriptionLoading = false;
+      commonPrint(
+          status: "500", msg: "Error form server on get subscription detail");
+    }
+  }
+
+  final _isSubscriptionExpiry = false.obs;
+
+  get isSubscriptionExpiry => _isSubscriptionExpiry.value;
+
+  set isSubscriptionExpiry(value) {
+    _isSubscriptionExpiry.value = value;
+  }
+
+  final _remainingDays = 0.obs;
+
+  get remainingDays => _remainingDays.value;
+
+  set remainingDays(value) {
+    _remainingDays.value = value;
+  }
+
+  checkExpiry() {
+    var year = getIsoToLocalYearMonthDate(
+            date: ProfileController.to.subscriptionDetail.validTill.toString())
+        .split('-')[0];
+    var month = getIsoToLocalYearMonthDate(
+            date: ProfileController.to.subscriptionDetail.validTill.toString())
+        .split('-')[1];
+    var day = getIsoToLocalYearMonthDate(
+            date: ProfileController.to.subscriptionDetail.validTill.toString())
+        .split('-')[2];
+
+    final expirationDate =
+        DateTime(int.parse(year), int.parse(month), int.parse(day));
+    final now = DateTime.now();
+    remainingDays = now.difference(expirationDate).inDays;
+    print("isExpory ${expirationDate.isBefore(now)}");
+    isSubscriptionExpiry = expirationDate.isBefore(now);
   }
 }

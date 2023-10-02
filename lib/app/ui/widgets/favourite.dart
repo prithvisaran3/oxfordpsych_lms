@@ -1,10 +1,17 @@
-import 'package:deviraj_lms/app/ui/widgets/common/currency_text.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import '../../config/config.dart';
 import '../theme/colors.dart';
-import '../theme/font.dart';
+import '../theme/font_size.dart';
+import 'common/currency_text.dart';
 
 class FavouriteCard extends StatelessWidget {
-  const FavouriteCard({super.key});
+  const FavouriteCard({
+    super.key,
+    required this.data,
+  });
+
+  final dynamic data;
 
   @override
   Widget build(BuildContext context) {
@@ -17,88 +24,114 @@ class FavouriteCard extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Container(
-            height: 120,
-            width: 200,
-            margin: EdgeInsets.symmetric(horizontal: 5, vertical: 5),
-            padding: const EdgeInsets.all(7),
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
-                image: const DecorationImage(
-                    image: AssetImage('assets/images/home.jpg'),
-                    fit: BoxFit.cover)),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                Container(
-                  padding: const EdgeInsets.all(3),
-                  decoration: BoxDecoration(
-                      color: AppColors.secondary,
-                      borderRadius: BorderRadius.circular(10)),
-                  child: const Text('BEST SELLER'),
+          "${AppConfig.imageUrl}${data['curriculum_id']}/${data['photos']}" ==
+                  ""
+              ? Center(
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(10.0),
+                    child: Container(
+                      color: Colors.black,
+                      width: double.infinity,
+                      height: 120,
+                      padding: const EdgeInsets.all(4),
+                      child: Image.asset(
+                        "assets/images/logo.png",
+                        fit: BoxFit.contain,
+                        width: double.infinity,
+                      ),
+                    ),
+                  ),
                 )
-              ],
-            ),
-          ),
+              : ClipRRect(
+                  borderRadius: BorderRadius.circular(10.0),
+                  child: CachedNetworkImage(
+                      imageUrl:
+                          "${AppConfig.imageUrl}${data['curriculum_id']}/${data['photos']}",
+                      fit: BoxFit.cover,
+                      width: double.infinity,
+                      progressIndicatorBuilder:
+                          (context, url, downloadProgress) => const Center(
+                                  child: CircularProgressIndicator(
+                                color: Colors.grey,
+                                strokeWidth: 2,
+                              )),
+                      errorWidget: (context, url, error) {
+                        return Center(
+                          child: Container(
+                            color: Colors.black,
+                            width: double.infinity,
+                            height: double.infinity,
+                            padding: const EdgeInsets.all(4),
+                            child: ClipRRect(
+                                borderRadius: BorderRadius.circular(10.0),
+                                child: Image.asset(
+                                  "assets/images/logo.png",
+                                  fit: BoxFit.contain,
+                                  width: double.infinity,
+                                )),
+                          ),
+                        );
+                      }),
+                ),
+
           const SizedBox(
             height: 10,
           ),
-          Row(
-            children: [
-              const Text('4.5'),
-              const SizedBox(
-                width: 10,
-              ),
-              const Icon(
-                Icons.star,
-                color: AppColors.amber,
-                size: 20,
-              ),
-              const Icon(
-                Icons.star,
-                color: AppColors.amber,
-                size: 20,
-              ),
-              const Icon(
-                Icons.star,
-                size: 20,
-                color: AppColors.amber,
-              ),
-              const Icon(
-                Icons.star,
-                size: 20,
-                color: AppColors.amber,
-              ),
-              const Icon(
-                Icons.star_outline,
-                size: 20,
-                color: AppColors.amber,
-              ),
-            ],
-          ),
+          // Row(
+          //   children: [
+          //     const Text('4.5'),
+          //     const SizedBox(
+          //       width: 10,
+          //     ),
+          //     const Icon(
+          //       Icons.star,
+          //       color: AppColors.amber,
+          //       size: 20,
+          //     ),
+          //     const Icon(
+          //       Icons.star,
+          //       color: AppColors.amber,
+          //       size: 20,
+          //     ),
+          //     const Icon(
+          //       Icons.star,
+          //       size: 20,
+          //       color: AppColors.amber,
+          //     ),
+          //     const Icon(
+          //       Icons.star,
+          //       size: 20,
+          //       color: AppColors.amber,
+          //     ),
+          //     const Icon(
+          //       Icons.star_outline,
+          //       size: 20,
+          //       color: AppColors.amber,
+          //     ),
+          //   ],
+          // ),
           Text(
-            'Work Stress Management',
+            data['name'] ?? "1",
             style: headText(),
           ),
-          Row(
+          const Row(
             children: [
-              const Icon(
+              Icon(
                 Icons.person_outline,
                 color: AppColors.grey,
                 size: 20,
               ),
-              const SizedBox(
+              SizedBox(
                 width: 10,
               ),
-              const Text('Stephen Moris')
+              Text('OxfordPsych')
             ],
           ),
           const SizedBox(
             height: 5,
           ),
           CurrencyText(
-            amount: "14.50",
+            amount: data['price'] ?? "0",
             fontSize: 18,
             fontWEIGHT: FontWeight.w800,
             color: AppColors.secondary,
