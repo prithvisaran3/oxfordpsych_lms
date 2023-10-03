@@ -49,8 +49,10 @@ class Profile extends StatelessWidget {
                       ),
                     ),
                     Obx(() => Text(
-                          "(${ProfileController.to.remainingDays.toString().split('-')[1]} days left)",
-                          style: TextStyle(color: AppColors.primary),
+                          ProfileController.to.subscriptionLoading == true
+                              ? "..."
+                              : "(${ProfileController.to.remainingDays.toString().split('-')[1]} days left)",
+                          style: const TextStyle(color: AppColors.primary),
                         )),
                     const SubscriptionStatusCard(),
                     const SizedBox(height: 20),

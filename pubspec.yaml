@@ -62,6 +62,8 @@ dependencies:
   firebase_messaging: ^14.6.8
   audioplayers: ^1.1.1
   firebase_analytics: ^10.5.0
+  flutter_svg:
+  infinite_scroll_pagination: ^3.2.0
 
 
 dev_dependencies:
@@ -89,6 +91,7 @@ flutter:
   assets:
      - assets/images/
      - assets/audio/
+     - assets/svgs/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

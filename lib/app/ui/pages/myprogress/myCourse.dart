@@ -1,4 +1,8 @@
+import 'package:deviraj_lms/app/controller/course.dart';
+import 'package:deviraj_lms/app/ui/widgets/common/cart_empty.dart';
+import 'package:deviraj_lms/app/ui/widgets/common/loading.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import '../../theme/colors.dart';
 import '../../widgets/common/appbar.dart';
 import '../../widgets/my_course_card.dart';
@@ -10,51 +14,70 @@ class ProgressScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: commonAppBar(title: "Progress"),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(16),
-          child: Column(
-            children: [
-              searchbar(),
-              const SizedBox(
-                height: 20,
-              ),
-              ListView.builder(
-                  itemCount: 3,
-                  shrinkWrap: true,
-                  itemBuilder: (context, index) {
-                    return const ProgressCard();
-                  })
-            ],
+      appBar: commonAppBar(title: "My Courses"),
+      body: Stack(
+        children: [
+          searchbar(),
+          Padding(
+            padding: const EdgeInsets.only(top: 90.0),
+            child: ListView(
+              physics: const BouncingScrollPhysics(),
+              children: [
+                Obx(
+                  () => CourseController.to.getMyCourseLoading == true
+                      ? const SimpleLoading()
+                      : CourseController.to.isMyCourseEmpty == true
+                          ? const CartEmpty(
+                              emptyString: "No courses",
+                              image: 'cart.png',
+                              isShowButton: false,
+                            )
+                          : ListView.builder(
+                              physics: const NeverScrollableScrollPhysics(),
+                              itemCount:
+                                  CourseController.to.myCourseDetails.length,
+                              shrinkWrap: true,
+                              itemBuilder: (context, index) {
+                                return ProgressCard(
+                                  data: CourseController
+                                      .to.myCourseDetails[index],
+                                );
+                              },
+                            ),
+                ),
+              ],
+            ),
           ),
-        ),
+        ],
       ),
     );
   }
 
   searchbar() {
-    return SizedBox(
-      height: 50,
-      child: TextFormField(
-        style: const TextStyle(color: AppColors.black),
-        decoration: InputDecoration(
-          border: InputBorder.none,
-          hintText: 'Search here',
-          prefixIcon: const Icon(Icons.search, color: AppColors.black),
-          hintStyle: const TextStyle(color: AppColors.grey),
-          filled: true,
-          focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(25),
-              borderSide: const BorderSide(
-                color: AppColors.grey,
-              )),
-          enabledBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(25),
-              borderSide: const BorderSide(
-                color: AppColors.grey,
-              )),
-          fillColor: AppColors.white,
+    return Padding(
+      padding: const EdgeInsets.all(16.0),
+      child: SizedBox(
+        height: 50,
+        child: TextFormField(
+          style: const TextStyle(color: AppColors.black),
+          decoration: InputDecoration(
+            border: InputBorder.none,
+            hintText: 'Search here',
+            prefixIcon: const Icon(Icons.search, color: AppColors.black),
+            hintStyle: const TextStyle(color: AppColors.grey),
+            filled: true,
+            focusedBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(25),
+                borderSide: const BorderSide(
+                  color: AppColors.grey,
+                )),
+            enabledBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(25),
+                borderSide: const BorderSide(
+                  color: AppColors.grey,
+                )),
+            fillColor: AppColors.white,
+          ),
         ),
       ),
     );

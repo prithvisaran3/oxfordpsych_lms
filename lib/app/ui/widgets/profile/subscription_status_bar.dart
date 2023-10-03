@@ -18,11 +18,11 @@ class SubscriptionStatusCard extends StatelessWidget {
         // );
       },
       child: Container(
-        padding: EdgeInsets.symmetric(horizontal: 30, vertical: 10),
-        margin: EdgeInsets.symmetric(vertical: 10),
+        padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
+        margin: const EdgeInsets.symmetric(vertical: 10),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
-          gradient: LinearGradient(
+          gradient: const LinearGradient(
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
             colors: [
@@ -30,7 +30,7 @@ class SubscriptionStatusCard extends StatelessWidget {
               AppColors.secondary,
             ],
           ),
-          boxShadow: [
+          boxShadow: const [
             BoxShadow(color: AppColors.grey, spreadRadius: 1, blurRadius: 1)
           ],
         ),
@@ -38,7 +38,7 @@ class SubscriptionStatusCard extends StatelessWidget {
           children: [
             Row(
               children: [
-                Column(
+                const Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
@@ -67,16 +67,20 @@ class SubscriptionStatusCard extends StatelessWidget {
                     ),
                   ],
                 ),
-                Spacer(),
+                const Spacer(),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Text(
-                      "Subscribed",
-                      style: TextStyle(
-                        fontSize: 12,
-                        color: AppColors.white,
-                        fontWeight: FontWeight.w300,
+                    Obx(
+                      () => Text(
+                        ProfileController.to.isSubscriptionExpiry == true
+                            ? "Expired"
+                            : "Subscribed",
+                        style: const TextStyle(
+                          fontSize: 12,
+                          color: AppColors.white,
+                          fontWeight: FontWeight.w300,
+                        ),
                       ),
                     ),
                     Obx(
@@ -87,31 +91,35 @@ class SubscriptionStatusCard extends StatelessWidget {
                                 date: ProfileController
                                     .to.subscriptionDetail.validTill
                                     .toString()),
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontSize: 12,
                           color: AppColors.white,
                           fontWeight: FontWeight.w300,
                         ),
                       ),
                     ),
-                    Text(
-                      "${ProfileController.to.subscriptionDetail.packageName}",
-                      style: TextStyle(
-                        fontSize: 14,
-                        color: AppColors.amber,
-                        fontWeight: FontWeight.bold,
+                    Obx(
+                      () => Text(
+                        ProfileController.to.subscriptionLoading == true
+                            ? "..."
+                            : "${ProfileController.to.subscriptionDetail.packageName}",
+                        style: const TextStyle(
+                          fontSize: 14,
+                          color: AppColors.amber,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
-                    ),
+                    )
                   ],
                 ),
               ],
             ),
             Obx(
               () => ProfileController.to.isSubscribed == false
-                  ? SizedBox(
+                  ? const SizedBox(
                       height: 15.0,
                     )
-                  : SizedBox(),
+                  : const SizedBox(),
             ),
             Obx(() => ProfileController.to.isSubscriptionExpiry == true
                 ? Column(

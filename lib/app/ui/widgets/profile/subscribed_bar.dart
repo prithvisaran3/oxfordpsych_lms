@@ -42,7 +42,10 @@ class SubscriptionStatusBar extends StatelessWidget {
                       width: 10,
                     ),
                     Text(
-                      "${ProfileController.to.subscriptionDetail.packageName}",
+                      ProfileController.to.subscriptionDetail.packageName ==
+                              null
+                          ? "..."
+                          : "${ProfileController.to.subscriptionDetail.packageName}",
                       style: const TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 14,

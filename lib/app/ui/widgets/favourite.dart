@@ -60,7 +60,7 @@ class FavouriteCard extends StatelessWidget {
                           child: Container(
                             color: Colors.black,
                             width: double.infinity,
-                            height: double.infinity,
+                            height: 120,
                             padding: const EdgeInsets.all(4),
                             child: ClipRRect(
                                 borderRadius: BorderRadius.circular(10.0),
@@ -111,7 +111,7 @@ class FavouriteCard extends StatelessWidget {
           //   ],
           // ),
           Text(
-            data['name'] ?? "1",
+            data['title'] ?? "1",
             style: headText(),
           ),
           const Row(
@@ -130,11 +130,30 @@ class FavouriteCard extends StatelessWidget {
           const SizedBox(
             height: 5,
           ),
-          CurrencyText(
-            amount: data['price'] ?? "0",
-            fontSize: 18,
-            fontWEIGHT: FontWeight.w800,
-            color: AppColors.secondary,
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              CurrencyText(
+                amount: data['price'] ?? "0",
+                fontSize: 18,
+                fontWEIGHT: FontWeight.w800,
+                color: AppColors.secondary,
+              ),
+              GestureDetector(
+                onTap: () {},
+                child: Container(
+                  margin: const EdgeInsets.all(5),
+                  padding: const EdgeInsets.all(5),
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(5),
+                      color: AppColors.secondary),
+                  child: Text(
+                    "Buy Now",
+                    style: mediumText(color: AppColors.white, fontSize: 14),
+                  ),
+                ),
+              )
+            ],
           ),
         ],
       ),

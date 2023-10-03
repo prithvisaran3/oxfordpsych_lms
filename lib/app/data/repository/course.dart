@@ -11,4 +11,10 @@ class CourseRepository {
     var res = jsonDecode(response);
     return res;
   }
+
+  Future<dynamic> getMyCourse({params}) async {
+    var response = await helper.get(url: "${ApiService.getMyCourse}$params");
+    var res = jsonDecode(response);
+    return res;
+  }
 }

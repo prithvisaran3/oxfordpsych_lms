@@ -28,4 +28,7 @@ class ApiService {
 
   //get subscription details
   static const subscriptionDetail = "${AppConfig.baseUrl}?action=myPayments";
+
+  //get myCourse
+  static const getMyCourse = "${AppConfig.baseUrl}?action=viewedCourses";
 }

@@ -1,5 +1,6 @@
 // ignore_for_file: use_build_context_synchronously
 
+import 'package:deviraj_lms/app/ui/widgets/common/common_search.dart';
 import 'package:deviraj_lms/app/ui/widgets/common/loading.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -28,6 +29,8 @@ class Home extends StatelessWidget {
           // ProfileController.to.getProfile();
           CourseController.to.getCourse(isInitial: true, curriculumId: "2");
           HomeController.to.getCurriculum();
+          CourseController.to.getMyCourses();
+
           // HomeController.to.getTopic();
           // CourseController.to.getCourse(isInitial: true);
           ProfileController.to.getProfile();
@@ -82,7 +85,18 @@ class Home extends StatelessWidget {
               child: ListView(
                 physics: const BouncingScrollPhysics(),
                 children: [
-                  const HomeSearchBar(),
+                  CommonSearch(
+                    enabled: false,
+                    controller: CourseController.to.searchController,
+                    onTap: () async {
+                      CourseController.to.pageNumber = 0;
+                      Get.to(() => AllCourses(
+                            data: CourseController.to.courseDetails,
+                            curriculum: "CASC Courses",
+                            isSearch: true,
+                          ));
+                    },
+                  ),
 
                   const SizedBox(
                     height: 20,
@@ -117,20 +131,18 @@ class Home extends StatelessWidget {
                                 itemBuilder: (context, int index) {
                                   return GestureDetector(
                                     onTap: () async {
-                                      await CourseController.to.getCourse(
-                                          isInitial: false,
-                                          curriculumId:
-                                              "${HomeController.to.curriculumDetails[index]["index_id"]}");
                                       Navigator.push(
                                           context,
                                           MaterialPageRoute(
                                               builder: (context) => AllCourses(
-                                                    data: CourseController
-                                                        .to.courseDetails,
+                                                    data: HomeController.to
+                                                            .curriculumDetails[
+                                                        index],
                                                     curriculum: HomeController
                                                             .to
                                                             .curriculumDetails[
                                                         index]["name"],
+                                                    isCategory: true,
                                                   )));
                                     },
                                     child: CurriculumBox(
@@ -161,6 +173,7 @@ class Home extends StatelessWidget {
                                   builder: (context) => AllCourses(
                                         data: CourseController.to.courseDetails,
                                         curriculum: "CASC Courses",
+                                        isSeeAll: true,
                                       )));
                         },
                         child: Text(

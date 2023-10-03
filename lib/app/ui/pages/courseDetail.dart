@@ -1,6 +1,7 @@
 import 'package:appinio_video_player/appinio_video_player.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:deviraj_lms/app/config/config.dart';
+import 'package:deviraj_lms/app/utility/utility.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../controller/main.dart';
@@ -535,7 +536,7 @@ class _CourseDetailState extends State<CourseDetail> {
                       //       ),
 
                       Text(index == 0
-                          ? 'Last uploaded on Jan 21, 2022'
+                          ? 'Last uploaded on ${getIsoToLocalDate(date: widget.data['log_date'])}'
                           : "${widget.data['languages']}")
                     ],
                   ),

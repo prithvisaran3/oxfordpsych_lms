@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import '../../theme/colors.dart';
 import '../../theme/font_size.dart';
 
@@ -24,7 +25,7 @@ class CartEmpty extends StatelessWidget {
         children: [
           Image.asset(
             'assets/images/$image',
-            height: 150,
+            height: 100,
           ),
           const SizedBox(
             height: 10,
@@ -80,5 +81,29 @@ class CartEmpty extends StatelessWidget {
         ],
       ),
     );
+  }
+}
+
+class Empty extends StatelessWidget {
+  const Empty({super.key, required this.text});
+
+  final String text;
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+        child: Column(
+          children: [
+            SvgPicture.asset(
+              'assets/svgs/no_data.svg',
+              height: 150,
+            ),
+            Text(
+              text,
+              textAlign: TextAlign.center,
+              style: regularText(),
+            ),
+          ],
+        ));
   }
 }
