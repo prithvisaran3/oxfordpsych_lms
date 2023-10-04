@@ -1,8 +1,5 @@
 import 'package:deviraj_lms/app/controller/auth.dart';
 import 'package:deviraj_lms/app/controller/profile.dart';
-import 'package:deviraj_lms/app/controller/subscription.dart';
-import 'package:deviraj_lms/app/payment/paywall_widget.dart';
-import 'package:deviraj_lms/app/payment/purchase_api.dart';
 import 'package:deviraj_lms/app/ui/pages/profile/change_password.dart';
 import 'package:deviraj_lms/app/ui/pages/profile/edit_profile.dart';
 import 'package:deviraj_lms/app/ui/pages/profile/push_notifications.dart';
@@ -14,6 +11,7 @@ import 'package:deviraj_lms/app/ui/widgets/profile/subscription_status_bar.dart'
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../../controller/subscription.dart';
 import '../../theme/colors.dart';
 
 import '../../widgets/common/appbar.dart';
@@ -25,9 +23,12 @@ class Profile extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetBuilder(
         init: ProfileController(),
-        initState: (_) {
+        initState: (_) async{
+          await ProfileController.to.getSubscriptionDetail();
+          ProfileController.to.checkExpiry();
           SubscriptionController.to.init();
         },
+
         builder: (_) {
           return Scaffold(
             backgroundColor: AppColors.white,
@@ -50,11 +51,13 @@ class Profile extends StatelessWidget {
                         fontSize: 20,
                       ),
                     ),
-                    // const Text(
-                    //   "(3 days left)",
-                    //   style: TextStyle(color: AppColors.primary),
-                    // ),
-                    // const SubscriptionStatusCard(),
+                    Obx(() => Text(
+                          ProfileController.to.subscriptionLoading == true
+                              ? "..."
+                              : "(${ProfileController.to.remainingDays.toString().split('-')[1]} days left)",
+                          style: const TextStyle(color: AppColors.primary),
+                        )),
+                    const SubscriptionStatusCard(),
                     const SizedBox(height: 20),
                     profileSection(),
                   ],

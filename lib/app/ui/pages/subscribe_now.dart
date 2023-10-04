@@ -1,7 +1,4 @@
 import 'package:deviraj_lms/app/ui/theme/colors.dart';
-import 'package:deviraj_lms/app/ui/theme/font.dart';
-import 'package:deviraj_lms/app/ui/widgets/common/common_button.dart';
-import 'package:deviraj_lms/app/ui/widgets/common/currency_text.dart';
 import 'package:deviraj_lms/app/ui/widgets/subscription/ProceedToPay_button.dart';
 import 'package:deviraj_lms/app/ui/widgets/subscription/course_list_box.dart';
 import 'package:deviraj_lms/app/ui/widgets/subscription/duration_box.dart';

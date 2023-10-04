@@ -2,9 +2,9 @@ import 'package:get/get.dart';
 
 import '../../theme/colors.dart';
 
-
 commonSnackBar({required title, required msg}) {
-  Get.snackbar(title, msg, snackPosition: SnackPosition.BOTTOM);
+  Get.snackbar(title, msg,
+      snackPosition: SnackPosition.BOTTOM, colorText: AppColors.white);
 }
 
 alertSnackBar({required msg}) {
