@@ -1,3 +1,4 @@
+import 'package:deviraj_lms/app/controller/subscription.dart';
 import 'package:deviraj_lms/app/ui/pages/favourite/favourite.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -54,7 +55,7 @@ PreferredSizeWidget commonAppBar({
     actions: [
       isSubscribeIcon == true
           ? SubscriptionStatusBar(
-              status: false,
+              status: SubscriptionController.to.purchaseStatus,
             )
           : SizedBox(),
       isCartIcon == true
@@ -64,7 +65,7 @@ PreferredSizeWidget commonAppBar({
                   children: [
                     IconButton(
                         onPressed: () {
-                          Get.to(()=>Favourite());
+                          Get.to(() => Favourite());
                         },
                         icon: const Icon(Icons.favorite_border)),
                     Positioned(

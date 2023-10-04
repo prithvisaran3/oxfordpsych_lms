@@ -36,7 +36,7 @@ class CourseController extends GetxController {
 
   getCourse() async {
     getCourseLoading = true;
-    getCourseParams = "&pageID=1&limit=50";
+    getCourseParams = "&pageID=1&limit=10";
     try {
       var res = await repository.getCourses(params: getCourseParams);
       if (statusCode == 200) {

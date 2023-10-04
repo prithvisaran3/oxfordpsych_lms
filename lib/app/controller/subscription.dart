@@ -4,7 +4,9 @@ import 'package:deviraj_lms/app/ui/widgets/common/common_snackbar.dart';
 import 'package:deviraj_lms/app/ui/widgets/common/text.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
+import 'package:purchases_flutter/purchases_flutter.dart';
 
+import '../payment/paywall_widget.dart';
 import '../payment/purchase_api.dart';
 
 class SubscriptionController extends GetxController {
@@ -26,19 +28,49 @@ class SubscriptionController extends GetxController {
     _isClickCourse.value = value;
   }
 
+  var _packageDetails = <dynamic>[].obs;
+
+  get packageDetails => _packageDetails.value;
+
+  set packageDetails(value) {
+    _packageDetails.value = value;
+  }
+
+  var _purchaseStatus = false.obs;
+
+  get purchaseStatus => _purchaseStatus.value;
+
+  set purchaseStatus(value) {
+    _purchaseStatus.value = value;
+  }
+
   Future fetchoffers() async {
     final offerings = await PurchaseApi.fetchOffers();
+    print("OFFERINGS : $offerings");
     if (offerings.isEmpty) {
       commonSnackBar(title: "No Plans Found", msg: "No Plans Found");
     } else {
-      final packages = offerings
+      packageDetails = offerings
           .map((offer) => offer.availablePackages)
           .expand((pair) => pair)
           .toList();
-
-      return SubscribeNow(packages: packages,
-
-      );
+      print("PACKAGES: $packageDetails");
     }
+  }
+
+  Future init() async {
+    try {
+      Purchases.addCustomerInfoUpdateListener((customerInfo) {
+        updatePurchaseStatus();
+      });
+    } catch (e) {
+      print("Exception at initRevenueCat \n $e");
+    }
+  }
+
+  Future updatePurchaseStatus() async {
+    final customerInfo = await Purchases.getCustomerInfo();
+    final entitlements = customerInfo.entitlements.active.values.toList();
+    entitlements.isEmpty ? purchaseStatus = false : purchaseStatus = true;
   }
 }

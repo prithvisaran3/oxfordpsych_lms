@@ -1,5 +1,8 @@
 import 'package:deviraj_lms/app/controller/auth.dart';
 import 'package:deviraj_lms/app/controller/profile.dart';
+import 'package:deviraj_lms/app/controller/subscription.dart';
+import 'package:deviraj_lms/app/payment/paywall_widget.dart';
+import 'package:deviraj_lms/app/payment/purchase_api.dart';
 import 'package:deviraj_lms/app/ui/pages/profile/change_password.dart';
 import 'package:deviraj_lms/app/ui/pages/profile/edit_profile.dart';
 import 'package:deviraj_lms/app/ui/pages/profile/push_notifications.dart';
@@ -22,7 +25,9 @@ class Profile extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetBuilder(
         init: ProfileController(),
-        initState: (_) {},
+        initState: (_) {
+          SubscriptionController.to.init();
+        },
         builder: (_) {
           return Scaffold(
             backgroundColor: AppColors.white,
@@ -101,7 +106,16 @@ class Profile extends StatelessWidget {
           SettingsOptionsCard(
             text: 'Check Subscription Status',
             onTap: () {
-              Get.to(() => const SubscribeNow());
+              SubscriptionController.to.fetchoffers();
+
+              Get.to(() => PaywallWidget(
+                  title: "Upgrade your plan",
+                  description: 'Upgrade to enjoy benefits',
+                  packages: SubscriptionController.to.packageDetails,
+                  onClickedPackage: (package) async {
+                    await PurchaseApi.purchasePackage(package);
+                  }));
+              // Get.to(() => const SubscribeNow());
             },
           ),
           SettingsOptionsCard(

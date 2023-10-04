@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:audioplayers/audioplayers.dart';
+import 'package:deviraj_lms/app/payment/purchase_api.dart';
 import 'package:deviraj_lms/helper/style.dart';
 import 'package:deviraj_lms/pages/accCreateSuccess.dart';
 import 'package:deviraj_lms/pages/forgotPassword.dart';
@@ -45,6 +46,7 @@ class MyHttpOverrides extends HttpOverrides {
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+  await PurchaseApi.initPlatformState();
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
   initMessaging();
   FirebaseAnalytics analytics = FirebaseAnalytics.instance;

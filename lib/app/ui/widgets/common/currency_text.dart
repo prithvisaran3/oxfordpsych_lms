@@ -10,7 +10,7 @@ class CurrencyText extends StatelessWidget {
       required this.fontWEIGHT,
       required this.color,
       this.isStrikeThrough = false,
-      this.alignment});
+      this.alignment, this.currencyType});
 
   final String amount;
   final double fontSize;
@@ -18,6 +18,7 @@ class CurrencyText extends StatelessWidget {
   final Color color;
   final bool? isStrikeThrough;
   final String? alignment;
+  final String? currencyType;
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +27,7 @@ class CurrencyText extends StatelessWidget {
           ? MainAxisAlignment.center
           : MainAxisAlignment.start,
       children: [
-        Icon(
+      currencyType=='rupee'?Text('\u20B9'):  Icon(
           Utility.currency_pound,
           color: color,
           size: fontSize,

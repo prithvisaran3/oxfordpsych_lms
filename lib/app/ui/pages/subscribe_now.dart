@@ -16,8 +16,8 @@ import '../../controller/subscription.dart';
 import '../widgets/common/text.dart';
 
 class SubscribeNow extends StatelessWidget {
-  const SubscribeNow({super.key, this.packages});
-final List? packages;
+  const SubscribeNow({super.key});
+// final List? packages;
   @override
   Widget build(BuildContext context) {
     return GetBuilder(
@@ -165,12 +165,12 @@ final List? packages;
             ),
           ),
           child: ListView.builder(
-            itemCount:  packages!=null?packages!.length:1,
+            itemCount:  2,
             shrinkWrap: true,
             scrollDirection: Axis.vertical,
             physics: const BouncingScrollPhysics(),
             itemBuilder: (context, int index) {
-              return CourseListBox(index: index, text: packages.toString(),);
+              return CourseListBox(index: index, text: "hi",);
             },
           ),
         ),
