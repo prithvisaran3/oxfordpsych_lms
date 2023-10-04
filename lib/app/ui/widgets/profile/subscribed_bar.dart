@@ -3,6 +3,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 
 import '../../../controller/main.dart';
+import '../../../controller/profile.dart';
 import '../../theme/colors.dart';
 
 class SubscriptionStatusBar extends StatelessWidget {

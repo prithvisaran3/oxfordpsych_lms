@@ -12,6 +12,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../controller/subscription.dart';
+import '../../../payment/paywall_widget.dart';
+import '../../../payment/purchase_api.dart';
 import '../../theme/colors.dart';
 
 import '../../widgets/common/appbar.dart';
