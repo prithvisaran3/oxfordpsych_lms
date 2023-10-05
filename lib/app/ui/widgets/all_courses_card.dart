@@ -106,27 +106,27 @@ class AllCoursesCard extends StatelessWidget {
                           const SizedBox(
                             height: 5,
                           ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Row(
-                                children: [
-                                  const Icon(
-                                    Utility.currency_pound,
-                                    size: 18,
-                                    color: Colors.teal,
-                                  ),
-                                  Text(
-                                    '${cardData['price']}',
-                                    style: const TextStyle(
-                                        color: Colors.teal,
-                                        fontFamily: 'medium',
-                                        fontSize: 18),
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
+                          // Row(
+                          //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          //   children: [
+                          //     Row(
+                          //       children: [
+                          //         const Icon(
+                          //           Utility.currency_pound,
+                          //           size: 18,
+                          //           color: Colors.teal,
+                          //         ),
+                          //         Text(
+                          //           '${cardData['price']}',
+                          //           style: const TextStyle(
+                          //               color: Colors.teal,
+                          //               fontFamily: 'medium',
+                          //               fontSize: 18),
+                          //         ),
+                          //       ],
+                          //     ),
+                          //   ],
+                          // ),
                         ],
                       ),
                     ),

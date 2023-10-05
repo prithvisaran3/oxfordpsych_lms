@@ -5,11 +5,12 @@ class CommonText extends StatelessWidget {
       {Key? key,
       required this.text,
       required this.style,
-      this.textAlign = TextAlign.center})
+      this.textAlign = TextAlign.center, this.maxLines})
       : super(key: key);
   final String text;
   final TextStyle style;
   final TextAlign textAlign;
+  final int? maxLines;
 
   @override
   Widget build(BuildContext context) {
@@ -17,6 +18,7 @@ class CommonText extends StatelessWidget {
       text,
       textAlign: textAlign,
       style: style,
+      maxLines: maxLines,
     );
   }
 }

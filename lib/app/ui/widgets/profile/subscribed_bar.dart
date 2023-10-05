@@ -1,3 +1,4 @@
+import 'package:deviraj_lms/app/ui/widgets/common/text.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
@@ -13,12 +14,8 @@ class SubscriptionStatusBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        MainController.to.isSubscribed = !MainController.to.isSubscribed;
-      },
-      child: Obx(
-        () => Container(
+    return Obx(
+      () => Container(
           height: 30,
           margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
           padding: const EdgeInsets.symmetric(horizontal: 10),
@@ -41,8 +38,9 @@ class SubscriptionStatusBar extends StatelessWidget {
                     const SizedBox(
                       width: 10,
                     ),
-                    Text(
-                      ProfileController.to.subscriptionDetail.packageName ==
+                    CommonText(
+                      text: ProfileController
+                                  .to.subscriptionDetail.packageName ==
                               null
                           ? "..."
                           : "${ProfileController.to.subscriptionDetail.packageName}",
@@ -54,21 +52,7 @@ class SubscriptionStatusBar extends StatelessWidget {
                     ),
                   ],
                 )
-              : const Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    Text(
-                      "See plans",
-                      style: TextStyle(
-                        fontSize: 12,
-                        fontWeight: FontWeight.w500,
-                        color: AppColors.black,
-                      ),
-                    ),
-                  ],
-                ),
-        ),
-      ),
+              : const SizedBox()),
     );
   }
 }

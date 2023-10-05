@@ -28,7 +28,7 @@ class Favourite extends StatelessWidget {
                     ? const SimpleLoading()
                     : WishListController.to.isWishlistEmpty == true
                         ? const CartEmpty(
-                            emptyString: "Favourtie Empty",
+                            emptyString: "Favourite Empty",
                             isShowButton: false,
                             image: 'favorite.png',
                           )
@@ -38,7 +38,7 @@ class Favourite extends StatelessWidget {
                             gridDelegate:
                                 const SliverGridDelegateWithFixedCrossAxisCount(
                                     crossAxisCount: 2,
-                                    childAspectRatio: 0.65,
+                                    childAspectRatio: 0.60,
                                     crossAxisSpacing: 8.0),
                             itemCount:
                                 WishListController.to.wishListDetails.length,

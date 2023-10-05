@@ -34,6 +34,7 @@ class CurrencyText extends StatelessWidget {
         ),
         Text(
           amount,
+
           style: TextStyle(
               decoration:
                   isStrikeThrough == true ? TextDecoration.lineThrough : null,

@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 
 import 'colors.dart';
 
-headText(
-    {Color color = AppColors.black,
-    String fontFamily = 'medium',
-    double fontSize = 18.0}) {
+headText({
+  Color color = AppColors.black,
+  String fontFamily = 'medium',
+  double fontSize = 18.0,
+}) {
   return TextStyle(
     fontSize: fontSize,
     fontFamily: fontFamily,

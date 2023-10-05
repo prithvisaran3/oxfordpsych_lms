@@ -7,7 +7,7 @@ class PurchaseApi {
   static const _apiKey = 'goog_dgmBedseouDzhgKQFaSHmcAngPu';
 
   static Future initPlatformState() async {
-    await Purchases.setLogLevel(LogLevel.debug);
+    await Purchases.setLogLevel(LogLevel.error);
 
     PurchasesConfiguration configuration;
     if (Platform.isAndroid) {
@@ -41,6 +41,7 @@ class PurchaseApi {
       await Purchases.purchasePackage(package);
       return true;
     } catch (e) {
+      print("Exception at purchasePackage $e");
       return false;
     }
   }

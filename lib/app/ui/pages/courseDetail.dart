@@ -150,10 +150,10 @@ class _CourseDetailState extends State<CourseDetail> {
               aboutInstructor(),
 
               //price card
-              priceCard(),
+              // priceCard(),
 
               // buy & cart
-              buyAndCart()
+              // buyAndCart()
             ],
           ),
         ),

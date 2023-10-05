@@ -2,6 +2,7 @@
 
 import 'package:deviraj_lms/app/ui/widgets/common/common_search.dart';
 import 'package:deviraj_lms/app/ui/widgets/common/loading.dart';
+import 'package:deviraj_lms/app/ui/widgets/common/text.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../controller/course.dart';
@@ -45,40 +46,36 @@ class Home extends StatelessWidget {
               automaticallyImplyLeading: false,
               centerTitle: true,
               iconTheme: const IconThemeData(color: AppColors.black),
-              leading: Padding(
-                padding: const EdgeInsets.only(left: 5.0),
-                child: Image.asset(
-                  'assets/images/logo.png',
-                  color: AppColors.black,
-                  height: 40,
-                  width: 40,
-                  // fit: BoxFit.cover,
-                ),
-              ),
-              leadingWidth: 80,
+              // leading: Padding(
+              //   padding: const EdgeInsets.only(left: 5.0),
+              //   child: Image.asset(
+              //     'assets/images/logo.png',
+              //     color: AppColors.black,
+              //     height: 40,
+              //     width: 40,
+              //     // fit: BoxFit.cover,
+              //   ),
+              // ),
+              // leadingWidth: 80,
               title: SizedBox(
                 width: 250,
-                child: Obx(
-                  () => ProfileController.to.getProfileLoading == true
-                      ? const SizedBox()
-                      : Text(
-                          'Hi, ${ProfileController.to.profileDetails.name}',
-                          overflow: TextOverflow.ellipsis,
-                          textAlign: TextAlign.center,
-                          maxLines: 1,
-                          softWrap: false,
-                          style: headText(),
-                        ),
-                ),
+                child: Obx(() => ProfileController.to.getProfileLoading == true
+                    ? const SizedBox()
+                    : CommonText(
+                        text: "Hi, ${ProfileController.to.profileDetails.name}",
+                        style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold))),
               ),
-              actions: [
-                IconButton(
-                    onPressed: () {
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => Cart()));
-                    },
-                    icon: const Icon(Icons.shopping_cart_outlined))
-              ],
+              // actions: [
+              //   IconButton(
+              //       onPressed: () {
+              //         Navigator.push(context,
+              //             MaterialPageRoute(builder: (context) => Cart()));
+              //       },
+              //       icon: const Icon(Icons.shopping_cart_outlined))
+              // ],
             ),
             body: Padding(
               padding: const EdgeInsets.all(16),
@@ -105,52 +102,78 @@ class Home extends StatelessWidget {
                   const SizedBox(
                     height: 20,
                   ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        'Categories',
-                        style: headText(),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  Obx(
-                    () => HomeController.to.getCurriculumLoading == true
-                        ? SimpleLoading()
-                        : SizedBox(
-                            height: Get.height * 0.05,
-                            child: ListView.builder(
-                                itemCount:
-                                    HomeController.to.curriculumDetails.length,
-                                physics: const BouncingScrollPhysics(),
-                                scrollDirection: Axis.horizontal,
-                                shrinkWrap: true,
-                                itemBuilder: (context, int index) {
-                                  return GestureDetector(
-                                    onTap: () async {
-                                      Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (context) => AllCourses(
-                                                    data: HomeController.to
-                                                            .curriculumDetails[
-                                                        index],
-                                                    curriculum: HomeController
-                                                            .to
-                                                            .curriculumDetails[
-                                                        index]["name"],
-                                                    isCategory: true,
-                                                  )));
-                                    },
-                                    child: CurriculumBox(
-                                        text:
-                                            "${HomeController.to.curriculumDetails[index]['name']}"),
-                                  );
-                                }),
-                          ),
+                  Container(
+                    padding: EdgeInsets.symmetric(horizontal: 15, vertical: 20),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(20),
+                      color: AppColors.primary,
+
+                      // gradient: LinearGradient(
+                      //   begin: Alignment.topCenter,
+                      //   end: Alignment.bottomCenter,
+                      //   colors: [
+                      //     AppColors.primary,
+                      //     AppColors.primary,
+                      //   ],
+                      // ),
+                      boxShadow: [
+                        BoxShadow(
+                          color: AppColors.grey,
+                          blurRadius: 5,
+                        )
+                      ],
+                    ),
+                    child: Column(
+                      children: [
+                        Text(
+                          'Category',
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 18),
+                        ),
+                        const SizedBox(
+                          height: 20,
+                        ),
+                        Obx(
+                          () => HomeController.to.getCurriculumLoading == true
+                              ? SimpleLoading()
+                              : SizedBox(
+                                  height: Get.height * 0.05,
+                                  child: ListView.builder(
+                                      itemCount: HomeController
+                                          .to.curriculumDetails.length,
+                                      physics: const BouncingScrollPhysics(),
+                                      scrollDirection: Axis.horizontal,
+                                      shrinkWrap: true,
+                                      itemBuilder: (context, int index) {
+                                        return GestureDetector(
+                                          onTap: () async {
+                                            Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        AllCourses(
+                                                          data: HomeController
+                                                                  .to
+                                                                  .curriculumDetails[
+                                                              index],
+                                                          curriculum: HomeController
+                                                                  .to
+                                                                  .curriculumDetails[
+                                                              index]["name"],
+                                                          isCategory: true,
+                                                        )));
+                                          },
+                                          child: CurriculumBox(
+                                              text:
+                                                  "${HomeController.to.curriculumDetails[index]['name']}"),
+                                        );
+                                      }),
+                                ),
+                        ),
+                      ],
+                    ),
                   ),
                   const SizedBox(
                     height: 15,
@@ -161,20 +184,22 @@ class Home extends StatelessWidget {
                     children: [
                       Text(
                         'CASC Courses',
-                        style: headText(color: AppColors.secondary),
+                        style: headText(color: AppColors.primary),
                       ),
                       GestureDetector(
                         onTap: () async {
                           await CourseController.to
                               .getCourse(isInitial: false, curriculumId: "2");
                           Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => AllCourses(
-                                        data: CourseController.to.courseDetails,
-                                        curriculum: "CASC Courses",
-                                        isSeeAll: true,
-                                      )));
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => AllCourses(
+                                data: CourseController.to.courseDetails,
+                                curriculum: "CASC Courses",
+                                isSeeAll: true,
+                              ),
+                            ),
+                          );
                         },
                         child: Text(
                           'See All',
@@ -192,10 +217,10 @@ class Home extends StatelessWidget {
                     () => CourseController.to.getCourseLoading == true
                         ? SimpleLoading()
                         : CourseController.to.isCourseEmpty == true
-                            ? Text("emppty")
+                            ? Text("empty")
                             : SizedBox(
                                 height:
-                                    MediaQuery.of(context).size.height * 0.20,
+                                    MediaQuery.of(context).size.height * 0.23,
                                 // color: Colors.red,
                                 child: ListView.builder(
                                     itemCount: CourseController
@@ -222,10 +247,10 @@ class Home extends StatelessWidget {
                     height: 15,
                   ),
 
-                  Text(
-                    'Courses',
-                    style: headText(color: AppColors.secondary),
-                  ),
+                  // Text(
+                  //   'Courses',
+                  //   style: headText(color: AppColors.primary),
+                  // ),
 
                   // SizedBox(
                   //   height: MediaQuery.of(context).size.height * 0.30,
@@ -367,11 +392,11 @@ class Home extends StatelessWidget {
             children: [
               Text(
                 'SEE ALL',
-                style: TextStyle(color: AppColors.secondary),
+                style: TextStyle(color: AppColors.primary),
               ),
               Icon(
                 Icons.arrow_right_alt,
-                color: AppColors.secondary,
+                color: AppColors.primary,
                 size: 20,
               )
             ],
@@ -407,11 +432,11 @@ class Home extends StatelessWidget {
 //                 children: [
 //                   Text(
 //                     'SEE ALL',
-//                     style: TextStyle(color: AppColors.secondary),
+//                     style: TextStyle(color: AppColors.primary),
 //                   ),
 //                   Icon(
 //                     Icons.arrow_right_alt,
-//                     color: AppColors.secondary,
+//                     color: AppColors.primary,
 //                     size: 20,
 //                   )
 //                 ],

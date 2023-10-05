@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:deviraj_lms/app/ui/widgets/common/text.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../config/config.dart';
@@ -26,7 +27,8 @@ class CourseCard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
-              height: 150,
+              height: Get.height*0.15,
+              width: Get.height*0.25,
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
                   boxShadow: [
@@ -105,11 +107,13 @@ class CourseCard extends StatelessWidget {
                 ],
               ),
             ),
-            Text(
-              courseData['title'],
-              overflow: TextOverflow.ellipsis,
+            SizedBox(height: 5),
+            CommonText(
+              text:courseData['title'],
+              // overflow: TextOverflow.ellipsis,
+              maxLines: 2,
               style: const TextStyle(
-                fontSize: 16,
+                fontSize: 14,
                 fontWeight: FontWeight.w200,
                 color: Colors.black,
               ),

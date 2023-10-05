@@ -14,6 +14,7 @@ import 'package:get/get.dart';
 import '../../../controller/subscription.dart';
 import '../../../payment/paywall_widget.dart';
 import '../../../payment/purchase_api.dart';
+import '../../../utility/utility.dart';
 import '../../theme/colors.dart';
 
 import '../../widgets/common/appbar.dart';
@@ -25,12 +26,11 @@ class Profile extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetBuilder(
         init: ProfileController(),
-        initState: (_) async{
+        initState: (_) async {
           await ProfileController.to.getSubscriptionDetail();
           ProfileController.to.checkExpiry();
           SubscriptionController.to.init();
         },
-
         builder: (_) {
           return Scaffold(
             backgroundColor: AppColors.white,
@@ -55,12 +55,12 @@ class Profile extends StatelessWidget {
                     ),
                     Obx(() => Text(
                           ProfileController.to.subscriptionLoading == true
-                              ? "..."
+                              ? ""
                               : "(${ProfileController.to.remainingDays.toString().split('-')[1]} days left)",
                           style: const TextStyle(color: AppColors.primary),
                         )),
-                    const SubscriptionStatusCard(),
-                    const SizedBox(height: 20),
+                    // const SubscriptionStatusCard(),
+                    const SizedBox(height: 40),
                     profileSection(),
                   ],
                 ),
@@ -78,6 +78,8 @@ class Profile extends StatelessWidget {
       ),
       // height: Get.height,
       width: Get.width,
+      height: Get.height * 0.6,
+
       decoration: const BoxDecoration(
         color: AppColors.white,
         boxShadow: [
@@ -108,43 +110,43 @@ class Profile extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 5),
-          SettingsOptionsCard(
-            text: 'Check Subscription Status',
-            onTap: () {
-              SubscriptionController.to.fetchoffers();
-
-              Get.to(() => PaywallWidget(
-                  title: "Upgrade your plan",
-                  description: 'Upgrade to enjoy benefits',
-                  packages: SubscriptionController.to.packageDetails,
-                  onClickedPackage: (package) async {
-                    await PurchaseApi.purchasePackage(package);
-                  }));
-              // Get.to(() => const SubscribeNow());
-            },
-          ),
+          // SettingsOptionsCard(
+          //   text: 'Check Subscription Status',
+          //   onTap: () {
+          //     SubscriptionController.to.fetchoffers();
+          //
+          //     Get.to(() => PaywallWidget(
+          //         title: "Upgrade your plan",
+          //         description: 'Upgrade to enjoy benefits',
+          //         packages: SubscriptionController.to.packageDetails,
+          //         onClickedPackage: (package) async {
+          //           await PurchaseApi.purchasePackage(package);
+          //         }));
+          //     // Get.to(() => const SubscribeNow());
+          //   },
+          // ),
           SettingsOptionsCard(
             text: 'Edit Profile',
             onTap: () {
               Get.to(() => const EditProfile());
             },
           ),
-          SettingsOptionsCard(
-            text: 'Notification Settings',
-            onTap: () {
-              Get.to(() => const NotificationSettings());
-            },
-          ),
-          SettingsOptionsCard(
-            text: 'Change Password',
-            onTap: () {
-              Get.to(() => const ChangePassword());
-            },
-          ),
-          SettingsOptionsCard(
-            text: 'Close Account',
-            onTap: () {},
-          ),
+          // SettingsOptionsCard(
+          //   text: 'Notification Settings',
+          //   onTap: () {
+          //     Get.to(() => const NotificationSettings());
+          //   },
+          // ),
+          // SettingsOptionsCard(
+          //   text: 'Change Password',
+          //   onTap: () {
+          //     Get.to(() => const ChangePassword());
+          //   },
+          // ),
+          // SettingsOptionsCard(
+          //   text: 'Close Account',
+          //   onTap: () {},
+          // ),
           const SizedBox(height: 10),
           const Padding(
             padding: EdgeInsets.only(left: 10.0),
@@ -159,19 +161,27 @@ class Profile extends StatelessWidget {
           const SizedBox(height: 5),
           SettingsOptionsCard(
             text: 'About OxfordPsych',
-            onTap: () {},
+            onTap: () {
+              openBrowser(url: "https://devirajhospitals.com/oxfordpsychcourse/#0");
+            },
           ),
           SettingsOptionsCard(
             text: 'Help & Support',
-            onTap: () {},
+            onTap: () {
+              openBrowser(url: "https://devirajhospitals.com/oxfordpsychcourse/#0");
+            },
           ),
           SettingsOptionsCard(
             text: 'Privacy Policy',
-            onTap: () {},
+            onTap: () {
+              openBrowser(url: "https://devirajhospitals.com/oxfordpsychcourse/#0");
+            },
           ),
           SettingsOptionsCard(
             text: 'Terms and Conditions',
-            onTap: () {},
+            onTap: () {
+              openBrowser(url: "https://devirajhospitals.com/oxfordpsychcourse/#0");
+            },
           ),
           const SizedBox(height: 40),
           Row(

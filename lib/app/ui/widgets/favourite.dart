@@ -130,31 +130,31 @@ class FavouriteCard extends StatelessWidget {
           const SizedBox(
             height: 5,
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              CurrencyText(
-                amount: data['price'] ?? "0",
-                fontSize: 18,
-                fontWEIGHT: FontWeight.w800,
-                color: AppColors.secondary,
-              ),
-              GestureDetector(
-                onTap: () {},
-                child: Container(
-                  margin: const EdgeInsets.all(5),
-                  padding: const EdgeInsets.all(5),
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(5),
-                      color: AppColors.secondary),
-                  child: Text(
-                    "Buy Now",
-                    style: mediumText(color: AppColors.white, fontSize: 14),
-                  ),
-                ),
-              )
-            ],
-          ),
+          // Row(
+          //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          //   children: [
+          //     CurrencyText(
+          //       amount: data['price'] ?? "0",
+          //       fontSize: 18,
+          //       fontWEIGHT: FontWeight.w800,
+          //       color: AppColors.secondary,
+          //     ),
+          //     GestureDetector(
+          //       onTap: () {},
+          //       child: Container(
+          //         margin: const EdgeInsets.all(5),
+          //         padding: const EdgeInsets.all(5),
+          //         decoration: BoxDecoration(
+          //             borderRadius: BorderRadius.circular(5),
+          //             color: AppColors.secondary),
+          //         child: Text(
+          //           "Buy Now",
+          //           style: mediumText(color: AppColors.white, fontSize: 14),
+          //         ),
+          //       ),
+          //     )
+          //   ],
+          // ),
         ],
       ),
     );

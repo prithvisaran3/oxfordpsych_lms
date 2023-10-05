@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:purchases_flutter/purchases_flutter.dart';
 
-class PaywallWidget extends StatelessWidget {
+class PaywallWidget extends StatefulWidget {
   final String title;
   final String description;
   final List<dynamic> packages;
@@ -22,8 +22,13 @@ class PaywallWidget extends StatelessWidget {
   }) : super(key: key);
 
   @override
+  State<PaywallWidget> createState() => _PaywallWidgetState();
+}
+
+class _PaywallWidgetState extends State<PaywallWidget> {
+  @override
   Widget build(BuildContext context) {
-    print("PACKAGES TESTING PRINT : ${packages[0]}");
+    print("PACKAGES TESTING PRINT : ${widget.packages[0]}");
     return Scaffold(
       // appBar: commonAppBar(isBackIcon: true),
       appBar: AppBar(
@@ -41,12 +46,12 @@ class PaywallWidget extends StatelessWidget {
         child: Column(
           children: [
             CommonText(
-              text: title,
+              text: widget.title,
               style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
             ),
             SizedBox(height: 16),
             CommonText(
-              text: description,
+              text: widget.description,
               textAlign: TextAlign.center,
               style: TextStyle(fontSize: 18),
             ),
@@ -54,10 +59,14 @@ class PaywallWidget extends StatelessWidget {
             ListView.builder(
               shrinkWrap: true,
               scrollDirection: Axis.vertical,
-              itemCount: packages.length,
+              itemCount: widget.packages.length,
               itemBuilder: (context, int index) {
                 return GestureDetector(
-                  onTap: () => onClickedPackage(packages[index]),
+                  onTap: () {
+                    setState(() {
+                      widget.onClickedPackage(widget.packages[index]);
+                    });
+                  },
                   child: Container(
                     padding: EdgeInsets.symmetric(vertical: 10),
                     margin: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
@@ -73,7 +82,7 @@ class PaywallWidget extends StatelessWidget {
                     child: Column(
                       children: [
                         CommonText(
-                          text: " ${packages[index].identifier}",
+                          text: " ${widget.packages[index].identifier}",
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 20,
@@ -81,7 +90,7 @@ class PaywallWidget extends StatelessWidget {
                           ),
                         ),
                         CommonText(
-                          text: " ${packages[index].storeProduct.title}",
+                          text: " ${widget.packages[index].storeProduct.title}",
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 20,
@@ -89,21 +98,34 @@ class PaywallWidget extends StatelessWidget {
                           ),
                         ),
                         CommonText(
-                          text: " ${packages[index].storeProduct.description}",
+                          text:
+                              " ${widget.packages[index].storeProduct.description}",
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 20,
                             color: Colors.black,
                           ),
                         ),
-                        CommonText(
-                          text: " ${packages[index].storeProduct.priceString}",
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 20,
-                            color: Colors.black,
-                          ),
-                        ),
+                        CurrencyText(
+                          amount: index == 0
+                              ? "145"
+                              : index == 1
+                                  ? "245"
+                                  : "345",
+                          fontSize: 20,
+                          fontWEIGHT: FontWeight.normal,
+                          color: Colors.black,
+                          alignment: 'center',
+                        )
+                        // CommonText(
+                        //   text:
+                        //       " ${widget.packages[index].storeProduct.priceString}",
+                        //   style: TextStyle(
+                        //     fontWeight: FontWeight.bold,
+                        //     fontSize: 20,
+                        //     color: Colors.black,
+                        //   ),
+                        // ),
                       ],
                     ),
                   ),
