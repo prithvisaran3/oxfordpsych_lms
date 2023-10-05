@@ -44,8 +44,8 @@ class AllCourses extends StatelessWidget {
           } else {
             CourseController.to.pageNumber = 0;
             CourseController.to.pagingController
-                .addPageRequestListener((pageKey) {
-              CourseController.to.getCourse(isInitial: false, pageKey: pageKey);
+                .addPageRequestListener((pageKey) async {
+            await  CourseController.to.getCourse(isInitial: false, pageKey: pageKey);
             });
           }
         },
