@@ -1,8 +1,11 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import '../../config/config.dart';
+import '../../controller/profile.dart';
+import '../pages/courseDetail.dart';
 import '../theme/colors.dart';
 import '../theme/font_size.dart';
+import 'common/common_snackbar.dart';
 import 'common/currency_text.dart';
 
 class FavouriteCard extends StatelessWidget {
@@ -17,8 +20,16 @@ class FavouriteCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        // Navigator.push(
-        //     context, MaterialPageRoute(builder: (context) => courseDetail()));
+        ProfileController.to.isSubscribed == true
+            ? Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => CourseDetail(
+                          data: data,
+                        )))
+            : commonSnackBar(
+                title: "You don't have access",
+                msg: "Visit our website for detailed info");
       },
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,

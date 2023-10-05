@@ -20,13 +20,13 @@ class SubscriptionStatusBar extends StatelessWidget {
           margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
           padding: const EdgeInsets.symmetric(horizontal: 10),
           decoration: BoxDecoration(
-            color: MainController.to.isSubscribed == true
+            color: status == true
                 ? AppColors.black
                 : AppColors.white,
             border: Border.all(color: AppColors.black),
             borderRadius: BorderRadius.circular(30),
           ),
-          child: ProfileController.to.isSubscriptionExpiry == false
+          child: status == true
               ? Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [

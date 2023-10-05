@@ -20,7 +20,10 @@ class LogoutButton extends StatelessWidget {
             borderRadius: BorderRadius.circular(10),
             color: AppColors.primary,
             gradient: LinearGradient(
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
               colors: [
+                AppColors.primary,
                 AppColors.primary,
                 AppColors.secondary,
               ],

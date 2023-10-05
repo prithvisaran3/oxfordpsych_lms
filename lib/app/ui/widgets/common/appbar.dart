@@ -1,9 +1,11 @@
+import 'package:deviraj_lms/app/controller/main.dart';
 import 'package:deviraj_lms/app/controller/subscription.dart';
 import 'package:deviraj_lms/app/ui/pages/favourite/favourite.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
+import '../../../controller/profile.dart';
 import '../../theme/colors.dart';
 import '../../theme/font_size.dart';
 import '../profile/subscribed_bar.dart';
@@ -55,7 +57,7 @@ PreferredSizeWidget commonAppBar({
     actions: [
       isSubscribeIcon == true
           ? SubscriptionStatusBar(
-              status: SubscriptionController.to.purchaseStatus,
+              status: ProfileController.to.isSubscribed,
             )
           : SizedBox(),
       isCartIcon == true

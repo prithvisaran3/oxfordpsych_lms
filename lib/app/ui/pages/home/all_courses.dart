@@ -5,11 +5,13 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import '../../../controller/course.dart';
+import '../../../controller/profile.dart';
 import '../../theme/colors.dart';
 import '../../widgets/all_courses_card.dart';
 import '../../widgets/common/appbar.dart';
 import '../../widgets/common/cart_empty.dart';
 import '../../widgets/common/common_search.dart';
+import '../../widgets/common/common_snackbar.dart';
 import '../courseDetail.dart';
 
 class AllCourses extends StatelessWidget {
@@ -45,7 +47,8 @@ class AllCourses extends StatelessWidget {
             CourseController.to.pageNumber = 0;
             CourseController.to.pagingController
                 .addPageRequestListener((pageKey) async {
-            await  CourseController.to.getCourse(isInitial: false, pageKey: pageKey);
+              await CourseController.to
+                  .getCourse(isInitial: false, pageKey: pageKey);
             });
           }
         },
@@ -83,12 +86,17 @@ class AllCourses extends StatelessWidget {
                                 cardData: CourseController
                                     .to.searchCourseDetails[index],
                                 onTap: () {
-                                  Get.to(
-                                    () => CourseDetail(
-                                      data: CourseController
-                                          .to.searchCourseDetails[index],
-                                    ),
-                                  );
+                                  ProfileController.to.isSubscribed == true
+                                      ? Get.to(
+                                          () => CourseDetail(
+                                            data: CourseController
+                                                .to.searchCourseDetails[index],
+                                          ),
+                                        )
+                                      : commonSnackBar(
+                                          title: "You don't have access",
+                                          msg:
+                                              "Visit our website for detailed info");
                                 },
                               );
                             },
@@ -126,11 +134,17 @@ class AllCourses extends StatelessWidget {
                                     return AllCoursesCard(
                                       cardData: item,
                                       onTap: () {
-                                        Get.to(
-                                          () => CourseDetail(
-                                            data: item[index],
-                                          ),
-                                        );
+                                        ProfileController.to.isSubscribed ==
+                                                true
+                                            ? Get.to(
+                                                () => CourseDetail(
+                                                  data: item[index],
+                                                ),
+                                              )
+                                            : commonSnackBar(
+                                                title: "You don't have access",
+                                                msg:
+                                                    "Visit our website for detailed info");
                                       },
                                     );
                                   },

@@ -18,6 +18,7 @@ import '../../../utility/utility.dart';
 import '../../theme/colors.dart';
 
 import '../../widgets/common/appbar.dart';
+import '../../widgets/common/common_snackbar.dart';
 
 class Profile extends StatelessWidget {
   const Profile({Key? key}) : super(key: key);
@@ -56,7 +57,12 @@ class Profile extends StatelessWidget {
                     Obx(() => Text(
                           ProfileController.to.subscriptionLoading == true
                               ? ""
-                              : "(${ProfileController.to.remainingDays.toString().split('-')[1]} days left)",
+                              : ProfileController.to.isSubscribed == true
+                                  ? "(${ProfileController.to.remainingDays.toString().split('-')[1]} days left)"
+                                  : commonSnackBar(
+                                      title: "You don't have access",
+                                      msg:
+                                          "Visit our website for detailed info"),
                           style: const TextStyle(color: AppColors.primary),
                         )),
                     // const SubscriptionStatusCard(),
@@ -162,25 +168,29 @@ class Profile extends StatelessWidget {
           SettingsOptionsCard(
             text: 'About OxfordPsych',
             onTap: () {
-              openBrowser(url: "https://devirajhospitals.com/oxfordpsychcourse/#0");
+              openBrowser(
+                  url: "https://devirajhospitals.com/oxfordpsychcourse/#0");
             },
           ),
           SettingsOptionsCard(
             text: 'Help & Support',
             onTap: () {
-              openBrowser(url: "https://devirajhospitals.com/oxfordpsychcourse/#0");
+              openBrowser(
+                  url: "https://devirajhospitals.com/oxfordpsychcourse/#0");
             },
           ),
           SettingsOptionsCard(
             text: 'Privacy Policy',
             onTap: () {
-              openBrowser(url: "https://devirajhospitals.com/oxfordpsychcourse/#0");
+              openBrowser(
+                  url: "https://devirajhospitals.com/oxfordpsychcourse/#0");
             },
           ),
           SettingsOptionsCard(
             text: 'Terms and Conditions',
             onTap: () {
-              openBrowser(url: "https://devirajhospitals.com/oxfordpsychcourse/#0");
+              openBrowser(
+                  url: "https://devirajhospitals.com/oxfordpsychcourse/#0");
             },
           ),
           const SizedBox(height: 40),

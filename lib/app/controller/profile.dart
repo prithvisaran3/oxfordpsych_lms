@@ -184,6 +184,7 @@ class ProfileController extends GetxController {
       if (statusCode == 200) {
         subscriptionLoading = false;
         if (res.status == "200") {
+          print("Subscription Details: ${res.data}");
           if (res.data == null) {
             isSubscribed = false;
             commonPrint(

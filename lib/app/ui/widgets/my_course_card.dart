@@ -1,10 +1,12 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:deviraj_lms/app/ui/pages/courseDetail.dart';
+import 'package:deviraj_lms/app/ui/widgets/common/common_snackbar.dart';
 import 'package:deviraj_lms/app/utility/utility.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 import '../../config/config.dart';
+import '../../controller/profile.dart';
 import '../theme/colors.dart';
 import '../theme/font_size.dart';
 
@@ -15,9 +17,13 @@ class ProgressCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
+    return GestureDetector(
       onTap: () {
-        Get.to(() => CourseDetail(data: data));
+        ProfileController.to.isSubscribed == true
+            ? Get.to(() => CourseDetail(data: data))
+            : commonSnackBar(
+                title: "You don't have access to this content",
+                msg: "Visit our website for detailed info");
       },
       child: Container(
         margin: const EdgeInsets.only(right: 16, left: 16, bottom: 16),

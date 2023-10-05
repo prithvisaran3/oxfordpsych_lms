@@ -14,13 +14,7 @@ class MainController extends GetxController {
     _currentIndex.value = value;
   }
 
-  final _isSubscribed=true.obs;
 
-  get isSubscribed => _isSubscribed.value;
-
-  set isSubscribed(value) {
-    _isSubscribed.value = value;
-  }
 
   final _isFavourite=false.obs;
 

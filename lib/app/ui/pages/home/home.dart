@@ -1,6 +1,7 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'package:deviraj_lms/app/ui/widgets/common/common_search.dart';
+import 'package:deviraj_lms/app/ui/widgets/common/common_snackbar.dart';
 import 'package:deviraj_lms/app/ui/widgets/common/loading.dart';
 import 'package:deviraj_lms/app/ui/widgets/common/text.dart';
 import 'package:flutter/material.dart';
@@ -31,6 +32,7 @@ class Home extends StatelessWidget {
           CourseController.to.getCourse(isInitial: true, curriculumId: "2");
           HomeController.to.getCurriculum();
           CourseController.to.getMyCourses();
+          ProfileController.to.getSubscriptionDetail();
 
           // HomeController.to.getTopic();
           // CourseController.to.getCourse(isInitial: true);
@@ -231,11 +233,18 @@ class Home extends StatelessWidget {
                                     itemBuilder: (context, index) {
                                       return CourseCard(
                                         onTap: () {
-                                          Get.to(() => CourseDetail(
-                                                data: CourseController.to
-                                                        .initialCourseDetails[
-                                                    index],
-                                              ));
+                                          ProfileController.to.isSubscribed ==
+                                                  true
+                                              ? Get.to(() => CourseDetail(
+                                                    data: CourseController.to
+                                                            .initialCourseDetails[
+                                                        index],
+                                                  ))
+                                              : commonSnackBar(
+                                                  title:
+                                                      "You don't have access",
+                                                  msg:
+                                                      "Visit our website for detailed info");
                                         },
                                         courseData: CourseController
                                             .to.initialCourseDetails[index],
@@ -356,9 +365,13 @@ class Home extends StatelessWidget {
                     curriculum
                 ? CourseCard(
                     onTap: () {
-                      Get.to(() => CourseDetail(
-                            data: CourseController.to.courseDetails[index],
-                          ));
+                      ProfileController.to.isSubscribed == true
+                          ? Get.to(() => CourseDetail(
+                                data: CourseController.to.courseDetails[index],
+                              ))
+                          : commonSnackBar(
+                              title: "You don't have access to this content",
+                              msg: "Visit our website for detailed info");
                     },
                     courseData: CourseController.to.courseDetails[index],
                   )
