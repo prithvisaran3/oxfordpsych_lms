@@ -213,26 +213,25 @@ class AuthController extends GetxController {
             registerFieldsEmpty();
           }
 
-            if (res['message'] == "Duplicated") {
-              registerLoading = false;
-              commonPrint(status: res['status'], msg: res['message']);
-              // errorAlert(Get.context!,
-              //     content: "${res['message']}\nEmail already exist",
-              //     confirmButtonPressed: () {
-              //   Get.back();
-              // });
-              commonSnackBar(
-                  title: "Email already exists", msg: "${res['message']}");
-            } else {
-              registerLoading = false;
-              commonPrint(status: res['status'], msg: res['message']);
-              Map storedData = {"token": "${res['user_id']}"};
-              storeLocalDevice(body: storedData);
-              Get.off(() => const HomeMain());
-              commonSnackBar(title: "Success", msg: "Registered Successfully");
-              registerFieldsEmpty();
-            }
-
+          if (res['message'] == "Duplicated") {
+            registerLoading = false;
+            commonPrint(status: res['status'], msg: res['message']);
+            // errorAlert(Get.context!,
+            //     content: "${res['message']}\nEmail already exist",
+            //     confirmButtonPressed: () {
+            //   Get.back();
+            // });
+            commonSnackBar(
+                title: "Email already exists", msg: "${res['message']}");
+          } else {
+            registerLoading = false;
+            commonPrint(status: res['status'], msg: res['message']);
+            Map storedData = {"token": "${res['user_id']}"};
+            storeLocalDevice(body: storedData);
+            Get.off(() => const HomeMain());
+            commonSnackBar(title: "Success", msg: "Registered Successfully");
+            registerFieldsEmpty();
+          }
         } else if (res['status'] == "422") {
           registerLoading = false;
           commonPrint(status: res['status'], msg: "All fields are required");
@@ -253,7 +252,9 @@ class AuthController extends GetxController {
       commonPrint(
           status: "$statusCode",
           msg: "Error from register due to data mismatch or format $e");
-      commonSnackBar(title: "$statusCode", msg: "Error from register due to data mismatch or format $e");
+      commonSnackBar(
+          title: "$statusCode",
+          msg: "Error from register due to data mismatch or format $e");
     }
   }
 
@@ -356,8 +357,9 @@ class AuthController extends GetxController {
     if (remoteVersion > localVersion) {
       debugPrint("update available");
       if (Platform.isAndroid || Platform.isIOS) {
-        final appId =
-        Platform.isAndroid ? 'com.limorg.OxfordMindCare' : 'YOUR_IOS_APP_ID';
+        final appId = Platform.isAndroid
+            ? 'com.limorg.OxfordMindCare'
+            : 'YOUR_IOS_APP_ID';
         final url = Uri.parse(
           Platform.isAndroid
               ? "https://play.google.com/store/apps/details?id=$appId"
@@ -365,14 +367,13 @@ class AuthController extends GetxController {
         );
 
         commonAlertDialog(Get.context!,
-            content:
-            "Update required for \nOxfordPsych App",
+            content: "Update required for \nOxfordPsych App",
             confirmButtonPressed: () {
-              launchUrl(
-                url,
-                mode: LaunchMode.externalApplication,
-              );
-            });
+          launchUrl(
+            url,
+            mode: LaunchMode.externalApplication,
+          );
+        });
       }
     } else {
       debugPrint("update not available");
@@ -399,9 +400,9 @@ class AuthController extends GetxController {
     debugPrint("token $token");
     if (token != null && token.isNotEmpty) {
       preferences.remove('token');
+      await Get.off(() => const Initial());
       if (fcmToken != null && fcmToken.isNotEmpty) {
         preferences.remove('fcm_token');
-        await Get.off(() => const Initial());
       } else {
         return false;
       }

@@ -1,6 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import '../../config/config.dart';
+import '../pages/courseDetail.dart';
 import '../theme/colors.dart';
 import '../theme/font_size.dart';
 import 'common/currency_text.dart';
@@ -17,8 +19,11 @@ class FavouriteCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        // Navigator.push(
-        //     context, MaterialPageRoute(builder: (context) => courseDetail()));
+        Get.to(
+          () => CourseDetail(
+            data: data,
+          ),
+        );
       },
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
