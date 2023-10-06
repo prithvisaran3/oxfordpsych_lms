@@ -1,6 +1,7 @@
 import 'package:deviraj_lms/app/controller/wishlist.dart';
 import 'package:deviraj_lms/app/ui/theme/font_size.dart';
 import 'package:deviraj_lms/app/ui/widgets/common/loading.dart';
+import 'package:deviraj_lms/app/ui/widgets/common/logo_loading.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
@@ -33,7 +34,7 @@ class AllCourses extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetBuilder(
         init: CourseController(),
-        initState: (_) async {
+        initState: (_)  {
           if (isCategory == true) {
             CourseController.to.pageNumber = 0;
             CourseController.to.pagingController
@@ -47,98 +48,55 @@ class AllCourses extends StatelessWidget {
             CourseController.to.pageNumber = 0;
             CourseController.to.pagingController
                 .addPageRequestListener((pageKey) async {
-              await CourseController.to
+               CourseController.to
                   .getCourse(isInitial: false, pageKey: pageKey);
             });
           }
         },
         builder: (_) {
-          return Scaffold(
-              backgroundColor: Colors.white,
-              appBar: commonAppBar(
-                  title: isSeeAll == true
-                      ? "Courses"
-                      : isSearch == true
-                          ? "All Courses"
-                          : curriculum,
-                  isBackIcon: true,
-                  isLogo: false),
-              body: Stack(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.all(16.0),
-                    child: CommonSearch(
-                      enabled: true,
-                      controller: CourseController.to.searchController,
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 80.0),
-                    child: Obx(() => CourseController
-                            .to.searchCourseDetails.isNotEmpty
-                        ? ListView.builder(
-                            itemCount:
-                                CourseController.to.searchCourseDetails.length,
-                            shrinkWrap: true,
-                            physics: const BouncingScrollPhysics(),
-                            itemBuilder: (context, index) {
-                              AllCoursesCard(
-                                cardData: CourseController
-                                    .to.searchCourseDetails[index],
-                                onTap: () {
-                                  ProfileController.to.isSubscribed == true
-                                      ? Get.to(
-                                          () => CourseDetail(
-                                            data: CourseController
-                                                .to.searchCourseDetails[index],
-                                          ),
-                                        )
-                                      : commonSnackBar(
-                                          title: "You don't have access",
-                                          msg:
-                                              "Visit our website for detailed info");
-                                },
-                              );
-                            },
-                          )
-                        : CourseController.to.searchNotFound == true
-                            ? const Padding(
-                                padding: EdgeInsets.symmetric(vertical: 50),
-                                child: Empty(
-                                  text: 'Not Found',
-                                ),
-                              )
-                            : PagedListView<int, dynamic>.separated(
-                                physics: const BouncingScrollPhysics(),
-                                pagingController:
-                                    CourseController.to.pagingController,
-                                builderDelegate:
-                                    PagedChildBuilderDelegate<dynamic>(
-                                  animateTransitions: false,
-                                  newPageProgressIndicatorBuilder: (context) {
-                                    return const SizedBox();
-                                  },
-                                  firstPageProgressIndicatorBuilder: (context) {
-                                    return const SizedBox();
-                                  },
-                                  newPageErrorIndicatorBuilder: (context) {
-                                    return Center(
-                                        child: Text(
-                                      "No more data!",
-                                      style:
-                                          mediumText(color: AppColors.primary),
-                                    ));
-                                  },
-                                  itemBuilder: (context, item, index) {
-                                    print("items ${item}");
-                                    return AllCoursesCard(
-                                      cardData: item,
+          return Obx(
+            () => CourseController.to.getSearchLoading == true
+                ? LogoLoading()
+                : Scaffold(
+                    backgroundColor: Colors.white,
+                    appBar: commonAppBar(
+                        title: isSeeAll == true
+                            ? "Courses"
+                            : isSearch == true
+                                ? "All Courses"
+                                : curriculum,
+                        isBackIcon: true,
+                        isLogo: false),
+                    body: Stack(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(16.0),
+                          child: CommonSearch(
+                            enabled: true,
+                            controller: CourseController.to.searchController,
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(top: 80.0),
+                          child: Obx(() => CourseController
+                                  .to.searchCourseDetails.isNotEmpty
+                              ? ListView.builder(
+                                  itemCount: CourseController
+                                      .to.searchCourseDetails.length,
+                                  shrinkWrap: true,
+                                  physics: const BouncingScrollPhysics(),
+                                  itemBuilder: (context, index) {
+                                    AllCoursesCard(
+                                      cardData: CourseController
+                                          .to.searchCourseDetails[index],
                                       onTap: () {
                                         ProfileController.to.isSubscribed ==
                                                 true
                                             ? Get.to(
                                                 () => CourseDetail(
-                                                  data: item[index],
+                                                  data: CourseController.to
+                                                          .searchCourseDetails[
+                                                      index],
                                                 ),
                                               )
                                             : commonSnackBar(
@@ -148,40 +106,69 @@ class AllCourses extends StatelessWidget {
                                       },
                                     );
                                   },
-                                ),
-                                separatorBuilder: (context, index) =>
-                                    const SizedBox(),
-                              )),
-                  ),
-                  Obx(() => WishListController.to.addLoading == true
-                      ? Container(
-                          color: Colors.black26,
-                          height: MediaQuery.of(context).size.height,
-                          width: MediaQuery.of(context).size.width,
-                          alignment: Alignment.center,
-                          child: const Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              SimpleLoading(),
-                              SizedBox(
-                                height: 10,
-                              ),
-                              Text(
-                                "Please wait...",
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 18),
-                              ),
-                            ],
-                          ),
-                        )
-                      : const SizedBox()),
-                  Obx(() => CourseController.to.getSearchLoading == true
-                      ? const SimpleLoading()
-                      : const SizedBox())
-                ],
-              ));
+                                )
+                              : CourseController.to.searchNotFound == true
+                                  ? const Padding(
+                                      padding:
+                                          EdgeInsets.symmetric(vertical: 50),
+                                      child: Empty(
+                                        text: 'Not Found',
+                                      ),
+                                    )
+                                  : PagedListView<int, dynamic>.separated(
+                                      physics: const BouncingScrollPhysics(),
+                                      pagingController:
+                                          CourseController.to.pagingController,
+                                      builderDelegate:
+                                          PagedChildBuilderDelegate<dynamic>(
+                                        animateTransitions: false,
+                                        newPageProgressIndicatorBuilder:
+                                            (context) {
+                                          return const SizedBox();
+                                        },
+                                        firstPageProgressIndicatorBuilder:
+                                            (context) {
+                                          return const SizedBox();
+                                        },
+                                        newPageErrorIndicatorBuilder:
+                                            (context) {
+                                          return Center(
+                                              child: Text(
+                                            "No more data!",
+                                            style: mediumText(
+                                                color: AppColors.primary),
+                                          ));
+                                        },
+                                        itemBuilder: (context, item, index) {
+                                          print("items ${item}");
+                                          return AllCoursesCard(
+                                            cardData: item,
+                                            onTap: () {
+                                              ProfileController
+                                                          .to.isSubscribed ==
+                                                      true
+                                                  ? Get.to(
+                                                      () => CourseDetail(
+                                                        data: item[index],
+                                                      ),
+                                                    )
+                                                  : commonSnackBar(
+                                                      title:
+                                                          "You don't have access",
+                                                      msg:
+                                                          "Visit our website for detailed info");
+                                            },
+                                          );
+                                        },
+                                      ),
+                                      separatorBuilder: (context, index) =>
+                                          const SizedBox(),
+                                    )),
+                        ),
+
+                      ],
+                    )),
+          );
         });
   }
 

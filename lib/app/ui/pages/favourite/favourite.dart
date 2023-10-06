@@ -1,5 +1,8 @@
+import 'package:deviraj_lms/app/ui/theme/colors.dart';
+import 'package:deviraj_lms/app/ui/widgets/common/logo_loading.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:loading_animations/loading_animations.dart';
 import '../../../controller/wishlist.dart';
 import '../../widgets/common/appbar.dart';
 import '../../widgets/common/cart_empty.dart';
@@ -25,7 +28,7 @@ class Favourite extends StatelessWidget {
               ),
               body: Obx(
                 () => WishListController.to.getLoading == true
-                    ? const SimpleLoading()
+                    ? LogoLoading()
                     : WishListController.to.isWishlistEmpty == true
                         ? const CartEmpty(
                             emptyString: "Favourite Empty",
@@ -38,8 +41,8 @@ class Favourite extends StatelessWidget {
                             gridDelegate:
                                 const SliverGridDelegateWithFixedCrossAxisCount(
                                     crossAxisCount: 2,
-                                    childAspectRatio: 0.60,
-                                    crossAxisSpacing: 8.0),
+                                    childAspectRatio: 1,
+                                    crossAxisSpacing: 10.0),
                             itemCount:
                                 WishListController.to.wishListDetails.length,
                             shrinkWrap: true,

@@ -49,7 +49,7 @@ PreferredSizeWidget commonAppBar({
             textAlign: TextAlign.center,
             maxLines: 1,
             softWrap: false,
-            style: headText(),
+            style: headText(fontSize: 20),
           ),
         ],
       ),

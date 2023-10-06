@@ -1,6 +1,7 @@
 import 'package:appinio_video_player/appinio_video_player.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:deviraj_lms/app/config/config.dart';
+import 'package:deviraj_lms/app/ui/widgets/common/logo_loading.dart';
 import 'package:deviraj_lms/app/utility/utility.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -224,7 +225,7 @@ class _CourseDetailState extends State<CourseDetail> {
                       ),
                     );
                   } else {
-                    return const Center(child: CircularProgressIndicator());
+                    return const LogoLoading(height: 60, width: 60, size: 20);
                   }
                 },
               ),

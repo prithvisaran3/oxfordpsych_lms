@@ -4,12 +4,14 @@ import 'package:deviraj_lms/app/ui/pages/profile/change_password.dart';
 import 'package:deviraj_lms/app/ui/pages/profile/edit_profile.dart';
 import 'package:deviraj_lms/app/ui/pages/profile/push_notifications.dart';
 import 'package:deviraj_lms/app/ui/pages/subscribe_now.dart';
+import 'package:deviraj_lms/app/ui/widgets/common/logo_loading.dart';
 import 'package:deviraj_lms/app/ui/widgets/profile/logout_button.dart';
 import 'package:deviraj_lms/app/ui/widgets/profile/picture_container_widget.dart';
 import 'package:deviraj_lms/app/ui/widgets/profile/settings_options_card.dart';
 import 'package:deviraj_lms/app/ui/widgets/profile/subscription_status_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:loading_animations/loading_animations.dart';
 
 import '../../../controller/subscription.dart';
 import '../../../payment/paywall_widget.dart';
@@ -27,10 +29,10 @@ class Profile extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetBuilder(
         init: ProfileController(),
-        initState: (_) async {
-          await ProfileController.to.getSubscriptionDetail();
+        initState: (_) {
+          // ProfileController.to.getSubscriptionDetail();
           ProfileController.to.checkExpiry();
-          SubscriptionController.to.init();
+          // SubscriptionController.to.init();
         },
         builder: (_) {
           return Scaffold(
@@ -40,35 +42,34 @@ class Profile extends StatelessWidget {
               physics: const BouncingScrollPhysics(),
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
-                child: Column(
-                  // crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    const Center(
-                      child: ProfilePicture(),
-                    ),
-                    const SizedBox(height: 10),
-                    Text(
-                      "${ProfileController.to.profileDetails.name}",
-                      style: const TextStyle(
-                        fontWeight: FontWeight.w600,
-                        fontSize: 20,
+                child: Obx(
+                  () => Column(
+                    // crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      const Center(
+                        child: ProfilePicture(),
                       ),
-                    ),
-                    Obx(() => Text(
-                          ProfileController.to.subscriptionLoading == true
-                              ? ""
-                              : ProfileController.to.isSubscribed == true
-                                  ? "(${ProfileController.to.remainingDays.toString().split('-')[1]} days left)"
-                                  : commonSnackBar(
-                                      title: "You don't have access",
-                                      msg:
-                                          "Visit our website for detailed info"),
-                          style: const TextStyle(color: AppColors.primary),
-                        )),
-                    // const SubscriptionStatusCard(),
-                    const SizedBox(height: 40),
-                    profileSection(),
-                  ],
+                      const SizedBox(height: 10),
+                      Text(
+                        "${ProfileController.to.profileDetails.name}",
+                        style: const TextStyle(
+                          fontWeight: FontWeight.w600,
+                          fontSize: 20,
+                        ),
+                      ),
+                      Text(
+                        ProfileController.to.isSubscribed == true
+                            ? "(${ProfileController.to.remainingDays.toString().split('-')[1]} days left)"
+                            : commonSnackBar(
+                                title: "You don't have access",
+                                msg: "Visit our website for detailed info"),
+                        style: const TextStyle(color: AppColors.primary),
+                      ),
+                      // const SubscriptionStatusCard(),
+                      const SizedBox(height: 40),
+                      profileSection(),
+                    ],
+                  ),
                 ),
               ),
             ),
@@ -137,6 +138,7 @@ class Profile extends StatelessWidget {
               Get.to(() => const EditProfile());
             },
           ),
+
           // SettingsOptionsCard(
           //   text: 'Notification Settings',
           //   onTap: () {

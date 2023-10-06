@@ -4,7 +4,7 @@ import 'colors.dart';
 
 headText({
   Color color = AppColors.black,
-  String fontFamily = 'medium',
+  String fontFamily = 'bold',
   double fontSize = 18.0,
 }) {
   return TextStyle(

@@ -61,7 +61,7 @@ Future main() async {
   debugPrint("fcmToken $fcmToken");
   SystemChrome.setSystemUIOverlayStyle(
     const SystemUiOverlayStyle(
-      statusBarColor: AppColors.primary,
+      statusBarColor: AppColors.white,
     ),
   );
 }

@@ -43,7 +43,7 @@ class _InitialState extends State<Initial> {
                   }
                 },
                 builder: (controller) => isLogin == "onBoarding"
-                    ? const Onboard()
+                    ? const OnBoard()
                     : isLogin == "isLogin"
                         ? HomeMain()
                         : Login())));

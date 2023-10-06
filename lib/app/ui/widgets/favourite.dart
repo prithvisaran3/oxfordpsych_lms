@@ -123,21 +123,32 @@ class FavouriteCard extends StatelessWidget {
           // ),
           Text(
             data['title'] ?? "1",
-            style: headText(),
+            style: TextStyle(
+              fontSize: 14,
+              fontWeight: FontWeight.w200,
+              color: Colors.black,
+            ),
+            textAlign: TextAlign.center,
+            maxLines: 2,
+
           ),
-          const Row(
-            children: [
-              Icon(
-                Icons.person_outline,
-                color: AppColors.grey,
-                size: 20,
-              ),
-              SizedBox(
-                width: 10,
-              ),
-              Text('OxfordPsych')
-            ],
-          ),
+          // const Row(
+          //   mainAxisAlignment: MainAxisAlignment.center,
+          //   children: [
+          //     Icon(
+          //       Icons.person_outline,
+          //       color: AppColors.grey
+          //       ,
+          //       size: 20,
+          //     ),
+          //     SizedBox(
+          //       width: 5,
+          //     ),
+          //     Text('OxfordPsych',style: TextStyle(
+          //       color: AppColors.grey,fontWeight: FontWeight.bold,fontSize: 12
+          //     ),)
+          //   ],
+          // ),
           const SizedBox(
             height: 5,
           ),

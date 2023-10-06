@@ -14,22 +14,27 @@ class LogoutButton extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        width: Get.width * 0.25,
-        padding: EdgeInsets.symmetric(horizontal: 5, vertical: 5),
+        width: Get.width * 0.30,
+        padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
         decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(10),
-            color: AppColors.primary,
-            gradient: LinearGradient(
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-              colors: [
-                AppColors.primary,
-                AppColors.primary,
-                AppColors.secondary,
-              ],
-            ),
-            boxShadow: [BoxShadow(color: Colors.black26, blurRadius: 10)]),
-        child: Row(
+          borderRadius: BorderRadius.circular(10),
+          color: AppColors.primary,
+          // gradient: LinearGradient(
+          //   begin: Alignment.topCenter,
+          //   end: Alignment.bottomCenter,
+          //   colors: [
+          //     AppColors.primary,
+          //     AppColors.primary,
+          //     AppColors.secondary,
+          //   ],
+          // ),
+          boxShadow: [
+            const BoxShadow(color: Colors.black26, blurRadius: 10),
+          ],
+        ),
+        child: const Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.end,
           children: [
             Icon(
               Ionicons.log_out_outline,
