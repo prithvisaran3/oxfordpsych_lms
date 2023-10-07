@@ -216,14 +216,33 @@ class _CourseDetailState extends State<CourseDetail> {
                 future: videoPlayerFuture,
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.done) {
-                    return AspectRatio(
-                      aspectRatio: videoPlayerController.value.aspectRatio,
-                      // child: VideoPlayer(videoPlayerController),
-                      child: CustomVideoPlayer(
-                        customVideoPlayerController:
-                            customVideoPlayerController,
-                      ),
-                    );
+                    if (snapshot.error != null) {
+                      return Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          const Icon(
+                            Icons.info_outline,
+                            color: AppColors.red,
+                          ),
+                          const SizedBox(
+                            height: 5,
+                          ),
+                          CommonText(
+                              text: "Video Error, Try again later",
+                              style: mediumText(
+                                  fontSize: 14, color: Colors.black45)),
+                        ],
+                      );
+                    } else {
+                      return AspectRatio(
+                        aspectRatio: videoPlayerController.value.aspectRatio,
+                        // child: VideoPlayer(videoPlayerController),
+                        child: CustomVideoPlayer(
+                          customVideoPlayerController:
+                              customVideoPlayerController,
+                        ),
+                      );
+                    }
                   } else {
                     return const LogoLoading(height: 60, width: 60, size: 20);
                   }

@@ -27,7 +27,7 @@ class AllCoursesCard extends StatelessWidget {
       child: Stack(
         children: [
           GestureDetector(
-            // onTap: onTap,
+            onTap: onTap,
             child: Padding(
               padding: const EdgeInsets.only(top: 10.0),
               child: Row(

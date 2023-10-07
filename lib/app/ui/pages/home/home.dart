@@ -214,9 +214,9 @@ class Home extends StatelessWidget {
                                         ),
                                         GestureDetector(
                                           onTap: () async {
-                                            await CourseController.to.getCourse(
-                                                isInitial: false,
-                                                curriculumId: "2");
+                                            // await CourseController.to.getCourse(
+                                            //     isInitial: false,
+                                            //     curriculumId: "2");
                                             Navigator.push(
                                               context,
                                               MaterialPageRoute(

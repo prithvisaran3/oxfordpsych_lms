@@ -105,10 +105,20 @@ class CourseController extends GetxController {
   final PagingController<int, dynamic> pagingController =
       PagingController(firstPageKey: 0);
 
-  getCourse({curriculumId, isInitial, search, pageKey, limit}) async {
+  getCourse(
+      {curriculumId,
+      isInitial,
+      search,
+      pageKey,
+      limit,
+      isSeeAll = false}) async {
     // getCourseLoading = true;
+    if (isSeeAll == true) {
+    } else {
+      getSearchLoading = true;
+    }
+
     pageNumber++;
-    getSearchLoading = true;
     if (curriculumId != null) {
       if (isInitial == true) {
         getCourseParams = "&pageID=$pageNumber&limit=5&cid=$curriculumId";
