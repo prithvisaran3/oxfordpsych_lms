@@ -14,6 +14,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "755890391733-kfs3l9grbanrum2fqe5thlcv3c5se8pd.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.limorg.OxfordMindCare",
+            "certificate_hash": "2428e84dcb643bce2ff645f844fda50c880072a3"
+          }
+        },
+        {
           "client_id": "755890391733-rav7nh7s1qgfrp4646l6nhklmdt531uf.apps.googleusercontent.com",
           "client_type": 3
         }

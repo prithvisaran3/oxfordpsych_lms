@@ -482,4 +482,13 @@ class AuthController extends GetxController {
 
     // return user;
   }
+
+  appleLogin() async {
+    var apple = AppleAuthProvider();
+    print("apple ${apple}");
+    var res = await FirebaseAuth.instance.signInWithProvider(apple);
+    print("userId ${res.user!.uid}");
+    print("email ${res.user!.email}");
+    print("photourl ${res.user!.photoURL}");
+  }
 }

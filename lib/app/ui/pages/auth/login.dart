@@ -144,15 +144,20 @@ class _LoginState extends State<Login> {
                               fit: BoxFit.cover,
                             ),
                           ),
-                          // const SizedBox(
-                          //   width: 25,
-                          // ),
-                          // Image.asset(
-                          //   'assets/images/apple.png',
-                          //   height: 30,
-                          //   width: 30,
-                          //   fit: BoxFit.cover,
-                          // ),
+                          const SizedBox(
+                            width: 25,
+                          ),
+                          GestureDetector(
+                            onTap: () {
+                              AuthController.to.appleLogin();
+                            },
+                            child: Image.asset(
+                              'assets/images/apple.png',
+                              height: 30,
+                              width: 30,
+                              fit: BoxFit.cover,
+                            ),
+                          ),
                         ],
                       ),
                       const SizedBox(
