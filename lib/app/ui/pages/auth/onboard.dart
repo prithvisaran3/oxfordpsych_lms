@@ -118,7 +118,7 @@ class _OnBoardScreenState extends State<OnBoard> {
                       buildSlider(
                           title: "Your Knowledge, Your Shield",
                           content:
-                              " Oxford Psych Courses safeguards your knowledge by preventing downloads and restricting screenshots/screen recordings, enabling focused and secure learning.",
+                              " Oxford Psych Courses safeguards your knowledge",
                           image: "privacy",
                           fit: BoxFit.cover),
                     ],
@@ -134,13 +134,13 @@ class _OnBoardScreenState extends State<OnBoard> {
                 currentPage == numPages - 1
                     ? Column(
                         children: [
-                          const SizedBox(height: 30),
+                          // const SizedBox(height: 30),
                           GestureDetector(
                             onTap: () => onIntroEnd(),
                             child: Container(
                               // height: media.width * 0.10,
                               margin: const EdgeInsets.symmetric(
-                                  horizontal: 20, vertical: 20),
+                                    horizontal: 20, vertical: 10),
                               padding: const EdgeInsets.symmetric(vertical: 10),
                               width: double.infinity,
                               decoration: BoxDecoration(

@@ -35,24 +35,17 @@ class _LoginState extends State<Login> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Container(
-                        height:100,width: Get.width*0.8,
+                        height:100,width: Get.width*0.9,
                         padding: const EdgeInsets.all(10),
                         decoration: BoxDecoration(
-                          color: Colors.black,
+                          color: AppColors.primary,
                           borderRadius: BorderRadius.circular(10),
                           border:
                               Border.all(width: 1, color: Colors.grey.shade300),
                         ),
                         child: Image.asset('assets/images/logo.png',fit: BoxFit.fitHeight,)
                       ),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      Text(
-                        'Welcome!',
-                        textAlign: TextAlign.center,
-                        style: headText(),
-                      ),
+
                       const SizedBox(
                         height: 20,
                       ),
