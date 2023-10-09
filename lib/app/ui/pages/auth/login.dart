@@ -1,7 +1,6 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../../../../pages/forgotPassword.dart';
 import '../../../controller/auth.dart';
 import '../../theme/colors.dart';
 import '../../theme/font_size.dart';
@@ -30,29 +29,27 @@ class _LoginState extends State<Login> {
               children: [
                 Padding(
                   padding: AuthController.to.registerLoading == true
-                      ? EdgeInsets.symmetric(vertical: 150, horizontal: 10)
-                      : EdgeInsets.all(20.0),
+                      ? const EdgeInsets.symmetric(vertical: 150, horizontal: 10)
+                      : const EdgeInsets.all(20.0),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Container(
+                        height:100,width: Get.width*0.8,
                         padding: const EdgeInsets.all(10),
                         decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(20),
+                          color: Colors.black,
+                          borderRadius: BorderRadius.circular(10),
                           border:
                               Border.all(width: 1, color: Colors.grey.shade300),
                         ),
-                        child: const Icon(
-                          Icons.lock,
-                          size: 35,
-                          color: AppColors.green,
-                        ),
+                        child: Image.asset('assets/images/logo.png',fit: BoxFit.fitHeight,)
                       ),
                       const SizedBox(
                         height: 20,
                       ),
                       Text(
-                        'Welcome Back!',
+                        'Welcome!',
                         textAlign: TextAlign.center,
                         style: headText(),
                       ),
@@ -90,23 +87,23 @@ class _LoginState extends State<Login> {
                       const SizedBox(
                         height: 5,
                       ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          InkWell(
-                            onTap: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => forgotPassword()));
-                            },
-                            child: const Text(
-                              'Forgot Password ?',
-                              style: TextStyle(color: AppColors.primary),
-                            ),
-                          )
-                        ],
-                      ),
+                      // Row(
+                      //   mainAxisAlignment: MainAxisAlignment.end,
+                      //   children: [
+                      //     InkWell(
+                      //       onTap: () {
+                      //         Navigator.push(
+                      //             context,
+                      //             MaterialPageRoute(
+                      //                 builder: (context) => forgotPassword()));
+                      //       },
+                      //       child: const Text(
+                      //         'Forgot Password ?',
+                      //         style: TextStyle(color: AppColors.primary),
+                      //       ),
+                      //     )
+                      //   ],
+                      // ),
                       const SizedBox(
                         height: 20,
                       ),
@@ -177,7 +174,7 @@ class _LoginState extends State<Login> {
                               ),
                               recognizer: TapGestureRecognizer()
                                 ..onTap = () {
-                                  Get.to(() => Register());
+                                  Get.to(() => const Register());
                                 },
                             ),
                           ],

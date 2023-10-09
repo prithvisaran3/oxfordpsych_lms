@@ -32,12 +32,12 @@ class CartCard extends StatelessWidget {
                     image: AssetImage('assets/images/course.jpg'),
                     fit: BoxFit.cover)),
           ),
-          Expanded(
+          const Expanded(
             child: Padding(
-              padding: const EdgeInsets.only(left: 10),
+              padding: EdgeInsets.only(left: 10),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                children: const [
+                children: [
                   Text('Risk Analysis'),
                   CurrencyText(
                     amount: "40.50",

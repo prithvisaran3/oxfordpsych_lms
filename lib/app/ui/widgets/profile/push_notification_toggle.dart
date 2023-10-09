@@ -19,13 +19,13 @@ class PushNotificationToggle extends StatelessWidget {
         children: [
           Container(
             // margin: EdgeInsets.only(top: 80),
-            padding: EdgeInsets.symmetric(horizontal: 5, vertical: 5),
+            padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
             decoration: BoxDecoration(
               border: Border.all(
                 color: AppColors.primary,
               ),
               color: controller == true ? AppColors.primary : AppColors.white,
-              borderRadius: BorderRadius.only(
+              borderRadius: const BorderRadius.only(
                 bottomLeft: Radius.circular(30),
                 topLeft: Radius.circular(30),
               ),
@@ -41,13 +41,13 @@ class PushNotificationToggle extends StatelessWidget {
           ),
           Container(
             // margin: EdgeInsets.only(top: 80),
-            padding: EdgeInsets.symmetric(horizontal: 5, vertical: 5),
+            padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
             decoration: BoxDecoration(
               border: Border.all(
                 color: AppColors.primary,
               ),
               color: controller == true ? AppColors.white : AppColors.primary,
-              borderRadius: BorderRadius.only(
+              borderRadius: const BorderRadius.only(
                 bottomRight: Radius.circular(30),
                 topRight: Radius.circular(30),
               ),

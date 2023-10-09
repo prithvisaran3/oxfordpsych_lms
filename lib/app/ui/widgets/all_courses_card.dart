@@ -2,7 +2,6 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:deviraj_lms/app/controller/wishlist.dart';
 import 'package:flutter/material.dart';
 import '../../config/config.dart';
-import '../utility.dart';
 
 class AllCoursesCard extends StatelessWidget {
   const AllCoursesCard(

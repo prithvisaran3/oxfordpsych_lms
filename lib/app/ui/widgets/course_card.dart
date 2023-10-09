@@ -6,11 +6,16 @@ import '../../config/config.dart';
 import '../theme/colors.dart';
 
 class CourseCard extends StatelessWidget {
-  const CourseCard({Key? key, required this.onTap, required this.courseData})
+  const CourseCard(
+      {Key? key,
+      required this.onTap,
+      required this.courseData,
+      required this.index})
       : super(key: key);
 
   final dynamic courseData;
   final Function() onTap;
+  final int index;
 
   @override
   Widget build(BuildContext context) {
@@ -20,15 +25,17 @@ class CourseCard extends StatelessWidget {
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
         ),
-        margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 0),
+        margin: index > 0
+            ? const EdgeInsets.only(left: 10, right: 10, top: 0, bottom: 10)
+            : const EdgeInsets.only(left: 0, right: 10, top: 0, bottom: 10),
         width: 200,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
-              height: Get.height*0.15,
-              width: Get.height*0.25,
+              height: Get.height * 0.15,
+              width: Get.height * 0.25,
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
                   boxShadow: [
@@ -107,9 +114,9 @@ class CourseCard extends StatelessWidget {
                 ],
               ),
             ),
-            SizedBox(height: 5),
+            const SizedBox(height: 5),
             CommonText(
-              text:courseData['title'],
+              text: courseData['title'],
               // overflow: TextOverflow.ellipsis,
               maxLines: 2,
               style: const TextStyle(
@@ -126,8 +133,7 @@ class CourseCard extends StatelessWidget {
 }
 
 class MainCourseCard extends StatelessWidget {
-  const MainCourseCard(
-      {Key? key, required this.onTap,  this.courseData})
+  const MainCourseCard({Key? key, required this.onTap, this.courseData})
       : super(key: key);
 
   final dynamic courseData;
@@ -147,16 +153,16 @@ class MainCourseCard extends StatelessWidget {
           // mainAxisAlignment: MainAxisAlignment.center,
           // crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
+            const Text(
               "CASC Courses",
               overflow: TextOverflow.ellipsis,
-              style: const TextStyle(
+              style: TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.bold,
                 color: AppColors.primary,
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
             Container(

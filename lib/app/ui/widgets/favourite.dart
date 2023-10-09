@@ -1,12 +1,10 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:deviraj_lms/app/ui/widgets/common/logo_loading.dart';
 import 'package:flutter/material.dart';
 import '../../config/config.dart';
 import '../../controller/profile.dart';
 import '../pages/courseDetail.dart';
-import '../theme/colors.dart';
-import '../theme/font_size.dart';
 import 'common/common_snackbar.dart';
-import 'common/currency_text.dart';
 
 class FavouriteCard extends StatelessWidget {
   const FavouriteCard({
@@ -61,11 +59,7 @@ class FavouriteCard extends StatelessWidget {
                       fit: BoxFit.cover,
                       width: double.infinity,
                       progressIndicatorBuilder:
-                          (context, url, downloadProgress) => const Center(
-                                  child: CircularProgressIndicator(
-                                color: Colors.grey,
-                                strokeWidth: 2,
-                              )),
+                          (context, url, downloadProgress) => const LogoLoading(size: 12,height: 50,width: 50,),
                       errorWidget: (context, url, error) {
                         return Center(
                           child: Container(
@@ -123,7 +117,7 @@ class FavouriteCard extends StatelessWidget {
           // ),
           Text(
             data['title'] ?? "1",
-            style: TextStyle(
+            style: const TextStyle(
               fontSize: 14,
               fontWeight: FontWeight.w200,
               color: Colors.black,

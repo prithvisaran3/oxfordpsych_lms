@@ -1,21 +1,12 @@
 import 'package:deviraj_lms/app/controller/auth.dart';
 import 'package:deviraj_lms/app/controller/profile.dart';
-import 'package:deviraj_lms/app/ui/pages/profile/change_password.dart';
 import 'package:deviraj_lms/app/ui/pages/profile/edit_profile.dart';
-import 'package:deviraj_lms/app/ui/pages/profile/push_notifications.dart';
-import 'package:deviraj_lms/app/ui/pages/subscribe_now.dart';
-import 'package:deviraj_lms/app/ui/widgets/common/logo_loading.dart';
 import 'package:deviraj_lms/app/ui/widgets/profile/logout_button.dart';
 import 'package:deviraj_lms/app/ui/widgets/profile/picture_container_widget.dart';
 import 'package:deviraj_lms/app/ui/widgets/profile/settings_options_card.dart';
-import 'package:deviraj_lms/app/ui/widgets/profile/subscription_status_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:loading_animations/loading_animations.dart';
 
-import '../../../controller/subscription.dart';
-import '../../../payment/paywall_widget.dart';
-import '../../../payment/purchase_api.dart';
 import '../../../utility/utility.dart';
 import '../../theme/colors.dart';
 
@@ -138,6 +129,12 @@ class Profile extends StatelessWidget {
               Get.to(() => const EditProfile());
             },
           ),
+          // SettingsOptionsCard(
+          //   text: 'Change Password',
+          //   onTap: () {
+          //     Get.to(() => const ChangePassword());
+          //   },
+          // ),
 
           // SettingsOptionsCard(
           //   text: 'Notification Settings',
@@ -171,21 +168,24 @@ class Profile extends StatelessWidget {
             text: 'About OxfordPsych',
             onTap: () {
               openBrowser(
-                  url: "https://devirajhospitals.com/oxfordpsychcourse/#0");
+                  url:
+                      "https://devirajhospitals.com/oxfordpsychcourse/aboutus.php");
             },
           ),
           SettingsOptionsCard(
             text: 'Help & Support',
             onTap: () {
               openBrowser(
-                  url: "https://devirajhospitals.com/oxfordpsychcourse/#0");
+                  url:
+                      "https://devirajhospitals.com/oxfordpsychcourse/contact.php");
             },
           ),
           SettingsOptionsCard(
             text: 'Privacy Policy',
             onTap: () {
               openBrowser(
-                  url: "https://devirajhospitals.com/oxfordpsychcourse/#0");
+                  url:
+                      "https://devirajhospitals.com/oxfordpsychcourse/privacy.php");
             },
           ),
           SettingsOptionsCard(

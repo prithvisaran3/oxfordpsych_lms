@@ -1,14 +1,14 @@
 import 'dart:io';
 
-import 'package:deviraj_lms/app/ui/pages/home/home.dart';
+
 import 'package:deviraj_lms/app/ui/pages/home/main.dart';
-import 'package:deviraj_lms/app/ui/pages/auth/login.dart';
+
 import 'package:deviraj_lms/app/ui/widgets/common/alert.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 
-// import 'package:firebase_remote_config/firebase_remote_config.dart';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -16,7 +16,7 @@ import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 
-// import 'package:package_info_plus/package_info_plus.dart';
+
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -76,6 +76,14 @@ class AuthController extends GetxController {
     _registerLoading.value = value;
   }
 
+  final _updateTokenLoading = false.obs;
+
+  get updateTokenLoading => _updateTokenLoading.value;
+
+  set updateTokenLoading(value) {
+    _updateTokenLoading.value = value;
+  }
+
   onboardCheck() async {
     SharedPreferences pref = await SharedPreferences.getInstance();
     var onboard = pref.getBool('onboard');
@@ -110,6 +118,19 @@ class AuthController extends GetxController {
     }
   }
 
+  currentPasswordCheck() async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    var currentpassword = pref.getString('current_password');
+    if (kDebugMode) {
+      print("Current password is $currentpassword");
+    }
+    if (currentpassword != null && currentpassword.isNotEmpty) {
+      return currentpassword.toString();
+    } else {
+      return false;
+    }
+  }
+
   loginFieldsEmpty() {
     lEmail.text = "";
     lPassword.text = "";
@@ -120,6 +141,39 @@ class AuthController extends GetxController {
     email.text = "";
     mobile.text = "";
     password.text = "";
+  }
+
+  updateToken({required userId, required fcmToken}) async {
+    updateTokenLoading = true;
+
+    var body = {'token': fcmToken!, 'user_id': userId};
+    try {
+      var res = await repository.updateToken(body: body);
+      if (statusCode == 200) {
+        if (res['status'] == "200") {
+          updateTokenLoading = false;
+          commonPrint(status: res['status'], msg: res['message']);
+        } else if (res['status'] == "422") {
+          updateTokenLoading = false;
+          commonPrint(status: res['status'], msg: "${res['message']}");
+          errorAlert(
+            Get.context!,
+            content: "${res['message']}",
+            confirmButtonPressed: () {
+              Get.back();
+            },
+          );
+        }
+      } else {
+        updateTokenLoading = false;
+        commonPrint(status: "500", msg: "Error from server or No Internet");
+      }
+    } catch (e) {
+      updateTokenLoading = false;
+      commonPrint(
+          status: "$statusCode",
+          msg: "Error from update Token due to data mismatch or format $e");
+    }
   }
 
   login() async {
@@ -137,7 +191,12 @@ class AuthController extends GetxController {
         if (res['status'] == "200") {
           loginLoading = false;
           commonPrint(status: res['status'], msg: res['message']);
-          Map storedData = {"token": "${res['user_id']}"};
+          Map storedData = {
+            "token": "${res['user_id']}",
+            "fcmToken": fcmToken,
+            "current_password": lPassword.text
+          };
+          updateToken(userId: res['user_id'], fcmToken: fcmToken);
           storeLocalDevice(body: storedData);
           Get.off(() => const HomeMain());
           commonSnackBar(title: "Success", msg: "Login Successfully");
@@ -348,7 +407,9 @@ class AuthController extends GetxController {
 
     // get remote app version and change to int
     var rv = remoteConfig.getString('app');
-    print("rc is $rv");
+    if (kDebugMode) {
+      print("rc is $rv");
+    }
     var rSplit = rv.replaceAll(".", "");
     var remoteVersion = int.parse(rSplit);
     debugPrint("remote version $rv");
@@ -384,12 +445,18 @@ class AuthController extends GetxController {
     if (currentPassword.text == lPassword.text) {
       if (newPassword.text == newConfirmPassword.text) {
         //Password change API
-        print("Current password matched");
+        if (kDebugMode) {
+          print("Current password matched");
+        }
       } else {
-        print("New password doesn't match confirm password");
+        if (kDebugMode) {
+          print("New password doesn't match confirm password");
+        }
       }
     } else {
-      print("Current password is wrong");
+      if (kDebugMode) {
+        print("Current password is wrong");
+      }
     }
   }
 
@@ -485,10 +552,18 @@ class AuthController extends GetxController {
 
   appleLogin() async {
     var apple = AppleAuthProvider();
-    print("apple ${apple}");
+    if (kDebugMode) {
+      print("apple ${apple}");
+    }
     var res = await FirebaseAuth.instance.signInWithProvider(apple);
-    print("userId ${res.user!.uid}");
-    print("email ${res.user!.email}");
-    print("photourl ${res.user!.photoURL}");
+    if (kDebugMode) {
+      print("userId ${res.user!.uid}");
+    }
+    if (kDebugMode) {
+      print("email ${res.user!.email}");
+    }
+    if (kDebugMode) {
+      print("photourl ${res.user!.photoURL}");
+    }
   }
 }

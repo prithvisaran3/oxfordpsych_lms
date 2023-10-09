@@ -1,4 +1,3 @@
-import 'dart:async';
 import 'package:deviraj_lms/app/ui/pages/auth/onboard.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -45,7 +44,7 @@ class _InitialState extends State<Initial> {
                 builder: (controller) => isLogin == "onBoarding"
                     ? const OnBoard()
                     : isLogin == "isLogin"
-                        ? HomeMain()
-                        : Login())));
+                        ? const HomeMain()
+                        : const Login())));
   }
 }

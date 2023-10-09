@@ -1,6 +1,7 @@
 import 'package:appinio_video_player/appinio_video_player.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:deviraj_lms/app/config/config.dart';
+import 'package:deviraj_lms/app/ui/widgets/common/common_print.dart';
 import 'package:deviraj_lms/app/ui/widgets/common/logo_loading.dart';
 import 'package:deviraj_lms/app/utility/utility.dart';
 import 'package:flutter/material.dart';
@@ -58,11 +59,11 @@ class _CourseDetailState extends State<CourseDetail> {
 
   @override
   Widget build(BuildContext context) {
-    print("coures data ${widget.data}");
-    print(
-        "video  data ${AppConfig.videoUrl}${widget.data['curriculum_id']}/${widget.data['video']}");
-    print(
-        "image ${AppConfig.imageUrl}${widget.data['curriculum_id']}/${widget.data['photos']}");
+    commonPrint(status: "coures data ",msg: '${widget.data}');
+    commonPrint(status:
+        "video  data ",msg: "${AppConfig.videoUrl}${widget.data['curriculum_id']}/${widget.data['video']}");
+    commonPrint(status:
+        "image ",msg: "${AppConfig.imageUrl}${widget.data['curriculum_id']}/${widget.data['photos']}");
 
     return Scaffold(
       backgroundColor: Colors.white,

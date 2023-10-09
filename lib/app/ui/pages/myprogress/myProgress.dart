@@ -1,6 +1,5 @@
 import 'package:deviraj_lms/app/controller/course.dart';
 import 'package:deviraj_lms/app/ui/widgets/common/cart_empty.dart';
-import 'package:deviraj_lms/app/ui/widgets/common/loading.dart';
 import 'package:deviraj_lms/app/ui/widgets/common/logo_loading.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -27,9 +26,9 @@ class ProgressScreen extends StatelessWidget {
                     appBar: commonAppBar(title: "My Progress"),
                     body: Stack(
                       children: [
-                        searchbar(),
+                        // searchbar(),
                         Padding(
-                          padding: const EdgeInsets.only(top: 90.0),
+                          padding: const EdgeInsets.only(top: 20.0),
                           child: ListView(
                             physics: const BouncingScrollPhysics(),
                             children: [

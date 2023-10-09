@@ -2,9 +2,9 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../../../helper/style.dart';
 import '../../../controller/auth.dart';
 import '../../theme/colors.dart';
+import '../../theme/font_size.dart';
 import '../../widgets/common/common_button.dart';
 import '../../widgets/common/common_snackbar.dart';
 import '../../widgets/common/common_textform_field.dart';

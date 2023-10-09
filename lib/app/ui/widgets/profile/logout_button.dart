@@ -28,8 +28,8 @@ class LogoutButton extends StatelessWidget {
           //     AppColors.secondary,
           //   ],
           // ),
-          boxShadow: [
-            const BoxShadow(color: Colors.black26, blurRadius: 10),
+          boxShadow: const [
+            BoxShadow(color: Colors.black26, blurRadius: 10),
           ],
         ),
         child: const Row(

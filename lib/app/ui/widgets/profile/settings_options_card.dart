@@ -15,7 +15,7 @@ class SettingsOptionsCard extends StatelessWidget {
       onTap: onTap,
       child: Container(
         width: Get.width,
-        padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
         // margin: EdgeInsets.symmetric(vertical: 5),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
@@ -32,8 +32,8 @@ class SettingsOptionsCard extends StatelessWidget {
                 color: AppColors.black.withOpacity(0.7),
               ),
             ),
-            Spacer(),
-            Icon(
+            const Spacer(),
+            const Icon(
               Icons.arrow_forward_ios,
               color: AppColors.grey,
             )

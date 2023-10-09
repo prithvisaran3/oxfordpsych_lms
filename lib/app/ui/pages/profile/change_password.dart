@@ -1,5 +1,7 @@
 import 'package:deviraj_lms/app/ui/widgets/common/appbar.dart';
 import 'package:deviraj_lms/app/ui/widgets/common/common_button.dart';
+import 'package:deviraj_lms/app/ui/widgets/common/common_print.dart';
+import 'package:deviraj_lms/app/ui/widgets/common/common_snackbar.dart';
 import 'package:deviraj_lms/app/ui/widgets/common/common_textform_field.dart';
 import 'package:flutter/material.dart';
 
@@ -57,8 +59,15 @@ class ChangePassword extends StatelessWidget {
             child: CommonButton(
               text: "Confirm",
               onPressed: () {
-                print("${AuthController.to.lEmail.text}");
-                AuthController.to.checkPasswordChange();
+                dynamic cpassword = AuthController.to.currentPasswordCheck();
+                commonPrint(status: "CPASSWORD is ",msg: "$cpassword");
+
+                cpassword == AuthController.to.currentPassword.text
+                    ? commonSnackBar(title: "success", msg: "success")
+                    : commonSnackBar(
+                        title: "Error on Password Change",
+                        msg: "Current Password doesn't match");
+                // AuthController.to.checkPasswordChange();
               },
             ),
           ),

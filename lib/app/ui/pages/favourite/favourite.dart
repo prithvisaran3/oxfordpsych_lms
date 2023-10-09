@@ -1,12 +1,9 @@
-import 'package:deviraj_lms/app/ui/theme/colors.dart';
 import 'package:deviraj_lms/app/ui/widgets/common/logo_loading.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:loading_animations/loading_animations.dart';
 import '../../../controller/wishlist.dart';
 import '../../widgets/common/appbar.dart';
 import '../../widgets/common/cart_empty.dart';
-import '../../widgets/common/loading.dart';
 import '../../widgets/favourite.dart';
 
 class Favourite extends StatelessWidget {
@@ -28,7 +25,7 @@ class Favourite extends StatelessWidget {
               ),
               body: Obx(
                 () => WishListController.to.getLoading == true
-                    ? LogoLoading()
+                    ? const LogoLoading()
                     : WishListController.to.isWishlistEmpty == true
                         ? const CartEmpty(
                             emptyString: "Favourite Empty",

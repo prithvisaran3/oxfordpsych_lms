@@ -249,7 +249,7 @@ errorAlert(BuildContext context,
 
 rejectDialog(BuildContext context,
     {required String content, required Function() confirmButtonPressed}) {
-  var media = MediaQuery.of(context).size;
+
   // set up the buttons
   Widget cancelButton = TextButton(
     child: Container(

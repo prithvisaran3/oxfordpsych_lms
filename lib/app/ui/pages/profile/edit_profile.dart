@@ -32,6 +32,7 @@ class EditProfile extends StatelessWidget {
               return null;
             },
           ),
+          SizedBox(height: 5),
           CommonTextFormField(
             hintText: "${ProfileController.to.profileDetails.mobile}",
             controller: AuthController.to.mobile,
@@ -42,10 +43,15 @@ class EditProfile extends StatelessWidget {
               return null;
             },
           ),
-          CommonButton(text: "Confirm", onPressed: () {
-            ProfileController.to.updateProfile();
-
-          })
+          SizedBox(height: 40),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 30.0),
+            child: CommonButton(
+                text: "Confirm",
+                onPressed: () {
+                  ProfileController.to.updateProfile();
+                }),
+          )
         ],
       )),
     );

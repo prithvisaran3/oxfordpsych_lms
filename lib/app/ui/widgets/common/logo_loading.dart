@@ -28,7 +28,7 @@ class LogoLoading extends StatelessWidget {
             width: width??100,
             color: AppColors.black,
           ),
-          SizedBox(width: 10),
+          const SizedBox(width: 10),
           LoadingFlipping.circle(
             borderColor: AppColors.black,
             borderSize: 1.0,

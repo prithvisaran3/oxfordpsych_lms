@@ -1,6 +1,3 @@
-// ignore_for_file: use_build_context_synchronously
-
-import 'package:deviraj_lms/app/ui/pages/profile/profile.dart';
 import 'package:deviraj_lms/app/ui/widgets/common/common_search.dart';
 import 'package:deviraj_lms/app/ui/widgets/common/common_snackbar.dart';
 import 'package:deviraj_lms/app/ui/widgets/common/loading.dart';
@@ -13,12 +10,10 @@ import '../../../controller/home.dart';
 import '../../../controller/profile.dart';
 import '../../theme/font_size.dart';
 import '../../widgets/home/curriculum_box.dart';
-import '../../widgets/home/search_bar.dart';
 import 'all_courses.dart';
 import '../../theme/colors.dart';
 import '../../widgets/banner.dart';
 import '../../widgets/course_card.dart';
-import '../cart.dart';
 import '../courseDetail.dart';
 
 class Home extends StatelessWidget {
@@ -44,13 +39,13 @@ class Home extends StatelessWidget {
       builder: (_) {
         return Obx(
           () => CourseController.to.getSearchLoading == true
-              ? LogoLoading()
+              ? const LogoLoading()
               : HomeController.to.getCurriculumLoading == true
-                  ? LogoLoading()
+                  ? const LogoLoading()
                   : ProfileController.to.subscriptionLoading == true
-                      ? LogoLoading()
+                      ? const LogoLoading()
                       : ProfileController.to.getProfileLoading == true
-                          ? LogoLoading()
+                          ? const LogoLoading()
                           : Scaffold(
                               backgroundColor: AppColors.white,
                               appBar: AppBar(
@@ -80,10 +75,7 @@ class Home extends StatelessWidget {
                                       : CommonText(
                                           text:
                                               "Hi, ${ProfileController.to.profileDetails.name}",
-                                          style: TextStyle(
-                                              color: Colors.black,
-                                              fontSize: 18,
-                                              fontWeight: FontWeight.bold))),
+                                          style: headText())),
                                 ),
                                 // actions: [
                                 //   IconButton(
@@ -122,7 +114,7 @@ class Home extends StatelessWidget {
                                       height: 20,
                                     ),
                                     Container(
-                                      padding: EdgeInsets.symmetric(
+                                      padding: const EdgeInsets.symmetric(
                                           horizontal: 15, vertical: 20),
                                       decoration: BoxDecoration(
                                         borderRadius: BorderRadius.circular(20),
@@ -136,7 +128,7 @@ class Home extends StatelessWidget {
                                         //     AppColors.primary,
                                         //   ],
                                         // ),
-                                        boxShadow: [
+                                        boxShadow: const [
                                           BoxShadow(
                                             color: AppColors.grey,
                                             blurRadius: 5,
@@ -145,7 +137,7 @@ class Home extends StatelessWidget {
                                       ),
                                       child: Column(
                                         children: [
-                                          Text(
+                                          const Text(
                                             'Category',
                                             style: TextStyle(
                                                 color: Colors.white,
@@ -155,46 +147,41 @@ class Home extends StatelessWidget {
                                           const SizedBox(
                                             height: 20,
                                           ),
-                                          Obx(
-                                            () => HomeController.to
-                                                        .getCurriculumLoading ==
-                                                    true
-                                                ? SimpleLoading()
-                                                : SizedBox(
-                                                    height: Get.height * 0.05,
-                                                    child: ListView.builder(
-                                                        itemCount: HomeController
-                                                            .to
-                                                            .curriculumDetails
-                                                            .length,
-                                                        physics:
-                                                            const BouncingScrollPhysics(),
-                                                        scrollDirection:
-                                                            Axis.horizontal,
-                                                        shrinkWrap: true,
-                                                        itemBuilder: (context,
-                                                            int index) {
-                                                          return GestureDetector(
-                                                            onTap: () async {
-                                                              Navigator.push(
-                                                                  context,
-                                                                  MaterialPageRoute(
-                                                                      builder: (context) =>
-                                                                          AllCourses(
-                                                                            data:
-                                                                                HomeController.to.curriculumDetails[index],
-                                                                            curriculum:
-                                                                                HomeController.to.curriculumDetails[index]["name"],
-                                                                            isCategory:
-                                                                                true,
-                                                                          )));
-                                                            },
-                                                            child: CurriculumBox(
-                                                                text:
-                                                                    "${HomeController.to.curriculumDetails[index]['name']}"),
-                                                          );
-                                                        }),
-                                                  ),
+                                          SizedBox(
+                                            height: Get.height * 0.05,
+                                            child: ListView.builder(
+                                                itemCount: HomeController.to
+                                                    .curriculumDetails.length,
+                                                physics:
+                                                    const BouncingScrollPhysics(),
+                                                scrollDirection:
+                                                    Axis.horizontal,
+                                                shrinkWrap: true,
+                                                itemBuilder:
+                                                    (context, int index) {
+                                                  return GestureDetector(
+                                                    onTap: () async {
+                                                      Navigator.push(
+                                                          context,
+                                                          MaterialPageRoute(
+                                                              builder:
+                                                                  (context) =>
+                                                                      AllCourses(
+                                                                        data: HomeController
+                                                                            .to
+                                                                            .curriculumDetails[index],
+                                                                        curriculum: HomeController
+                                                                            .to
+                                                                            .curriculumDetails[index]["name"],
+                                                                        isCategory:
+                                                                            true,
+                                                                      )));
+                                                    },
+                                                    child: CurriculumBox(
+                                                        text:
+                                                            "${HomeController.to.curriculumDetails[index]['name']}"),
+                                                  );
+                                                }),
                                           ),
                                         ],
                                       ),
@@ -247,10 +234,10 @@ class Home extends StatelessWidget {
                                       () => CourseController
                                                   .to.getCourseLoading ==
                                               true
-                                          ? SimpleLoading()
+                                          ? const SimpleLoading()
                                           : CourseController.to.isCourseEmpty ==
                                                   true
-                                              ? Text("empty")
+                                              ? const Text("empty")
                                               : SizedBox(
                                                   height: MediaQuery.of(context)
                                                           .size
@@ -270,6 +257,7 @@ class Home extends StatelessWidget {
                                                       itemBuilder:
                                                           (context, index) {
                                                         return CourseCard(
+                                                          index: index,
                                                           onTap: () {
                                                             ProfileController.to
                                                                         .isSubscribed ==
@@ -296,7 +284,7 @@ class Home extends StatelessWidget {
                                                       }),
                                                 ),
                                     ),
-                                    SizedBox(
+                                    const SizedBox(
                                       height: 15,
                                     ),
 
@@ -419,6 +407,7 @@ class Home extends StatelessWidget {
                               msg: "Visit our website for detailed info");
                     },
                     courseData: CourseController.to.courseDetails[index],
+                    index: index,
                   )
                 : const SizedBox();
           },

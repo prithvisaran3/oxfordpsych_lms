@@ -1,6 +1,5 @@
 // ignore_for_file: depend_on_referenced_packages
 
-import 'dart:convert';
 import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
@@ -80,7 +79,6 @@ class HttpHelper {
       bool auth = false,
       bool contentHeader = false,
       bool cors = false}) async {
-    dynamic responseJson;
     try {
       Map<String, String> hd =
           await headers(auth: auth, contentHeader: contentHeader, cors: cors);
@@ -116,7 +114,7 @@ class HttpHelper {
         return body;
       case 201:
         var jsonData = response.body;
-        var code = response.statusCode;
+
         return jsonData;
       case 401:
         int code = response.statusCode;

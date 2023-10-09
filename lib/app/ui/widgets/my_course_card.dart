@@ -106,19 +106,19 @@ class ProgressCard extends StatelessWidget {
                       "${data['title']}",
                       style: headText(),
                     ),
-                    const Row(
-                      children: [
-                        Icon(
-                          Icons.person_outline,
-                          color: Colors.grey,
-                          size: 20,
-                        ),
-                        SizedBox(
-                          width: 10,
-                        ),
-                        Text('Oxford Pysch')
-                      ],
-                    ),
+                    // const Row(
+                    //   children: [
+                    //     Icon(
+                    //       Icons.person_outline,
+                    //       color: Colors.grey,
+                    //       size: 20,
+                    //     ),
+                    //     SizedBox(
+                    //       width: 10,
+                    //     ),
+                    //     Text('Oxford Pysch')
+                    //   ],
+                    // ),
                     const SizedBox(
                       height: 5,
                     ),
@@ -136,7 +136,7 @@ class ProgressCard extends StatelessWidget {
                     ),
                     Text("${int.parse(data['views_count']) / 100}% Complete"),
                     Text(
-                      "Last View : ${getIsoToLocalDate(date: data['view_date'])}, ${getIsoToLocalTime(date: data['view_date'])}",
+                      "Last Viewed : ${getIsoToLocalDate(date: data['view_date'])}, ${getIsoToLocalTime(date: data['view_date'])}",
                       style: TextStyle(
                         color: AppColors.black.withOpacity(0.7),
                         fontSize: 12,

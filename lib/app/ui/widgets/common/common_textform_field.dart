@@ -32,52 +32,63 @@ class _CommonTextFormFieldState extends State<CommonTextFormField> {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
-      child: TextFormField(
-        style: const TextStyle(
-          fontFamily: "medium",
-          fontSize: 14,
+      child: Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(20),
+          // boxShadow: [
+          //   BoxShadow(
+          //     color: Colors.black26,
+          //     blurRadius: 2
+          //   )
+          // ]
         ),
-        validator: widget.validator,
-        cursorColor: AppColors.primary,
-        controller: widget.controller,
-        maxLength: widget.maxLength,
-        maxLines: widget.maxLines,
-        textAlign:
-            widget.textAlign == true ? TextAlign.center : TextAlign.start,
-        obscuringCharacter: "*",
-        obscureText: widget.obscureText == true ? !passwordVisible : false,
-        decoration: InputDecoration(
-            filled: true,
-            fillColor: AppColors.white,
-            hintText: widget.hintText,
-            errorText: widget.errorText,
-            errorStyle: const TextStyle(
-                fontWeight: FontWeight.w400, color: Colors.black),
-            hintStyle:
-                const TextStyle(fontFamily: "medium", color: AppColors.grey),
-            counterText: "",
-            contentPadding: const EdgeInsets.only(left: 15),
-            enabledBorder: OutlineInputBorder(
-              borderSide: const BorderSide(
-                color: AppColors.grey,
+        child: TextFormField(
+          style: const TextStyle(
+            fontFamily: "medium",
+            fontSize: 14,
+          ),
+          validator: widget.validator,
+          cursorColor: AppColors.primary,
+          controller: widget.controller,
+          maxLength: widget.maxLength,
+          maxLines: widget.maxLines,
+          textAlign:
+              widget.textAlign == true ? TextAlign.center : TextAlign.start,
+          obscuringCharacter: "*",
+          obscureText: widget.obscureText == true ? !passwordVisible : false,
+          decoration: InputDecoration(
+              filled: true,
+              fillColor: AppColors.white,
+              hintText: widget.hintText,
+              errorText: widget.errorText,
+              errorStyle: const TextStyle(
+                  fontWeight: FontWeight.w400, color: Colors.black),
+              hintStyle:
+                  const TextStyle(fontFamily: "medium", color: AppColors.grey),
+              counterText: "",
+              contentPadding: const EdgeInsets.only(left: 15),
+              enabledBorder: OutlineInputBorder(
+                borderSide: const BorderSide(
+                  color: AppColors.grey,
+                ),
+                borderRadius: BorderRadius.circular(8.0),
               ),
-              borderRadius: BorderRadius.circular(8.0),
-            ),
-            border: OutlineInputBorder(
-              borderSide: const BorderSide(
-                color: AppColors.primary,
+              border: OutlineInputBorder(
+                borderSide: const BorderSide(
+                  color: AppColors.primary,
+                ),
+                borderRadius: BorderRadius.circular(8.0),
               ),
-              borderRadius: BorderRadius.circular(8.0),
-            ),
-            focusedBorder: OutlineInputBorder(
-              borderSide: const BorderSide(color: AppColors.grey, width: 2),
-              borderRadius: BorderRadius.circular(8.0),
-            ),
-            errorBorder: OutlineInputBorder(
-              borderSide: const BorderSide(color: AppColors.red, width: 1),
-              borderRadius: BorderRadius.circular(8.0),
-            ),
-            suffixIcon: showPassword()),
+              focusedBorder: OutlineInputBorder(
+                borderSide: const BorderSide(color: AppColors.grey, width: 2),
+                borderRadius: BorderRadius.circular(8.0),
+              ),
+              errorBorder: OutlineInputBorder(
+                borderSide: const BorderSide(color: AppColors.red, width: 1),
+                borderRadius: BorderRadius.circular(8.0),
+              ),
+              suffixIcon: showPassword()),
+        ),
       ),
     );
   }

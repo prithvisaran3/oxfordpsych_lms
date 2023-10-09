@@ -1,7 +1,6 @@
 import 'package:deviraj_lms/app/ui/theme/font_size.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_svg/svg.dart';
 
 import 'package:get/get.dart';
 
@@ -56,7 +55,7 @@ class _OnBoardScreenState extends State<OnBoard> {
         child: AnnotatedRegion<SystemUiOverlayStyle>(
           value: SystemUiOverlayStyle.light,
           child: Container(
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               color: Colors.black,
               // gradient: LinearGradient(
               //   begin: Alignment.topLeft,
@@ -81,7 +80,7 @@ class _OnBoardScreenState extends State<OnBoard> {
                       // color: Color(0xFF7B51D3)
                     ),
                     alignment: Alignment.centerRight,
-                    child: Center(
+                    child: const Center(
                       child: CommonText(
                         text: 'Skip',
                         style: TextStyle(
@@ -125,7 +124,7 @@ class _OnBoardScreenState extends State<OnBoard> {
                     ],
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
                 Row(
@@ -135,20 +134,20 @@ class _OnBoardScreenState extends State<OnBoard> {
                 currentPage == numPages - 1
                     ? Column(
                         children: [
-                          SizedBox(height: 30),
+                          const SizedBox(height: 30),
                           GestureDetector(
                             onTap: () => onIntroEnd(),
                             child: Container(
                               // height: media.width * 0.10,
-                              margin: EdgeInsets.symmetric(
+                              margin: const EdgeInsets.symmetric(
                                   horizontal: 20, vertical: 20),
-                              padding: EdgeInsets.symmetric(vertical: 10),
+                              padding: const EdgeInsets.symmetric(vertical: 10),
                               width: double.infinity,
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(10.0),
                                 color: AppColors.secondary,
                               ),
-                              child: Center(
+                              child: const Center(
                                 child: Text(
                                   'Get started',
                                   style: TextStyle(
@@ -177,7 +176,7 @@ class _OnBoardScreenState extends State<OnBoard> {
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Center(child: buildOnboardPicture(imgSrc: image, fit: fit)),
-        SizedBox(height: 20),
+        const SizedBox(height: 20),
         CommonText(
           text: title,
           textAlign: TextAlign.center,
@@ -207,7 +206,7 @@ class _OnBoardScreenState extends State<OnBoard> {
   Widget buildOnboardPicture({required imgSrc, required fit}) {
     return Container(
       height: Get.height * 0.50,
-      margin: EdgeInsets.symmetric(horizontal: 10),
+      margin: const EdgeInsets.symmetric(horizontal: 10),
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
           image: DecorationImage(

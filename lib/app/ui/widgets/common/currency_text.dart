@@ -1,4 +1,3 @@
-import 'package:deviraj_lms/app/ui/theme/colors.dart';
 import 'package:deviraj_lms/app/ui/utility.dart';
 import 'package:flutter/material.dart';
 

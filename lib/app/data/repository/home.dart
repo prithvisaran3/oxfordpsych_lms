@@ -7,19 +7,19 @@ class HomeRepository {
   final HttpHelper helper = HttpHelper();
 
   Future<dynamic> getCategory() async {
-    var response = await helper.get(url: "${ApiService.getCategory}");
+    var response = await helper.get(url: ApiService.getCategory);
     var res = jsonDecode(response);
     return res;
   }
 
   Future<dynamic> getCurriculum() async {
-    var response = await helper.get(url: "${ApiService.getCurriculum}");
+    var response = await helper.get(url: ApiService.getCurriculum);
     var res = jsonDecode(response);
     return res;
   }
 
   Future<dynamic> getLanguage() async {
-    var response = await helper.get(url: "${ApiService.getLanguage}");
+    var response = await helper.get(url: ApiService.getLanguage);
     var res = jsonDecode(response);
     return res;
   }

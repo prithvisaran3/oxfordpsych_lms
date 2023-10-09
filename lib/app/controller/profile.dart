@@ -83,7 +83,7 @@ class ProfileController extends GetxController {
       if (statusCode == 200) {
         if (res.status == "200") {
           getProfileLoading = false;
-          if (res.data == null || res.data == "") {
+          if (res.data == null) {
             commonPrint(status: res.status, msg: "No data or id wrong");
           } else {
             profileDetails = res.data;
@@ -150,6 +150,41 @@ class ProfileController extends GetxController {
     }
   }
 
+  updatePassword() async {
+    updateProfileLoading = true;
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    var id = preferences.getString('token');
+    var body = {
+      "password": AuthController.to.newPassword.text,
+    };
+    try {
+      var res = await repository.updateProfile(id: id, body: body);
+      if (statusCode == 200) {
+        if (res['status'] == "200") {
+          updateProfileLoading = false;
+          commonPrint(status: res['status'], msg: res['message']);
+          commonSnackBar(title: "Success", msg: "Update Successful");
+          getProfile();
+        } else if (res['status'] == "422") {
+          updateProfileLoading = false;
+          commonPrint(status: res['status'], msg: "All fields are required");
+          errorAlert(Get.context!, content: "All fields are required",
+              confirmButtonPressed: () {
+            Get.back();
+          });
+        }
+      } else {
+        updateProfileLoading = false;
+        commonPrint(status: "500", msg: "Error from server or No Internet");
+      }
+    } catch (e) {
+      updateProfileLoading = false;
+      commonPrint(
+          status: "$statusCode",
+          msg: "Error from updatePassword due to data mismatch or format $e");
+    }
+  }
+
   final _subscriptionDetail = Data().obs;
 
   get subscriptionDetail => _subscriptionDetail.value;
@@ -184,7 +219,10 @@ class ProfileController extends GetxController {
       if (statusCode == 200) {
         subscriptionLoading = false;
         if (res.status == "200") {
-          print("Subscription Details: ${res.data}");
+          commonPrint(
+            status: "Subscription Details:",
+            msg: " ${res.data}",
+          );
           if (res.data == null) {
             isSubscribed = false;
             commonPrint(
@@ -239,7 +277,7 @@ class ProfileController extends GetxController {
         DateTime(int.parse(year), int.parse(month), int.parse(day));
     final now = DateTime.now();
     remainingDays = now.difference(expirationDate).inDays;
-    print("isExpory ${expirationDate.isBefore(now)}");
+    commonPrint(status: "isExpory ", msg: "${expirationDate.isBefore(now)}");
     isSubscriptionExpiry = expirationDate.isBefore(now);
   }
 }

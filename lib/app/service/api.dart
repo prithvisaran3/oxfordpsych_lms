@@ -4,6 +4,7 @@ class ApiService {
   // auth
   static const login = AppConfig.baseUrl;
   static const register = "${AppConfig.baseUrl}?action=register";
+  static const updateToken = "${AppConfig.baseUrl}?action=updateToken";
 
   //profile
   static const getProfile = "${AppConfig.baseUrl}?getprofile=";

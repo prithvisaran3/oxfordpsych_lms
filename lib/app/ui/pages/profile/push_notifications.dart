@@ -1,5 +1,4 @@
 import 'package:deviraj_lms/app/controller/profile.dart';
-import 'package:deviraj_lms/app/ui/pages/profile/profile.dart';
 import 'package:deviraj_lms/app/ui/theme/colors.dart';
 import 'package:deviraj_lms/app/ui/widgets/common/appbar.dart';
 import 'package:deviraj_lms/app/ui/widgets/profile/push_notification_toggle.dart';
@@ -21,13 +20,13 @@ class NotificationSettings extends StatelessWidget {
         () => Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            SizedBox(height: 40),
+            const SizedBox(height: 40),
             allNotificationsSection(),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             subscriptionNotificationSection(),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             emailNotificationSection(),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             specialOffersSection(),
           ],
         ),
@@ -39,12 +38,12 @@ class NotificationSettings extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
-        SizedBox(width: 20),
-        Text(
+        const SizedBox(width: 20),
+        const Text(
           "Email Notifications",
           style: TextStyle(color: AppColors.black, fontSize: 16),
         ),
-        Spacer(),
+        const Spacer(),
         PushNotificationToggle(
           controller: ProfileController.to.isEmailNotification,
           onTap: () {
@@ -54,7 +53,7 @@ class NotificationSettings extends StatelessWidget {
             }
           },
         ),
-        SizedBox(width: 10),
+        const SizedBox(width: 10),
       ],
     );
   }
@@ -63,12 +62,12 @@ class NotificationSettings extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
-        SizedBox(width: 20),
-        Text(
+        const SizedBox(width: 20),
+        const Text(
           "Special Offers",
           style: TextStyle(color: AppColors.black, fontSize: 16),
         ),
-        Spacer(),
+        const Spacer(),
         PushNotificationToggle(
           controller: ProfileController.to.isSpecialOffersNotification,
           onTap: () {
@@ -78,7 +77,7 @@ class NotificationSettings extends StatelessWidget {
             }
           },
         ),
-        SizedBox(width: 10),
+        const SizedBox(width: 10),
       ],
     );
   }
@@ -87,15 +86,15 @@ class NotificationSettings extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
-        SizedBox(width: 20),
-        Text(
+        const SizedBox(width: 20),
+        const Text(
           "Subscription Notifications",
           style: TextStyle(
             color: AppColors.black,
             fontSize: 16,
           ),
         ),
-        Spacer(),
+        const Spacer(),
         PushNotificationToggle(
           controller: ProfileController.to.isSubscriptionNotification,
           onTap: () {
@@ -105,7 +104,7 @@ class NotificationSettings extends StatelessWidget {
             }
           },
         ),
-        SizedBox(width: 10),
+        const SizedBox(width: 10),
       ],
     );
   }
@@ -114,12 +113,12 @@ class NotificationSettings extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
-        SizedBox(width: 20),
-        Text(
+        const SizedBox(width: 20),
+        const Text(
           "All Notifications",
           style: TextStyle(color: AppColors.black, fontSize: 16),
         ),
-        Spacer(),
+        const Spacer(),
         PushNotificationToggle(
           controller: ProfileController.to.isPushNotification,
           onTap: () {
@@ -133,7 +132,7 @@ class NotificationSettings extends StatelessWidget {
             }
           },
         ),
-        SizedBox(width: 10),
+        const SizedBox(width: 10),
       ],
     );
   }

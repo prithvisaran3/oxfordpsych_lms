@@ -26,7 +26,7 @@ class ProfilePicture extends StatelessWidget {
         textAlign: TextAlign.center,
 
         // "${ProfileController.to.profileDetails.name.toString().split(" ").first[0]}${ProfileController.to.profileDetails.name.toString().split(" ").last[0]} ",
-        "${ProfileController.to.profileDetails.name.toString().split(" ").first[0]}",
+        ProfileController.to.profileDetails.name.toString().split(" ").first[0],
         style: const TextStyle(
           color: AppColors.white,
           fontSize: 30,
