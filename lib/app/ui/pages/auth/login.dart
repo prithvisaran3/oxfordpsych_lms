@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -29,22 +31,26 @@ class _LoginState extends State<Login> {
               children: [
                 Padding(
                   padding: AuthController.to.registerLoading == true
-                      ? const EdgeInsets.symmetric(vertical: 150, horizontal: 10)
+                      ? const EdgeInsets.symmetric(
+                          vertical: 150, horizontal: 10)
                       : const EdgeInsets.all(20.0),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Container(
-                        height:100,width: Get.width*0.9,
-                        padding: const EdgeInsets.all(10),
-                        decoration: BoxDecoration(
-                          color: AppColors.primary,
-                          borderRadius: BorderRadius.circular(10),
-                          border:
-                              Border.all(width: 1, color: Colors.grey.shade300),
-                        ),
-                        child: Image.asset('assets/images/logo.png',fit: BoxFit.fitHeight,)
-                      ),
+                          height: 100,
+                          width: Get.width * 0.9,
+                          padding: const EdgeInsets.all(10),
+                          decoration: BoxDecoration(
+                            color: AppColors.primary,
+                            borderRadius: BorderRadius.circular(10),
+                            border: Border.all(
+                                width: 1, color: Colors.grey.shade300),
+                          ),
+                          child: Image.asset(
+                            'assets/images/logo.png',
+                            fit: BoxFit.fitHeight,
+                          )),
 
                       const SizedBox(
                         height: 20,
@@ -113,43 +119,46 @@ class _LoginState extends State<Login> {
                                   }
                                 }),
                       ),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      const Text('Or'),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          GestureDetector(
-                            onTap: () {
-                              AuthController.to.googleSignIn(context: context);
-                            },
-                            child: Image.asset(
-                              'assets/images/google.png',
-                              height: 25,
-                              width: 25,
-                              fit: BoxFit.cover,
-                            ),
-                          ),
-                          const SizedBox(
-                            width: 25,
-                          ),
-                          GestureDetector(
-                            onTap: () {
-                              AuthController.to.appleLogin();
-                            },
-                            child: Image.asset(
-                              'assets/images/apple.png',
-                              height: 30,
-                              width: 30,
-                              fit: BoxFit.cover,
-                            ),
-                          ),
-                        ],
-                      ),
+                      // const SizedBox(
+                      //   height: 20,
+                      // ),
+                      // const Text('Or'),
+                      // const SizedBox(
+                      //   height: 20,
+                      // ),
+                      // Row(
+                      //   mainAxisAlignment: MainAxisAlignment.center,
+                      //   children: [
+                      //     Platform.isAndroid
+                      //         ? GestureDetector(
+                      //             onTap: () {
+                      //               AuthController.to
+                      //                   .googleSignIn(context: context);
+                      //             },
+                      //             child: Image.asset(
+                      //               'assets/images/google.png',
+                      //               height: 25,
+                      //               width: 25,
+                      //               fit: BoxFit.cover,
+                      //             ),
+                      //           )
+                      //         : const SizedBox(),
+                      //     const SizedBox(
+                      //       width: 25,
+                      //     ),
+                      //     GestureDetector(
+                      //       onTap: () {
+                      //         AuthController.to.appleLogin();
+                      //       },
+                      //       child: Image.asset(
+                      //         'assets/images/apple.png',
+                      //         height: 30,
+                      //         width: 30,
+                      //         fit: BoxFit.cover,
+                      //       ),
+                      //     ),
+                      //   ],
+                      // ),
                       const SizedBox(
                         height: 20,
                       ),

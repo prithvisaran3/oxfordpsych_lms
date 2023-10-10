@@ -13,7 +13,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:google_sign_in/google_sign_in.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
@@ -501,65 +500,65 @@ class AuthController extends GetxController {
   }
 
   googleSignIn({context}) async {
-    FirebaseAuth auth = FirebaseAuth.instance;
-    User? user;
-    final GoogleSignIn googleSignIn = GoogleSignIn();
-
-    final GoogleSignInAccount? googleSignInAccount =
-        await googleSignIn.signIn();
-
-    if (await googleSignIn.isSignedIn()) {
-      isAlreadyGoogleLogin = true;
-      commonSnackBar(title: "Already registered", msg: "Please Login");
-    } else {
-      isAlreadyGoogleLogin = false;
-    }
-    if (googleSignInAccount != null) {
-      final GoogleSignInAuthentication googleSignInAuthentication =
-          await googleSignInAccount.authentication;
-      final AuthCredential credential = GoogleAuthProvider.credential(
-        accessToken: googleSignInAuthentication.accessToken,
-        idToken: googleSignInAuthentication.idToken,
-      );
-
-      try {
-        final UserCredential userCredential =
-            await auth.signInWithCredential(credential);
-
-        user = userCredential.user;
-        if (user != null) {
-          register(
-              isGoogleLogin: true,
-              gName: user.displayName,
-              gEmail: user.email,
-              gMobile: user.phoneNumber,
-              gPassword: user.uid);
-        }
-
-        commonPrint(
-            status: "200",
-            msg:
-                "google sign in success:\n ${user!.email}\n${user.phoneNumber}\n${user.displayName}\n${user.photoURL}\n${user.uid}");
-      } catch (e) {
-        switch (e) {
-          case "ERROR_INVALID_CREDENTIAL":
-            commonPrint(status: "500", msg: "Invalid Credentials");
-            break;
-          case "ERROR_ACCOUNT_EXISTS_WITH_DIFFERENT_CREDENTIAL":
-            commonPrint(status: "500", msg: "Exits with different credentials");
-            break;
-          case "ERROR_OPERATION_NOT_ALLOWED":
-            commonPrint(
-                status: "500",
-                msg: "Signing in with Email and Password is not enabled");
-            break;
-          default:
-            commonPrint(status: "500", msg: "An undefined Error happened");
-        }
-      }
-    } else {
-      commonPrint(status: "501", msg: "Google singing account null ");
-    }
+    // FirebaseAuth auth = FirebaseAuth.instance;
+    // User? user;
+    // final GoogleSignIn googleSignIn = GoogleSignIn();
+    //
+    // final GoogleSignInAccount? googleSignInAccount =
+    //     await googleSignIn.signIn();
+    //
+    // if (await googleSignIn.isSignedIn()) {
+    //   isAlreadyGoogleLogin = true;
+    //   commonSnackBar(title: "Already registered", msg: "Please Login");
+    // } else {
+    //   isAlreadyGoogleLogin = false;
+    // }
+    // if (googleSignInAccount != null) {
+    //   final GoogleSignInAuthentication googleSignInAuthentication =
+    //       await googleSignInAccount.authentication;
+    //   final AuthCredential credential = GoogleAuthProvider.credential(
+    //     accessToken: googleSignInAuthentication.accessToken,
+    //     idToken: googleSignInAuthentication.idToken,
+    //   );
+    //
+    //   try {
+    //     final UserCredential userCredential =
+    //         await auth.signInWithCredential(credential);
+    //
+    //     user = userCredential.user;
+    //     if (user != null) {
+    //       register(
+    //           isGoogleLogin: true,
+    //           gName: user.displayName,
+    //           gEmail: user.email,
+    //           gMobile: user.phoneNumber,
+    //           gPassword: user.uid);
+    //     }
+    //
+    //     commonPrint(
+    //         status: "200",
+    //         msg:
+    //             "google sign in success:\n ${user!.email}\n${user.phoneNumber}\n${user.displayName}\n${user.photoURL}\n${user.uid}");
+    //   } catch (e) {
+    //     switch (e) {
+    //       case "ERROR_INVALID_CREDENTIAL":
+    //         commonPrint(status: "500", msg: "Invalid Credentials");
+    //         break;
+    //       case "ERROR_ACCOUNT_EXISTS_WITH_DIFFERENT_CREDENTIAL":
+    //         commonPrint(status: "500", msg: "Exits with different credentials");
+    //         break;
+    //       case "ERROR_OPERATION_NOT_ALLOWED":
+    //         commonPrint(
+    //             status: "500",
+    //             msg: "Signing in with Email and Password is not enabled");
+    //         break;
+    //       default:
+    //         commonPrint(status: "500", msg: "An undefined Error happened");
+    //     }
+    //   }
+    // } else {
+    //   commonPrint(status: "501", msg: "Google singing account null ");
+    // }
 
     // return user;
   }
