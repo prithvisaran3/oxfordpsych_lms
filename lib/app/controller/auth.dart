@@ -1,5 +1,6 @@
-import 'dart:io';
+// ignore_for_file: unnecessary_null_comparison
 
+import 'dart:io';
 
 import 'package:deviraj_lms/app/ui/pages/home/main.dart';
 
@@ -8,14 +9,12 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:package_info_plus/package_info_plus.dart';
-
 
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -224,11 +223,25 @@ class AuthController extends GetxController {
     }
   }
 
-  register({isGoogleLogin, gName, gEmail, gMobile, gPassword}) async {
+  register(
+      {isGoogleLogin = false,
+      gName,
+      gEmail,
+      gMobile,
+      gPassword,
+      isAppleSignIn = false}) async {
     registerLoading = true;
     Map<String, String> body = {};
     var fcmToken = await FirebaseMessaging.instance.getToken();
     if (isGoogleLogin == true) {
+      body = {
+        "name": gName,
+        "email": gEmail,
+        "fcm_token": fcmToken!,
+        "mobile": gMobile ?? "",
+        "password": gPassword,
+      };
+    } else if (isAppleSignIn == true) {
       body = {
         "name": gName,
         "email": gEmail,
@@ -245,6 +258,7 @@ class AuthController extends GetxController {
         "password": password.text,
       };
     }
+    print("Passing body: $body");
 
     try {
       var res = await repository.register(body: body);
@@ -552,18 +566,15 @@ class AuthController extends GetxController {
 
   appleLogin() async {
     var apple = AppleAuthProvider();
-    if (kDebugMode) {
-      print("apple ${apple}");
-    }
     var res = await FirebaseAuth.instance.signInWithProvider(apple);
-    if (kDebugMode) {
-      print("userId ${res.user!.uid}");
-    }
-    if (kDebugMode) {
-      print("email ${res.user!.email}");
-    }
-    if (kDebugMode) {
-      print("photourl ${res.user!.photoURL}");
+    print("REsponse: $res");
+    if (res != null) {
+      register(
+          isAppleSignIn: true,
+          gName: res.user!.displayName ,
+          gEmail: res.user!.email,
+          gMobile: res.user!.phoneNumber,
+          gPassword: res.user!.uid);
     }
   }
 }
