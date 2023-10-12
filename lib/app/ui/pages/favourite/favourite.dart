@@ -1,5 +1,6 @@
 import 'package:deviraj_lms/app/ui/widgets/common/logo_loading.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:get/get.dart';
 import '../../../controller/wishlist.dart';
 import '../../widgets/common/appbar.dart';
@@ -44,9 +45,19 @@ class Favourite extends StatelessWidget {
                                 WishListController.to.wishListDetails.length,
                             shrinkWrap: true,
                             itemBuilder: (context, index) {
-                              return FavouriteCard(
-                                data: WishListController
-                                    .to.wishListDetails[index],
+                              return AnimationConfiguration.staggeredList(
+                                position: index,
+                                duration: const Duration(milliseconds: 1000),
+                                child: SlideAnimation(
+                                  verticalOffset: 50.0,
+                                  child: FadeInAnimation(
+                                    duration: const Duration(seconds: 2),
+                                    child: FavouriteCard(
+                                      data: WishListController
+                                          .to.wishListDetails[index],
+                                    ),
+                                  ),
+                                ),
                               );
                             },
                           ),

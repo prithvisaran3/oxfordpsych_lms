@@ -9,6 +9,7 @@ class ApiService {
   //profile
   static const getProfile = "${AppConfig.baseUrl}?getprofile=";
   static const updateProfile = "${AppConfig.baseUrl}?action=updateprofile";
+  static const deleteAccount = "${AppConfig.baseUrl}?action=deleteAccount";
 
   //forgot password
   static const validateEmail = "${AppConfig.baseUrl}?action=validateEmail";

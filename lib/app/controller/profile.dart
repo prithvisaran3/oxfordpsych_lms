@@ -5,6 +5,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../data/model/profileRes.dart' as profile;
 import '../data/model/subscription_detail.dart';
+import '../ui/pages/profile/profile.dart';
 import '../ui/widgets/common/alert.dart';
 import '../ui/widgets/common/common_print.dart';
 import '../ui/widgets/common/common_snackbar.dart';
@@ -17,6 +18,7 @@ class ProfileController extends GetxController {
   final repository = ProfileRepository();
 
   final TextEditingController profileName = TextEditingController();
+  final TextEditingController deleteEmail = TextEditingController();
 
   final _isPushNotification = true.obs;
 
@@ -50,6 +52,14 @@ class ProfileController extends GetxController {
     _isEmailNotification.value = value;
   }
 
+  final _isDeleteAccount = false.obs;
+
+  get isDeleteAccount => _isDeleteAccount.value;
+
+  set isDeleteAccount(value) {
+    _isDeleteAccount.value = value;
+  }
+
   final _getProfileLoading = false.obs;
 
   get getProfileLoading => _getProfileLoading.value;
@@ -64,6 +74,14 @@ class ProfileController extends GetxController {
 
   set updateProfileLoading(value) {
     _updateProfileLoading.value = value;
+  }
+
+  final _deleteAccountLoading = false.obs;
+
+  get deleteAccountLoading => _deleteAccountLoading.value;
+
+  set deleteAccountLoading(value) {
+    _deleteAccountLoading.value = value;
   }
 
   final _profileDetails = profile.Data().obs;
@@ -146,7 +164,7 @@ class ProfileController extends GetxController {
       updateProfileLoading = false;
       commonPrint(
           status: "$statusCode",
-          msg: "Error from register due to data mismatch or format $e");
+          msg: "Error from update profile due to data mismatch or format $e");
     }
   }
 
@@ -182,6 +200,46 @@ class ProfileController extends GetxController {
       commonPrint(
           status: "$statusCode",
           msg: "Error from updatePassword due to data mismatch or format $e");
+    }
+  }
+
+  deleteAccount() async {
+    deleteAccountLoading = true;
+    // SharedPreferences preferences = await SharedPreferences.getInstance();
+    // var id = preferences.getString('token');
+    var body = {
+      // "name": AuthController.to.name.text,
+      // "mobile": AuthController.to.mobile.text,
+    };
+    try {
+      var res = await repository.deleteAccount(body: body);
+      if (statusCode == 200) {
+        if (res['status'] == "200") {
+          deleteAccountLoading = false;
+          commonPrint(status: res['status'], msg: res['message']);
+          Get.back();
+          Get.back();
+          Get.back();
+          commonSnackBar(title: "Delete Account", msg: "${res['message']}");
+
+          ProfileController.to.isDeleteAccount = false;
+        } else if (res['status'] == "422") {
+          deleteAccountLoading = false;
+          commonPrint(status: res['status'], msg: "All fields are required");
+          errorAlert(Get.context!, content: "All fields are required",
+              confirmButtonPressed: () {
+            Get.back();
+          });
+        }
+      } else {
+        deleteAccountLoading = false;
+        commonPrint(status: "500", msg: "Error from server or No Internet");
+      }
+    } catch (e) {
+      deleteAccountLoading = false;
+      commonPrint(
+          status: "$statusCode",
+          msg: "Error from delete account due to data mismatch or format $e");
     }
   }
 

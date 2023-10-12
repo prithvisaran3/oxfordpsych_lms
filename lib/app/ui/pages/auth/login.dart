@@ -116,43 +116,43 @@ class _LoginState extends State<Login> {
                       const SizedBox(
                         height: 20,
                       ),
-                      const Text('Or'),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          GestureDetector(
-                            onTap: () {
-                              AuthController.to.googleSignIn(context: context);
-                            },
-                            child: Image.asset(
-                              'assets/images/google.png',
-                              height: 25,
-                              width: 25,
-                              fit: BoxFit.cover,
-                            ),
-                          ),
-                          const SizedBox(
-                            width: 25,
-                          ),
-                          GestureDetector(
-                            onTap: () {
-                              AuthController.to.appleLogin();
-                            },
-                            child: Image.asset(
-                              'assets/images/apple.png',
-                              height: 30,
-                              width: 30,
-                              fit: BoxFit.cover,
-                            ),
-                          ),
-                        ],
-                      ),
-                      const SizedBox(
-                        height: 20,
-                      ),
+                      // const Text('Or'),
+                      // const SizedBox(
+                      //   height: 20,
+                      // ),
+                      // Row(
+                      //   mainAxisAlignment: MainAxisAlignment.center,
+                      //   children: [
+                      //     GestureDetector(
+                      //       onTap: () {
+                      //         AuthController.to.googleSignIn(context: context);
+                      //       },
+                      //       child: Image.asset(
+                      //         'assets/images/google.png',
+                      //         height: 25,
+                      //         width: 25,
+                      //         fit: BoxFit.cover,
+                      //       ),
+                      //     ),
+                      //     const SizedBox(
+                      //       width: 25,
+                      //     ),
+                      //     GestureDetector(
+                      //       onTap: () {
+                      //         AuthController.to.appleLogin();
+                      //       },
+                      //       child: Image.asset(
+                      //         'assets/images/apple.png',
+                      //         height: 30,
+                      //         width: 30,
+                      //         fit: BoxFit.cover,
+                      //       ),
+                      //     ),
+                      //   ],
+                      // ),
+                      // const SizedBox(
+                      //   height: 20,
+                      // ),
                       RichText(
                         text: TextSpan(
                           text: 'Don\'t have an account? ',

@@ -68,6 +68,7 @@ dependencies:
   infinite_scroll_pagination: ^3.2.0
 #  flutter_windowmanager: ^0.2.0
   loading_animations: ^2.2.0
+  flutter_staggered_animations: ^1.1.1
 
 
 dev_dependencies:

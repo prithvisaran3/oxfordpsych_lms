@@ -2,6 +2,7 @@ import 'package:deviraj_lms/app/controller/course.dart';
 import 'package:deviraj_lms/app/ui/widgets/common/cart_empty.dart';
 import 'package:deviraj_lms/app/ui/widgets/common/logo_loading.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:get/get.dart';
 import '../../theme/colors.dart';
 import '../../widgets/common/appbar.dart';
@@ -33,26 +34,37 @@ class ProgressScreen extends StatelessWidget {
                             physics: const BouncingScrollPhysics(),
                             children: [
                               Obx(
-                                () =>
-                                    CourseController.to.isMyCourseEmpty == true
-                                        ? const CartEmpty(
-                                            emptyString: "No courses",
-                                            image: 'cart.png',
-                                            isShowButton: false,
-                                          )
-                                        : ListView.builder(
-                                            physics:
-                                                const NeverScrollableScrollPhysics(),
-                                            itemCount: CourseController
-                                                .to.myCourseDetails.length,
-                                            shrinkWrap: true,
-                                            itemBuilder: (context, index) {
-                                              return ProgressCard(
-                                                data: CourseController
-                                                    .to.myCourseDetails[index],
-                                              );
-                                            },
-                                          ),
+                                () => CourseController.to.isMyCourseEmpty ==
+                                        true
+                                    ? const CartEmpty(
+                                        emptyString: "No courses",
+                                        image: 'cart.png',
+                                        isShowButton: false,
+                                      )
+                                    : ListView.builder(
+                                        physics:
+                                            const NeverScrollableScrollPhysics(),
+                                        itemCount: CourseController
+                                            .to.myCourseDetails.length,
+                                        shrinkWrap: true,
+                                        itemBuilder: (context, index) {
+                                          return AnimationConfiguration
+                                              .staggeredList(
+                                            position: index,
+                                            duration: const Duration(
+                                                milliseconds: 1000),
+                                            child: SlideAnimation(
+                                              verticalOffset: 100.0,
+                                              child: FadeInAnimation(
+                                                child: ProgressCard(
+                                                  data: CourseController.to
+                                                      .myCourseDetails[index],
+                                                ),
+                                              ),
+                                            ),
+                                          );
+                                        },
+                                      ),
                               ),
                             ],
                           ),

@@ -20,6 +20,13 @@ class ProfileRepository {
     return res;
   }
 
+  Future<dynamic> deleteAccount({ required body}) async {
+    var response = await helper.post(
+        url: ApiService.deleteAccount,body: body);
+    var res = jsonDecode(response);
+    return res;
+  }
+
   Future<SubscriptionDetail> getSubscriptionDetails({params}) async {
     var response =
         await helper.get(url: "${ApiService.subscriptionDetail}$params");

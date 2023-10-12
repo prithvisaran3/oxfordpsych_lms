@@ -286,19 +286,19 @@ class _CourseDetailState extends State<CourseDetail> {
           //   ),
           // ),
 
-          Positioned(
-            top: 0,
-            bottom: 0,
-            right: 15,
-            // left: 0,
-            child: Center(
-              child: Text(
-                "Demo video",
-                style: TextStyle(
-                    color: AppColors.white.withOpacity(.4), fontSize: 16),
-              ),
-            ),
-          ),
+          // Positioned(
+          //   top: 0,
+          //   bottom: 0,
+          //   right: 15,
+          //   // left: 0,
+          //   child: Center(
+          //     child: Text(
+          //       "Demo video",
+          //       style: TextStyle(
+          //           color: AppColors.white.withOpacity(.4), fontSize: 16),
+          //     ),
+          //   ),
+          // ),
         ],
       ),
     );
