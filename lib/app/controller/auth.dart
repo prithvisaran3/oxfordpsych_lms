@@ -197,7 +197,7 @@ class AuthController extends GetxController {
           updateToken(userId: res['user_id'], fcmToken: fcmToken);
           storeLocalDevice(body: storedData);
           Get.off(() => const HomeMain());
-          commonSnackBar(title: "Success", msg: "Login Successfully");
+          commonSnackBar(title: "Success", msg: "Logged In Successfully");
           loginFieldsEmpty();
         } else if (res['status'] == "422") {
           loginLoading = false;
@@ -257,7 +257,6 @@ class AuthController extends GetxController {
         "password": password.text,
       };
     }
-    print("Passing body: $body");
 
     try {
       var res = await repository.register(body: body);
@@ -279,26 +278,6 @@ class AuthController extends GetxController {
               "token": "${res['user_id']}",
               "fcm_token": fcmToken
             };
-            storeLocalDevice(body: storedData);
-            Get.off(() => const HomeMain());
-            commonSnackBar(title: "Success", msg: "Register Successfully");
-            registerFieldsEmpty();
-          }
-
-          if (res['message'] == "Duplicated") {
-            registerLoading = false;
-            commonPrint(status: res['status'], msg: res['message']);
-            // errorAlert(Get.context!,
-            //     content: "${res['message']}\nEmail already exist",
-            //     confirmButtonPressed: () {
-            //   Get.back();
-            // });
-            commonSnackBar(
-                title: "Email already exists", msg: "${res['message']}");
-          } else {
-            registerLoading = false;
-            commonPrint(status: res['status'], msg: res['message']);
-            Map storedData = {"token": "${res['user_id']}"};
             storeLocalDevice(body: storedData);
             Get.off(() => const HomeMain());
             commonSnackBar(title: "Success", msg: "Registered Successfully");
@@ -566,11 +545,10 @@ class AuthController extends GetxController {
   appleLogin() async {
     var apple = AppleAuthProvider();
     var res = await FirebaseAuth.instance.signInWithProvider(apple);
-    print("REsponse: $res");
     if (res != null) {
       register(
           isAppleSignIn: true,
-          gName: res.user!.displayName ,
+          gName: res.user!.displayName,
           gEmail: res.user!.email,
           gMobile: res.user!.phoneNumber,
           gPassword: res.user!.uid);

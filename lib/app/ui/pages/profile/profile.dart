@@ -12,7 +12,6 @@ import '../../../utility/utility.dart';
 import '../../theme/colors.dart';
 
 import '../../widgets/common/appbar.dart';
-import '../../widgets/common/common_snackbar.dart';
 import 'delete_account.dart';
 
 class Profile extends StatelessWidget {
@@ -24,7 +23,7 @@ class Profile extends StatelessWidget {
         init: ProfileController(),
         initState: (_) {
           // ProfileController.to.getSubscriptionDetail();
-          ProfileController.to.checkExpiry();
+          // ProfileController.to.checkExpiry();
           // SubscriptionController.to.init();
         },
         builder: (_) {

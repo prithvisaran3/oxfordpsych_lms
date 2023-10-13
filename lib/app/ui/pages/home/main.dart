@@ -51,7 +51,7 @@ class HomeMain extends StatelessWidget {
       icon: Obx(() => Icon(
             icon,
             color: MainController.to.currentIndex == index
-                ? Colors.teal
+                ? AppColors.primary
                 : AppColors.grey,
           )),
     );
