@@ -30,6 +30,7 @@ class ProfileRepository {
   Future<SubscriptionDetail> getSubscriptionDetails({params}) async {
     var response =
         await helper.get(url: "${ApiService.subscriptionDetail}$params");
+
     var res = SubscriptionDetail.fromJson(jsonDecode(response));
     return res;
   }

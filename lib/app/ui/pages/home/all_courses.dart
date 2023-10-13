@@ -2,6 +2,7 @@ import 'package:deviraj_lms/app/ui/theme/font_size.dart';
 import 'package:deviraj_lms/app/ui/widgets/common/common_print.dart';
 import 'package:deviraj_lms/app/ui/widgets/common/logo_loading.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:get/get.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import '../../../controller/course.dart';
@@ -88,24 +89,39 @@ class AllCourses extends StatelessWidget {
                                   shrinkWrap: true,
                                   physics: const BouncingScrollPhysics(),
                                   itemBuilder: (context, index) {
-                                    return AllCoursesCard(
-                                      cardData: CourseController
-                                          .to.searchCourseDetails[index],
-                                      onTap: () {
-                                        ProfileController.to.isSubscribed ==
-                                                true
-                                            ? Get.to(
-                                                () => CourseDetail(
-                                                  data: CourseController.to
-                                                          .searchCourseDetails[
-                                                      index],
-                                                ),
-                                              )
-                                            : commonSnackBar(
-                                                title: "You don't have access",
-                                                msg:
-                                                    "Visit our website for detailed info");
-                                      },
+                                    return AnimationConfiguration.staggeredList(
+                                      position: index,
+                                      duration: const Duration(
+                                        milliseconds: 1000,
+                                      ),
+                                      child: SlideAnimation(
+                                        verticalOffset: 50,
+                                        child: FadeInAnimation(
+                                          duration: const Duration(seconds: 2),
+                                          child: AllCoursesCard(
+                                            cardData: CourseController
+                                                .to.searchCourseDetails[index],
+                                            onTap: () {
+                                              ProfileController
+                                                          .to.isSubscribed ==
+                                                      true
+                                                  ? Get.to(
+                                                      () => CourseDetail(
+                                                        data: CourseController
+                                                                .to
+                                                                .searchCourseDetails[
+                                                            index],
+                                                      ),
+                                                    )
+                                                  : commonSnackBar(
+                                                      title:
+                                                          "You don't have access",
+                                                      msg:
+                                                          "Visit our website for detailed info");
+                                            },
+                                          ),
+                                        ),
+                                      ),
                                     );
                                   },
                                 )
@@ -142,26 +158,40 @@ class AllCourses extends StatelessWidget {
                                           ));
                                         },
                                         itemBuilder: (context, item, index) {
-                                          commonPrint(status: "items ",msg: "$item");
-                                          return AllCoursesCard(
-                                            cardData: item,
-                                            onTap: () {
-                                              commonPrint(status:
-                                                  "print check ",msg: "${item['curriculum_id']}");
-                                              ProfileController
-                                                          .to.isSubscribed ==
-                                                      true
-                                                  ? Get.to(
-                                                      () => CourseDetail(
-                                                        data: item,
-                                                      ),
-                                                    )
-                                                  : commonSnackBar(
-                                                      title:
-                                                          "You don't have access",
-                                                      msg:
-                                                          "Visit our website for detailed info");
-                                            },
+                                          commonPrint(
+                                              status: "items ", msg: "$item");
+                                          return AnimationConfiguration
+                                              .staggeredList(
+                                            position: index,
+                                            duration:
+                                                const Duration(seconds: 1),
+                                            child: SlideAnimation(
+                                              verticalOffset: 50,
+                                              child: FadeInAnimation(
+                                                child: AllCoursesCard(
+                                                  cardData: item,
+                                                  onTap: () {
+                                                    commonPrint(
+                                                        status: "print check ",
+                                                        msg:
+                                                            "${item['curriculum_id']}");
+                                                    ProfileController.to
+                                                                .isSubscribed ==
+                                                            true
+                                                        ? Get.to(
+                                                            () => CourseDetail(
+                                                              data: item,
+                                                            ),
+                                                          )
+                                                        : commonSnackBar(
+                                                            title:
+                                                                "You don't have access",
+                                                            msg:
+                                                                "Visit our website for detailed info");
+                                                  },
+                                                ),
+                                              ),
+                                            ),
                                           );
                                         },
                                       ),

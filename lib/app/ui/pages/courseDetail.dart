@@ -432,7 +432,7 @@ class _CourseDetailState extends State<CourseDetail> {
                     children: [
                       Icon(
                         Icons.circle,
-                        color: AppColors.green,
+                        color: AppColors.primary,
                         size: 10,
                       ),
                       SizedBox(
@@ -525,7 +525,7 @@ class _CourseDetailState extends State<CourseDetail> {
                         //         : Icons.language,
 
                         index == 0 ? Icons.phone_android : Icons.language,
-                        color: Colors.teal,
+                        color: AppColors.primary,
                         size: 20,
                       ),
                       const SizedBox(
@@ -549,7 +549,7 @@ class _CourseDetailState extends State<CourseDetail> {
                       //                   .split(" ")[0],
                       //               style: const TextStyle(
                       //                 fontFamily: 'regular',
-                      //                 color: Colors.teal,
+                      //                 color: AppColors.primary,
                       //               ),
                       //             ),
                       //           ],
@@ -588,7 +588,7 @@ class _CourseDetailState extends State<CourseDetail> {
                     //     : index == 1
                     //     ? Icons.celebration_outlined
                     //     : Icons.thumb_up_outlined,
-                    color: AppColors.secondary,
+                    color: AppColors.primary,
                     size: 20,
                   ),
                   SizedBox(
@@ -702,7 +702,7 @@ class _CourseDetailState extends State<CourseDetail> {
                         // Container(
                         //   padding: const EdgeInsets.all(3),
                         //   decoration: BoxDecoration(
-                        //       color: AppColors.secondary,
+                        //       color: AppColors.primary,
                         //       borderRadius: BorderRadius.circular(10)),
                         //   child: const Text(
                         //     'BEST SELLER',
@@ -713,7 +713,7 @@ class _CourseDetailState extends State<CourseDetail> {
                     ),
                     const Text(
                       'Top Rated Instructor',
-                      style: TextStyle(color: Colors.teal),
+                      style: TextStyle(color: AppColors.primary),
                     ),
                     // Row(
                     //   crossAxisAlignment: CrossAxisAlignment.start,
@@ -789,7 +789,7 @@ class _CourseDetailState extends State<CourseDetail> {
                 minimumSize: const Size.fromHeight(50),
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(15),
-                    side: const BorderSide(color: AppColors.secondary)),
+                    side: const BorderSide(color: AppColors.primary)),
               ),
               child: const Text('Add to Cart'),
             ),
@@ -802,7 +802,7 @@ class _CourseDetailState extends State<CourseDetail> {
   simpleButton() {
     return ElevatedButton.styleFrom(
       foregroundColor: Colors.black,
-      backgroundColor: AppColors.secondary,
+      backgroundColor: AppColors.primary,
       elevation: 0,
       minimumSize: const Size.fromHeight(50),
       shape: RoundedRectangleBorder(
@@ -831,7 +831,7 @@ class _CourseDetailState extends State<CourseDetail> {
             amount: widget.data['price'] == "" ? "0" : widget.data['price'],
             fontSize: 30,
             fontWEIGHT: FontWeight.bold,
-            color: AppColors.secondary,
+            color: AppColors.primary,
           ),
           const SizedBox(width: 5),
           CurrencyText(
@@ -840,7 +840,7 @@ class _CourseDetailState extends State<CourseDetail> {
                 : (double.parse(widget.data['price']) + 100).toString(),
             fontSize: 20,
             fontWEIGHT: FontWeight.bold,
-            color: AppColors.secondary,
+            color: AppColors.primary,
             isStrikeThrough: true,
           ),
         ],

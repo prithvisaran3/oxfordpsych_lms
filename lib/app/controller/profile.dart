@@ -5,7 +5,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../data/model/profileRes.dart' as profile;
 import '../data/model/subscription_detail.dart';
-import '../ui/pages/profile/profile.dart';
 import '../ui/widgets/common/alert.dart';
 import '../ui/widgets/common/common_print.dart';
 import '../ui/widgets/common/common_snackbar.dart';
@@ -290,6 +289,7 @@ class ProfileController extends GetxController {
                 status: "200", msg: "get subscription detail with data");
             subscriptionDetail = res.data;
             isSubscribed = true;
+            checkExpiry();
           }
         }
       } else {

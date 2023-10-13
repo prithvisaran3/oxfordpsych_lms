@@ -53,6 +53,9 @@ PreferredSizeWidget commonAppBar({
     actions: [
       isSubscribeIcon == true
           ? SubscriptionStatusBar(
+              name: ProfileController.to.subscriptionDetail.packageName == null
+                  ? ""
+                  : "${ProfileController.to.subscriptionDetail.packageName}",
               status: ProfileController.to.isSubscribed,
             )
           : const SizedBox(),
