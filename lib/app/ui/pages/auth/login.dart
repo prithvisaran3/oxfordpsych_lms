@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:deviraj_lms/app/ui/widgets/common/common_print.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -140,17 +142,10 @@ class _LoginState extends State<Login> {
                         const SizedBox(
                           width: 25,
                         ),
-                        GestureDetector(
+                       Platform.isIOS? GestureDetector(
                           onTap: () async{
-                            // AuthController.to.appleLogin();
-                            final credential =
-                            await SignInWithApple.getAppleIDCredential(
-                              scopes: [
-                                AppleIDAuthorizationScopes.email,
-                                AppleIDAuthorizationScopes.fullName,
-                              ],
-                            );
-                            commonPrint(status: "Apple ID", msg: "$credential");
+                            AuthController.to.appleLogin();
+
                           },
                           child: Image.asset(
                             'assets/images/apple.png',
@@ -158,7 +153,7 @@ class _LoginState extends State<Login> {
                             width: 30,
                             fit: BoxFit.cover,
                           ),
-                        ),
+                        ):const SizedBox(),
                       ],
                     ),
                     const SizedBox(

@@ -5,6 +5,7 @@ import 'dart:io';
 import 'package:deviraj_lms/app/ui/pages/home/main.dart';
 
 import 'package:deviraj_lms/app/ui/widgets/common/alert.dart';
+import 'package:deviraj_lms/app/ui/widgets/common/password_generate.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -13,9 +14,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../data/repository/auth.dart';
@@ -207,8 +210,8 @@ class AuthController extends GetxController {
           errorAlert(Get.context!,
               content: "${res['message']}\nEmail or Password Wrong",
               confirmButtonPressed: () {
-            Get.back();
-          });
+                Get.back();
+              });
         }
       } else {
         loginLoading = false;
@@ -222,13 +225,12 @@ class AuthController extends GetxController {
     }
   }
 
-  register(
-      {isGoogleLogin = false,
-      gName,
-      gEmail,
-      gMobile,
-      gPassword,
-      isAppleSignIn = false}) async {
+  register({isGoogleLogin = false,
+    gName,
+    gEmail,
+    gMobile,
+    gPassword,
+    isAppleSignIn = false}) async {
     registerLoading = true;
     Map<String, String> body = {};
     var fcmToken = await FirebaseMessaging.instance.getToken();
@@ -257,7 +259,9 @@ class AuthController extends GetxController {
         "password": password.text,
       };
     }
-    print("Passing body: $body");
+    if (kDebugMode) {
+      print("Passing body: $body");
+    }
 
     try {
       var res = await repository.register(body: body);
@@ -269,8 +273,8 @@ class AuthController extends GetxController {
             errorAlert(Get.context!,
                 content: "${res['message']}\nEmail already exist",
                 confirmButtonPressed: () {
-              Get.back();
-            });
+                  Get.back();
+                });
           } else {
             registerLoading = false;
             commonPrint(status: res['status'], msg: res['message']);
@@ -443,11 +447,11 @@ class AuthController extends GetxController {
         commonAlertDialog(Get.context!,
             content: "Update required for \nOxfordPsych App",
             confirmButtonPressed: () {
-          launchUrl(
-            url,
-            mode: LaunchMode.externalApplication,
-          );
-        });
+              launchUrl(
+                url,
+                mode: LaunchMode.externalApplication,
+              );
+            });
       }
     } else {
       debugPrint("update not available");
@@ -500,79 +504,101 @@ class AuthController extends GetxController {
   }
 
   googleSignIn({context}) async {
-    // FirebaseAuth auth = FirebaseAuth.instance;
-    // User? user;
-    // final GoogleSignIn googleSignIn = GoogleSignIn();
-    //
-    // final GoogleSignInAccount? googleSignInAccount =
-    //     await googleSignIn.signIn();
-    //
-    // if (await googleSignIn.isSignedIn()) {
-    //   isAlreadyGoogleLogin = true;
-    //   commonSnackBar(title: "Already registered", msg: "Please Login");
-    // } else {
-    //   isAlreadyGoogleLogin = false;
-    // }
-    // if (googleSignInAccount != null) {
-    //   final GoogleSignInAuthentication googleSignInAuthentication =
-    //       await googleSignInAccount.authentication;
-    //   final AuthCredential credential = GoogleAuthProvider.credential(
-    //     accessToken: googleSignInAuthentication.accessToken,
-    //     idToken: googleSignInAuthentication.idToken,
-    //   );
-    //
-    //   try {
-    //     final UserCredential userCredential =
-    //         await auth.signInWithCredential(credential);
-    //
-    //     user = userCredential.user;
-    //     if (user != null) {
-    //       register(
-    //           isGoogleLogin: true,
-    //           gName: user.displayName,
-    //           gEmail: user.email,
-    //           gMobile: user.phoneNumber,
-    //           gPassword: user.uid);
-    //     }
-    //
-    //     commonPrint(
-    //         status: "200",
-    //         msg:
-    //             "google sign in success:\n ${user!.email}\n${user.phoneNumber}\n${user.displayName}\n${user.photoURL}\n${user.uid}");
-    //   } catch (e) {
-    //     switch (e) {
-    //       case "ERROR_INVALID_CREDENTIAL":
-    //         commonPrint(status: "500", msg: "Invalid Credentials");
-    //         break;
-    //       case "ERROR_ACCOUNT_EXISTS_WITH_DIFFERENT_CREDENTIAL":
-    //         commonPrint(status: "500", msg: "Exits with different credentials");
-    //         break;
-    //       case "ERROR_OPERATION_NOT_ALLOWED":
-    //         commonPrint(
-    //             status: "500",
-    //             msg: "Signing in with Email and Password is not enabled");
-    //         break;
-    //       default:
-    //         commonPrint(status: "500", msg: "An undefined Error happened");
-    //     }
-    //   }
-    // } else {
-    //   commonPrint(status: "501", msg: "Google singing account null ");
-    // }
+    FirebaseAuth auth = FirebaseAuth.instance;
+    User? user;
+    final GoogleSignIn googleSignIn = GoogleSignIn();
 
-    // return user;
+    final GoogleSignInAccount? googleSignInAccount =
+        await googleSignIn.signIn();
+
+    if (await googleSignIn.isSignedIn()) {
+      isAlreadyGoogleLogin = true;
+      commonSnackBar(title: "Already registered", msg: "Please Login");
+    } else {
+      isAlreadyGoogleLogin = false;
+    }
+    if (googleSignInAccount != null) {
+      final GoogleSignInAuthentication googleSignInAuthentication =
+          await googleSignInAccount.authentication;
+      final AuthCredential credential = GoogleAuthProvider.credential(
+        accessToken: googleSignInAuthentication.accessToken,
+        idToken: googleSignInAuthentication.idToken,
+      );
+
+      try {
+        final UserCredential userCredential =
+            await auth.signInWithCredential(credential);
+
+        user = userCredential.user;
+        if (user != null) {
+          register(
+              isGoogleLogin: true,
+              gName: user.displayName,
+              gEmail: user.email,
+              gMobile: user.phoneNumber,
+              gPassword: user.uid);
+        }
+
+        commonPrint(
+            status: "200",
+            msg:
+                "google sign in success:\n ${user!.email}\n${user.phoneNumber}\n${user.displayName}\n${user.photoURL}\n${user.uid}");
+      } catch (e) {
+        switch (e) {
+          case "ERROR_INVALID_CREDENTIAL":
+            commonPrint(status: "500", msg: "Invalid Credentials");
+            break;
+          case "ERROR_ACCOUNT_EXISTS_WITH_DIFFERENT_CREDENTIAL":
+            commonPrint(status: "500", msg: "Exits with different credentials");
+            break;
+          case "ERROR_OPERATION_NOT_ALLOWED":
+            commonPrint(
+                status: "500",
+                msg: "Signing in with Email and Password is not enabled");
+            break;
+          default:
+            commonPrint(status: "500", msg: "An undefined Error happened");
+        }
+      }
+    } else {
+      commonPrint(status: "501", msg: "Google singing account null ");
+    }
+
+    return user;
   }
 
   appleLogin() async {
-    var apple = AppleAuthProvider();
-    var res = await FirebaseAuth.instance.signInWithProvider(apple);
-    if (res != null) {
+    final credential =
+    await SignInWithApple.getAppleIDCredential(
+      scopes: [
+        AppleIDAuthorizationScopes.email,
+        AppleIDAuthorizationScopes.fullName,
+      ],
+    );
+    commonPrint(status: "Apple ID", msg: "${credential.givenName}");
+
+    if (credential.email != null) {
       register(
           isAppleSignIn: true,
-          gName: res.user!.displayName,
-          gEmail: res.user!.email,
-          gMobile: res.user!.phoneNumber,
-          gPassword: res.user!.uid);
+          gName: credential.givenName,
+          gEmail: credential.email,
+          gMobile: "",
+          gPassword: getRandomString(8));
     }
+    else {
+      commonAlertDialog(Get.context!,
+          content: "Already Apple ID is logged in. Go to Settings > Apple ID,iCloud,iTunes & App Store > Password & Security > Apps Using Your Apple ID, tap on CASC Courses and tap Stop Using Apple ID. Contact support to get password",
+          confirmButtonPressed: () {
+            Get.back();
+          });
+      // commonSnackBar(title: "Apple Login Failed", msg: "Already Apple ID is logged in. Go to Settings > Apple ID,iCloud,iTunes & App Store > Password & Security > Apps Using Your Apple ID, tap on CASC Courses and tap Stop Using Apple ID");
+    }
+    // final oauthCredential = OAuthProvider("apple.com").credential(
+    //     idToken: credential.identityToken,
+    //     accessToken: credential.authorizationCode);
+    //
+    // // Sign in the user with Firebase. If the nonce we generated earlier does
+    // // not match the nonce in `appleCredential.identityToken`, sign in will fail.
+    // final user = await FirebaseAuth.instance.signInWithCredential(oauthCredential);
   }
 }
