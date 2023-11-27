@@ -28,7 +28,9 @@ class Home extends StatelessWidget {
       initState: (_) async {
         if (HomeController.to.isFirstLoading == true) {
           // ProfileController.to.getProfile();
-          CourseController.to.getCourse(isInitial: true, curriculumId: "2");
+          CourseController.to.getCourse(
+            isInitial: true,
+          );
           HomeController.to.getCurriculum();
           // CourseController.to.getMyCourses();
           ProfileController.to.getSubscriptionDetail();
@@ -161,68 +163,75 @@ class Home extends StatelessWidget {
                                     ),
 
                                     Obx(
-                                      () => CourseController
-                                                  .to.getCourseLoading ==
-                                              true
-                                          ? const SimpleLoading()
-                                          : CourseController.to.isCourseEmpty ==
+                                      () =>
+                                          CourseController
+                                                      .to.getCourseLoading ==
                                                   true
-                                              ? const Text("empty")
-                                              : SizedBox(
-                                                  height: MediaQuery.of(context)
-                                                          .size
-                                                          .height *
-                                                      0.23,
-                                                  // color: Colors.red,
-                                                  child: ListView.builder(
-                                                      itemCount: CourseController
-                                                          .to
-                                                          .initialCourseDetails
-                                                          .length,
-                                                      scrollDirection:
-                                                          Axis.horizontal,
-                                                      physics:
-                                                          const BouncingScrollPhysics(),
-                                                      shrinkWrap: true,
-                                                      itemBuilder:
-                                                          (context, index) {
-                                                        return AnimationConfiguration.staggeredList(
-                                                          position: index,
-                                                          duration: const Duration(milliseconds: 1000),
-                                                          child: SlideAnimation(
-                                                            curve: Curves.decelerate,
-                                                            horizontalOffset: 50,
-                                                            child: FadeInAnimation(
-                                                              child: CourseCard(
-                                                                index: index,
-                                                                onTap: () {
-                                                                  ProfileController.to
-                                                                              .isSubscribed ==
-                                                                          true
-                                                                      ? Get.to(() =>
-                                                                          CourseDetail(
-                                                                            data: CourseController
-                                                                                    .to
-                                                                                    .initialCourseDetails[
-                                                                                index],
-                                                                          ))
-                                                                      : commonSnackBar(
-                                                                          title:
-                                                                              "You don't have access",
-                                                                          msg:
-                                                                              "Visit our website for detailed info");
-                                                                },
-                                                                courseData:
-                                                                    CourseController
+                                              ? const SimpleLoading()
+                                              : CourseController
+                                                          .to.isCourseEmpty ==
+                                                      true
+                                                  ? const Text("empty")
+                                                  : SizedBox(
+                                                      height:
+                                                          MediaQuery.of(context)
+                                                                  .size
+                                                                  .height *
+                                                              0.23,
+                                                      // color: Colors.red,
+                                                      child: ListView.builder(
+                                                          itemCount:
+                                                              CourseController
+                                                                  .to
+                                                                  .initialCourseDetails
+                                                                  .length,
+                                                          scrollDirection:
+                                                              Axis.horizontal,
+                                                          physics:
+                                                              const BouncingScrollPhysics(),
+                                                          shrinkWrap: true,
+                                                          itemBuilder:
+                                                              (context, index) {
+                                                            return AnimationConfiguration
+                                                                .staggeredList(
+                                                              position: index,
+                                                              duration:
+                                                                  const Duration(
+                                                                      milliseconds:
+                                                                          1000),
+                                                              child:
+                                                                  SlideAnimation(
+                                                                curve: Curves
+                                                                    .decelerate,
+                                                                horizontalOffset:
+                                                                    50,
+                                                                child:
+                                                                    FadeInAnimation(
+                                                                  child:
+                                                                      CourseCard(
+                                                                    index:
+                                                                        index,
+                                                                    onTap: () {
+                                                                      ProfileController.to.isSubscribed ==
+                                                                              true
+                                                                          ? Get.to(() =>
+                                                                              CourseDetail(
+                                                                                data: CourseController.to.initialCourseDetails[index],
+                                                                              ))
+                                                                          : commonSnackBar(
+                                                                              title: "You don't have access",
+                                                                              msg: "Visit our website for detailed info");
+                                                                    },
+                                                                    courseData:
+                                                                        CourseController
                                                                             .to
-                                                                            .initialCourseDetails[
-                                                                        index],
+                                                                            .initialCourseDetails[index],
+                                                                  ),
+                                                                ),
                                                               ),
-                                                            ),
-                                                          ),
-                                                        );
-                                                      }),
-                                                ),
+                                                            );
+                                                          }),
+                                                    ),
                                     ),
                                     const SizedBox(
                                       height: 15,

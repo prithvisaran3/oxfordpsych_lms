@@ -57,7 +57,7 @@ class Profile extends StatelessWidget {
                           Text(
                             ProfileController.to.isSubscribed == true
                                 ? "(${ProfileController.to.remainingDays.toString().split('-')[1]} days left)"
-                                : "",
+                                : "Inactive Member",
                             style: const TextStyle(color: AppColors.primary),
                           ),
                           // const SubscriptionStatusCard(),

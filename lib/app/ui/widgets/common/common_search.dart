@@ -21,14 +21,13 @@ class CommonSearch extends StatelessWidget {
       onTap: enabled == true ? null : onTap,
       child: Container(
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(25),
-          boxShadow: const [
-            BoxShadow(
-              color: Colors.grey,
-              blurRadius: 2,
-            )
-          ]
-        ),
+            borderRadius: BorderRadius.circular(25),
+            boxShadow: const [
+              BoxShadow(
+                color: Colors.grey,
+                blurRadius: 2,
+              )
+            ]),
         child: TextFormField(
           style: const TextStyle(color: Colors.black),
           controller: controller,
@@ -41,11 +40,12 @@ class CommonSearch extends StatelessWidget {
               });
             } else if (value.isEmpty) {
               CourseController.to.pageNumber = 1;
-              CourseController.to.getCourse(isInitial: false, curriculumId: "2");
+              CourseController.to
+                  .getCourse(isInitial: false, curriculumId: "2");
             }
           },
           decoration: InputDecoration(
-            hintText: 'Search...',
+            hintText: 'Search',
             prefixIcon: const Icon(Icons.search, color: Colors.black54),
             hintStyle: TextStyle(color: Colors.grey.shade400),
             border: OutlineInputBorder(

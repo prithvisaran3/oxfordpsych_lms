@@ -35,6 +35,7 @@ class AllCourses extends StatelessWidget {
     return GetBuilder(
         init: CourseController(),
         initState: (_) {
+          print("INDEX ID: ${data['index_id']}");
           CourseController.to.pageNumber = 0;
           CourseController.to.pagingController.addPageRequestListener(
             (pageKey) {

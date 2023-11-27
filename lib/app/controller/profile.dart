@@ -288,8 +288,18 @@ class ProfileController extends GetxController {
             commonPrint(
                 status: "200", msg: "get subscription detail with data");
             subscriptionDetail = res.data;
-            isSubscribed = true;
             checkExpiry();
+
+            if (isSubscriptionExpiry == true) {
+              isSubscribed = false;
+            } else {
+              if (subscriptionDetail.packageId == 8 ||
+                  subscriptionDetail.packageId > 15) {
+                isSubscribed = false;
+              } else {
+                isSubscribed = true;
+              }
+            }
           }
         }
       } else {
