@@ -293,8 +293,8 @@ class ProfileController extends GetxController {
             if (isSubscriptionExpiry == true) {
               isSubscribed = false;
             } else {
-              if (subscriptionDetail.packageId == 8 ||
-                  subscriptionDetail.packageId > 15) {
+              if (subscriptionDetail.packageId == "8" ||
+                  int.parse(subscriptionDetail.packageId) > 15) {
                 isSubscribed = false;
               } else {
                 isSubscribed = true;
@@ -345,7 +345,7 @@ class ProfileController extends GetxController {
         DateTime(int.parse(year), int.parse(month), int.parse(day));
     final now = DateTime.now();
     remainingDays = now.difference(expirationDate).inDays;
-    commonPrint(status: "isExpory ", msg: "${expirationDate.isBefore(now)}");
+    commonPrint(status: "isExpiry ", msg: "${expirationDate.isBefore(now)}");
     isSubscriptionExpiry = expirationDate.isBefore(now);
   }
 }

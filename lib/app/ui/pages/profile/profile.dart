@@ -199,7 +199,7 @@ class Profile extends StatelessWidget {
                         onTap: () {
                           openBrowser(
                               url:
-                                  "https://devirajhospitals.com/oxfordpsychcourse/aboutus.php");
+                                  "https://www.oxfordpsychcourse.co.uk/aboutus.php");
                         },
                       ),
                       SettingsOptionsCard(
@@ -207,7 +207,7 @@ class Profile extends StatelessWidget {
                         onTap: () {
                           openBrowser(
                               url:
-                                  "https://devirajhospitals.com/oxfordpsychcourse/contact.php");
+                                  "https://www.oxfordpsychcourse.co.uk/contact.php");
                         },
                       ),
                       SettingsOptionsCard(
@@ -215,7 +215,7 @@ class Profile extends StatelessWidget {
                         onTap: () {
                           openBrowser(
                               url:
-                                  "https://devirajhospitals.com/oxfordpsychcourse/privacy.php");
+                                  "https://www.oxfordpsychcourse.co.uk/privacy-policy.php");
                         },
                       ),
                       SettingsOptionsCard(
@@ -223,7 +223,7 @@ class Profile extends StatelessWidget {
                         onTap: () {
                           openBrowser(
                               url:
-                                  "https://devirajhospitals.com/oxfordpsychcourse/#0");
+                                  "https://www.oxfordpsychcourse.co.uk/terms-conditions.php");
                         },
                       ),
                       const SizedBox(height: 40),

@@ -26,28 +26,31 @@ PreferredSizeWidget commonAppBar({
               Get.back();
             }
           : null,
-      child: Row(
-        children: [
-          isBackIcon == true
-              ? const Icon(
-                  Icons.arrow_back_ios_new_outlined,
-                  size: 18,
-                )
-              : const SizedBox(),
-          isBackIcon == true
-              ? const SizedBox(
-                  width: 5,
-                )
-              : const SizedBox(),
-          Text(
-            title,
-            overflow: TextOverflow.ellipsis,
-            textAlign: TextAlign.center,
-            maxLines: 2,
-            softWrap: false,
-            style: headText(fontSize: title.length <= 30 ? 20 : 15),
-          ),
-        ],
+      child: Align(
+        alignment: Alignment.topLeft,
+        child: Wrap(
+          children: [
+            isBackIcon == true
+                ? const Icon(
+                    Icons.arrow_back_ios_new_outlined,
+                    size: 18,
+                  )
+                : const SizedBox(),
+            isBackIcon == true
+                ? const SizedBox(
+                    width: 5,
+                  )
+                : const SizedBox(),
+            Text(
+              title,
+              overflow: TextOverflow.ellipsis,
+              textAlign: TextAlign.center,
+              maxLines: 2,
+              softWrap: false,
+              style: headText(fontSize: title.length <= 30 ? 20 : 15),
+            ),
+          ],
+        ),
       ),
     ),
     actions: [

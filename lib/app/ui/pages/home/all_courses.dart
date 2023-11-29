@@ -35,13 +35,13 @@ class AllCourses extends StatelessWidget {
     return GetBuilder(
         init: CourseController(),
         initState: (_) {
-          print("INDEX ID: ${data['index_id']}");
+          print("INDEX ID: ${data}");
           CourseController.to.pageNumber = 0;
           CourseController.to.pagingController.addPageRequestListener(
             (pageKey) {
               CourseController.to.getCourse(
                   isInitial: false,
-                  curriculumId: isCategory == true ? "${data["index_id"]}" : "",
+                  curriculumId: isCategory == true ? "${data["id"]}" : "",
                   pageKey: pageKey,
                   isSeeAll: true);
             },

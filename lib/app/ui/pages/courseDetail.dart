@@ -30,7 +30,7 @@ class _CourseDetailState extends State<CourseDetail> {
     super.initState();
 
     videoPlayerController = VideoPlayerController.networkUrl(Uri.parse(
-        "${AppConfig.videoUrl}${widget.data['curriculum_id']}/${widget.data['video']}"));
+        "${AppConfig.videoUrl}${widget.data['gdrive_id']}/${widget.data['video']}"));
 
     customVideoPlayerController = CustomVideoPlayerController(
         context: context,
@@ -61,7 +61,7 @@ class _CourseDetailState extends State<CourseDetail> {
   Widget build(BuildContext context) {
     commonPrint(status: "coures data ",msg: '${widget.data}');
     commonPrint(status:
-        "video  data ",msg: "${AppConfig.videoUrl}${widget.data['curriculum_id']}/${widget.data['video']}");
+        "video  data ",msg: "${AppConfig.videoUrl}${widget.data['gdrive_id']}/${widget.data['video']}");
     commonPrint(status:
         "image ",msg: "${AppConfig.imageUrl}${widget.data['curriculum_id']}/${widget.data['photos']}");
 
@@ -325,11 +325,11 @@ class _CourseDetailState extends State<CourseDetail> {
           style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w400),
         ),
 
-        CommonText(
-          textAlign: TextAlign.left,
-          text: '${widget.data["languages"]}',
-          style: const TextStyle(fontSize: 12, color: AppColors.primary),
-        ),
+        // CommonText(
+        //   textAlign: TextAlign.left,
+        //   text: '${widget.data["languages"]}',
+        //   style: const TextStyle(fontSize: 12, color: AppColors.primary),
+        // ),
         // Row(
         //   children: const [
         //     Text('4.5'),
@@ -524,7 +524,7 @@ class _CourseDetailState extends State<CourseDetail> {
                         //         ? Icons.person
                         //         : Icons.language,
 
-                        index == 0 ? Icons.phone_android : Icons.language,
+                        index == 0 ? Icons.phone_android : Icons.topic,
                         color: AppColors.primary,
                         size: 20,
                       ),
@@ -558,7 +558,7 @@ class _CourseDetailState extends State<CourseDetail> {
 
                       Text(index == 0
                           ? 'Last uploaded on ${getIsoToLocalDate(date: widget.data['log_date'])}'
-                          : "${widget.data['languages']}")
+                          : "${widget.data['topic']}")
                     ],
                   ),
                 );

@@ -3,6 +3,7 @@ import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:get/get.dart';
 
 import '../../../controller/home.dart';
+import '../../pages/category_courses.dart';
 import '../../pages/home/all_courses.dart';
 import '../../theme/colors.dart';
 import 'curriculum_box.dart';
@@ -61,12 +62,11 @@ class CategoryBox extends StatelessWidget {
                           text:
                               "${HomeController.to.curriculumDetails[index]['name']}",
                           onTap: () {
-                            Get.to(() => AllCourses(
+                            Get.to(() => CategoryCourses(
                                   data: HomeController
                                       .to.curriculumDetails[index],
                                   curriculum: HomeController
                                       .to.curriculumDetails[index]["name"],
-                                  isCategory: true,
                                 ));
                           },
                         ),

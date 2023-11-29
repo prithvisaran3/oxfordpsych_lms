@@ -11,7 +11,7 @@ class ImageBanner extends StatelessWidget {
       onTap: (){
         openBrowser(
             url:
-            "https://devirajhospitals.com/oxfordpsychcourse/#0");
+            "https://www.oxfordpsychcourse.co.uk/");
       },
       child: Container(
           height: 160,
