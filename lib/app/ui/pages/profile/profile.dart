@@ -31,7 +31,7 @@ class Profile extends StatelessWidget {
             backgroundColor: AppColors.white,
             appBar: commonAppBar(title: "Profile", isSubscribeIcon: true),
             body: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 0),
               child: Obx(
                 () => Stack(
                   // crossAxisAlignment: CrossAxisAlignment.center,
@@ -103,7 +103,7 @@ class Profile extends StatelessWidget {
           // bottomLeft: Radius.circular(40),
         ),
       ),
-      child: Column(
+      child: ListView(
         children: [
           AnimationConfiguration.staggeredList(
             position: 0,
