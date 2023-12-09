@@ -52,7 +52,7 @@ class CourseCard extends StatelessWidget {
                           child: ClipRRect(
                             borderRadius: BorderRadius.circular(10.0),
                             child: Container(
-                              color: Colors.black,
+                              color: AppColors.primary,
                               width: double.infinity,
                               height: double.infinity,
                               padding: const EdgeInsets.all(4),

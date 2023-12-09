@@ -47,7 +47,10 @@ PreferredSizeWidget commonAppBar({
               textAlign: TextAlign.center,
               maxLines: 2,
               softWrap: false,
-              style: headText(fontSize: title.length <= 30 ? 20 : 15),
+              style: headText(
+                fontSize: title.length <= 30 ? 20 : 15,
+                color: AppColors.primary,
+              ),
             ),
           ],
         ),

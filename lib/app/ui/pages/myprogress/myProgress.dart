@@ -8,8 +8,8 @@ import '../../theme/colors.dart';
 import '../../widgets/common/appbar.dart';
 import '../../widgets/my_course_card.dart';
 
-class ProgressScreen extends StatelessWidget {
-  const ProgressScreen({Key? key}) : super(key: key);
+class MyCoursesScreen extends StatelessWidget {
+  const MyCoursesScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +24,7 @@ class ProgressScreen extends StatelessWidget {
                 ? const LogoLoading()
                 : Scaffold(
                     backgroundColor: Colors.white,
-                    appBar: commonAppBar(title: "My Progress"),
+                    appBar: commonAppBar(title: "My Courses"),
                     body: Stack(
                       children: [
                         // searchbar(),
@@ -37,7 +37,7 @@ class ProgressScreen extends StatelessWidget {
                                 () => CourseController.to.isMyCourseEmpty ==
                                         true
                                     ? const CartEmpty(
-                                        emptyString: "No courses",
+                                        emptyString: "No Courses",
                                         image: 'cart.png',
                                         isShowButton: false,
                                       )

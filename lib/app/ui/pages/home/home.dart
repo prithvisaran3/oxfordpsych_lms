@@ -79,7 +79,8 @@ class Home extends StatelessWidget {
                                       : CommonText(
                                           text:
                                               "Hi, ${ProfileController.to.profileDetails.name}",
-                                          style: headText())),
+                                          style: headText(
+                                              color: AppColors.black))),
                                 ),
                                 // actions: [
                                 //   IconButton(
@@ -128,8 +129,8 @@ class Home extends StatelessWidget {
                                       children: [
                                         Text(
                                           'CASC Courses',
-                                          style: headText(
-                                              color: AppColors.primary),
+                                          style:
+                                              headText(color: AppColors.black),
                                         ),
                                         GestureDetector(
                                           onTap: () async {
@@ -152,7 +153,7 @@ class Home extends StatelessWidget {
                                           child: Text(
                                             'See All',
                                             style: mediumText(
-                                                color: AppColors.primary,
+                                                color: AppColors.black,
                                                 fontSize: 14),
                                           ),
                                         ),
@@ -171,7 +172,7 @@ class Home extends StatelessWidget {
                                               : CourseController
                                                           .to.isCourseEmpty ==
                                                       true
-                                                  ? const Text("empty")
+                                                  ? const Text("Course Empty")
                                                   : SizedBox(
                                                       height:
                                                           MediaQuery.of(context)

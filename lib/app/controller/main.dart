@@ -2,7 +2,6 @@ import 'package:get/get.dart';
 
 int statusCode = 0;
 
-
 class MainController extends GetxController {
   static MainController get to => Get.put(MainController());
 
@@ -14,9 +13,7 @@ class MainController extends GetxController {
     _currentIndex.value = value;
   }
 
-
-
-  final _isFavourite=false.obs;
+  final _isFavourite = false.obs;
 
   get isFavourite => _isFavourite.value;
 
@@ -24,7 +21,7 @@ class MainController extends GetxController {
     _isFavourite.value = value;
   }
 
-  final _tabLength = 4.obs;
+  final _tabLength = 3.obs;
 
   get tabLength => _tabLength.value;
 

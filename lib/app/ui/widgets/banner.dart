@@ -8,10 +8,8 @@ class ImageBanner extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: (){
-        openBrowser(
-            url:
-            "https://www.oxfordpsychcourse.co.uk/");
+      onTap: () {
+        openBrowser(url: "https://www.oxfordpsychcourse.co.uk/");
       },
       child: Container(
           height: 160,
@@ -29,7 +27,7 @@ class ImageBanner extends StatelessWidget {
           ),
           child: Image.asset(
             'assets/images/logo.png',
-            color: AppColors.black,
+            color: AppColors.primary,
             height: 40,
             width: 40,
             fit: BoxFit.fill,

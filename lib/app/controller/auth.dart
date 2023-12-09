@@ -3,6 +3,7 @@
 import 'dart:io';
 
 import 'package:deviraj_lms/app/ui/pages/home/main.dart';
+import 'package:deviraj_lms/app/ui/pages/profile/change_password.dart';
 
 import 'package:deviraj_lms/app/ui/widgets/common/alert.dart';
 import 'package:deviraj_lms/app/ui/widgets/common/password_generate.dart';
@@ -23,6 +24,7 @@ import 'package:url_launcher/url_launcher.dart';
 
 import '../data/repository/auth.dart';
 import '../ui/pages/auth/initial.dart';
+import '../ui/pages/auth/login.dart';
 import '../ui/widgets/common/common_print.dart';
 import '../ui/widgets/common/common_snackbar.dart';
 import 'main.dart';
@@ -61,6 +63,14 @@ class AuthController extends GetxController {
     _termsAndConditions.value = value;
   }
 
+  final _validEmailLoginId = "".obs;
+
+  get validEmailLoginId => _validEmailLoginId.value;
+
+  set validEmailLoginId(value) {
+    _validEmailLoginId.value = value;
+  }
+
   final _loginLoading = false.obs;
 
   get loginLoading => _loginLoading.value;
@@ -83,6 +93,22 @@ class AuthController extends GetxController {
 
   set updateTokenLoading(value) {
     _updateTokenLoading.value = value;
+  }
+
+  final _updatePasswordLoading = false.obs;
+
+  get updatePasswordLoading => _updatePasswordLoading.value;
+
+  set updatePasswordLoading(value) {
+    _updatePasswordLoading.value = value;
+  }
+
+  final _emailValidateLoading = false.obs;
+
+  get emailValidateLoading => _emailValidateLoading.value;
+
+  set emailValidateLoading(value) {
+    _emailValidateLoading.value = value;
   }
 
   onboardCheck() async {
@@ -210,8 +236,8 @@ class AuthController extends GetxController {
           errorAlert(Get.context!,
               content: "${res['message']}\nEmail or Password Wrong",
               confirmButtonPressed: () {
-                Get.back();
-              });
+            Get.back();
+          });
         }
       } else {
         loginLoading = false;
@@ -225,12 +251,13 @@ class AuthController extends GetxController {
     }
   }
 
-  register({isGoogleLogin = false,
-    gName,
-    gEmail,
-    gMobile,
-    gPassword,
-    isAppleSignIn = false}) async {
+  register(
+      {isGoogleLogin = false,
+      gName,
+      gEmail,
+      gMobile,
+      gPassword,
+      isAppleSignIn = false}) async {
     registerLoading = true;
     Map<String, String> body = {};
     var fcmToken = await FirebaseMessaging.instance.getToken();
@@ -273,8 +300,8 @@ class AuthController extends GetxController {
             errorAlert(Get.context!,
                 content: "${res['message']}\nEmail already exist",
                 confirmButtonPressed: () {
-                  Get.back();
-                });
+              Get.back();
+            });
           } else {
             registerLoading = false;
             commonPrint(status: res['status'], msg: res['message']);
@@ -335,78 +362,80 @@ class AuthController extends GetxController {
   }
 
   validateEmailForForgotPassword() async {
-    // emailValidateLoading = true;
-    // var body = {
-    //   "email": vEmail.text.trimRight(),
-    // };
-    // try {
-    //   var res = await repository.validateEmailForForgotPassword(body: body);
-    //   if (statusCode == 200) {
-    //     if (res['status'] == "200") {
-    //       emailValidateLoading = false;
-    //       validEmailLoginId = res['login_id'];
-    //       commonPrint(status: res['status'], msg: res['message']);
-    //       Get.to(() => const OtpVerify());
-    //     } else if (res['status'] == "422") {
-    //       emailValidateLoading = false;
-    //       commonPrint(status: res['status'], msg: "${res['message']}");
-    //       nothingSnackBar(msg: "${res['message']} or Wrong email");
-    //     }
-    //   } else {
-    //     emailValidateLoading = false;
-    //     commonPrint(
-    //         status: "500",
-    //         msg: "Error from server or No Internet on validateEmail");
-    //   }
-    // } catch (e) {
-    //   emailValidateLoading = false;
-    //   commonPrint(
-    //       status: "$statusCode",
-    //       msg: "Error from validateEmail due to data mismatch or format $e");
-    // }
+    emailValidateLoading = true;
+    var body = {
+      "email": vEmail.text.trimRight(),
+    };
+    try {
+      var res = await repository.validateEmailForForgotPassword(body: body);
+      if (statusCode == 200) {
+        if (res['status'] == "200") {
+          emailValidateLoading = false;
+          validEmailLoginId = res['login_id'];
+          commonPrint(status: res['status'], msg: res['message']);
+          Get.to(() => const ChangePassword());
+          commonSnackBar(
+              title: 'Email verification success', msg: '${res['message']}');
+        } else if (res['status'] == "422") {
+          emailValidateLoading = false;
+          commonPrint(status: res['status'], msg: "${res['message']}");
+          nothingSnackBar(msg: "${res['message']} or Wrong email");
+        }
+      } else {
+        emailValidateLoading = false;
+        commonPrint(
+            status: "500",
+            msg: "Error from server or No Internet on validateEmail");
+      }
+    } catch (e) {
+      emailValidateLoading = false;
+      commonPrint(
+          status: "$statusCode",
+          msg: "Error from validateEmail due to data mismatch or format $e");
+    }
   }
 
   updatePassword() async {
-    // updatePasswordLoading = true;
-    // var body = {
-    //   "password": cuPassword.text,
-    //   "login_id": validEmailLoginId == "" ? "1090" : validEmailLoginId
-    // };
-    // try {
-    //   var res = await repository.updatePassword(body: body);
-    //   if (statusCode == 200) {
-    //     if (res['status'] == "200") {
-    //       if (res['patient_id'] == null) {
-    //         updatePasswordLoading = false;
-    //         commonPrint(
-    //             status: res['status'], msg: "${res['message']} but no data");
-    //       } else {
-    //         updatePasswordLoading = false;
-    //         commonPrint(
-    //             status: res['status'],
-    //             msg:
-    //                 "${res['message']} with data or patient id: ${res['patient_id']}");
-    //         Get.off(() => const Login());
-    //         nothingSnackBar(msg: "${res['message']}");
-    //       }
-    //     } else if (res['status'] == "422") {
-    //       updatePasswordLoading = false;
-    //       commonPrint(
-    //           status: res['status'], msg: "${res['message']} on password");
-    //       nothingSnackBar(msg: "Password update error please try again later");
-    //     }
-    //   } else {
-    //     updatePasswordLoading = false;
-    //     commonPrint(
-    //         status: "500",
-    //         msg: "Error from server or No Internet on updatePassword");
-    //   }
-    // } catch (e) {
-    //   updatePasswordLoading = false;
-    //   commonPrint(
-    //       status: "$statusCode",
-    //       msg: "Error from updatePassword due to data mismatch or format $e");
-    // }
+    updatePasswordLoading = true;
+    var body = {
+      "password": newPassword.text,
+      "login_id": validEmailLoginId == "" ? "1090" : validEmailLoginId
+    };
+    try {
+      var res = await repository.updatePassword(body: body);
+      if (statusCode == 200) {
+        if (res['status'] == "200") {
+          if (res['token'] == null) {
+            updatePasswordLoading = false;
+            commonPrint(
+                status: res['status'], msg: "${res['message']} but no data");
+          } else {
+            updatePasswordLoading = false;
+            commonPrint(
+                status: res['status'],
+                msg:
+                    "${res['message']} with data or patient id: ${res['token']}");
+            Get.off(() => const Initial());
+            nothingSnackBar(msg: "${res['message']}");
+          }
+        } else if (res['status'] == "422") {
+          updatePasswordLoading = false;
+          commonPrint(
+              status: res['status'], msg: "${res['message']} on password");
+          nothingSnackBar(msg: "Password update error please try again later");
+        }
+      } else {
+        updatePasswordLoading = false;
+        commonPrint(
+            status: "500",
+            msg: "Error from server or No Internet on updatePassword");
+      }
+    } catch (e) {
+      updatePasswordLoading = false;
+      commonPrint(
+          status: "$statusCode",
+          msg: "Error from updatePassword due to data mismatch or format $e");
+    }
   }
 
   checkIsUpdateAvailable() async {
@@ -447,11 +476,11 @@ class AuthController extends GetxController {
         commonAlertDialog(Get.context!,
             content: "Update required for \nOxfordPsych App",
             confirmButtonPressed: () {
-              launchUrl(
-                url,
-                mode: LaunchMode.externalApplication,
-              );
-            });
+          launchUrl(
+            url,
+            mode: LaunchMode.externalApplication,
+          );
+        });
       }
     } else {
       debugPrint("update not available");
@@ -568,8 +597,7 @@ class AuthController extends GetxController {
   }
 
   appleLogin() async {
-    final credential =
-    await SignInWithApple.getAppleIDCredential(
+    final credential = await SignInWithApple.getAppleIDCredential(
       scopes: [
         AppleIDAuthorizationScopes.email,
         AppleIDAuthorizationScopes.fullName,
@@ -584,13 +612,13 @@ class AuthController extends GetxController {
           gEmail: credential.email,
           gMobile: "",
           gPassword: getRandomString(8));
-    }
-    else {
+    } else {
       commonAlertDialog(Get.context!,
-          content: "Already Apple ID is logged in. Go to Settings > Apple ID,iCloud,iTunes & App Store > Password & Security > Apps Using Your Apple ID, tap on CASC Courses and tap Stop Using Apple ID. Contact support to get password",
+          content:
+              "Already Apple ID is logged in. Go to Settings > Apple ID,iCloud,iTunes & App Store > Password & Security > Apps Using Your Apple ID, tap on CASC Courses and tap Stop Using Apple ID. Contact support to get password",
           confirmButtonPressed: () {
-            Get.back();
-          });
+        Get.back();
+      });
       // commonSnackBar(title: "Apple Login Failed", msg: "Already Apple ID is logged in. Go to Settings > Apple ID,iCloud,iTunes & App Store > Password & Security > Apps Using Your Apple ID, tap on CASC Courses and tap Stop Using Apple ID");
     }
     // final oauthCredential = OAuthProvider("apple.com").credential(

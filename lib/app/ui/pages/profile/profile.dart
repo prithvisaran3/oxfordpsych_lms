@@ -12,6 +12,8 @@ import '../../../utility/utility.dart';
 import '../../theme/colors.dart';
 
 import '../../widgets/common/appbar.dart';
+import '../auth/validate_email.dart';
+import 'change_password.dart';
 import 'delete_account.dart';
 
 class Profile extends StatelessWidget {
@@ -77,43 +79,41 @@ class Profile extends StatelessWidget {
         });
   }
 
-  Container profileSection() {
-    return Container(
-      padding: const EdgeInsets.symmetric(
-        horizontal: 10,
-        vertical: 20,
-      ),
-      // height: Get.height,
-      width: Get.width,
-      // height: Get.height * 0.6,
+  Widget profileSection() {
+    return Center(
+      child: Container(
+        margin: EdgeInsets.symmetric(horizontal: 2),
+        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
+        // height: Get.height,
+        width: Get.width * 0.95,
+        // height: Get.height * 0.6,
 
-      decoration: const BoxDecoration(
-        color: AppColors.white,
-        boxShadow: [
-          BoxShadow(
-            color: AppColors.grey,
-            spreadRadius: 1,
-            blurRadius: 1,
-          )
-        ],
-        borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(40),
-          topRight: Radius.circular(40),
-          // bottomRight: Radius.circular(40),
-          // bottomLeft: Radius.circular(40),
+        decoration: const BoxDecoration(
+          color: AppColors.white,
+          boxShadow: [
+            BoxShadow(
+              color: AppColors.grey,
+              spreadRadius: 1,
+              blurRadius: 1,
+            )
+          ],
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(40),
+            topRight: Radius.circular(40),
+            // bottomRight: Radius.circular(40),
+            // bottomLeft: Radius.circular(40),
+          ),
         ),
-      ),
-      child: ListView(
-        children: [
-          AnimationConfiguration.staggeredList(
-            position: 0,
-            duration: const Duration(seconds: 1),
-            child: SlideAnimation(
-              verticalOffset: 50,
-              child: FadeInAnimation(
-                duration: const Duration(seconds: 1),
-                child: SingleChildScrollView(
-                  physics: const BouncingScrollPhysics(),
+        child: ListView(
+          physics: BouncingScrollPhysics(),
+          children: [
+            AnimationConfiguration.staggeredList(
+              position: 0,
+              duration: const Duration(seconds: 1),
+              child: SlideAnimation(
+                verticalOffset: 50,
+                child: FadeInAnimation(
+                  duration: const Duration(seconds: 1),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -159,12 +159,13 @@ class Profile extends StatelessWidget {
                         },
                       ),
 
-                      // SettingsOptionsCard(
-                      //   text: 'Change Password',
-                      //   onTap: () {
-                      //     Get.to(() => const ChangePassword());
-                      //   },
-                      // ),
+                      SettingsOptionsCard(
+                        text: 'Change Password',
+                        onTap: () {
+                          Get.to(() =>
+                              const EmailValidateForForgotPasswordScreen());
+                        },
+                      ),
 
                       // SettingsOptionsCard(
                       //   text: 'Notification Settings',
@@ -243,8 +244,8 @@ class Profile extends StatelessWidget {
                 ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

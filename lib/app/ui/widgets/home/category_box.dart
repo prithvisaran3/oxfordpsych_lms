@@ -17,7 +17,7 @@ class CategoryBox extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 20),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(20),
-        color: AppColors.primary,
+        color: AppColors.black,
 
         // gradient: LinearGradient(
         //   begin: Alignment.topCenter,

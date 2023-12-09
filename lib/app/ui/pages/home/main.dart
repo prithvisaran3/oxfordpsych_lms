@@ -33,14 +33,19 @@ class HomeMain extends StatelessWidget {
           },
           tabs: [
             buildTab(icon: Icons.home_outlined, index: 0),
-            buildTab(icon: Ionicons.heart_outline, index: 1),
-            buildTab(icon: Icons.play_circle_outline, index: 2),
-            buildTab(icon: Icons.person_outline, index: 3),
+            // buildTab(icon: Ionicons.heart_outline, index: 1),
+            buildTab(icon: Icons.play_circle_outline, index: 1),
+            buildTab(icon: Icons.person_outline, index: 2),
           ],
         )),
         body: const TabBarView(
           physics: NeverScrollableScrollPhysics(),
-          children: [Home(), Favourite(), ProgressScreen(), Profile()],
+          children: [
+            Home(),
+            // Favourite(),
+            MyCoursesScreen(),
+            Profile(),
+          ],
         ),
       ),
     );

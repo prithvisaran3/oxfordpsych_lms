@@ -59,11 +59,15 @@ class _CourseDetailState extends State<CourseDetail> {
 
   @override
   Widget build(BuildContext context) {
-    commonPrint(status: "coures data ",msg: '${widget.data}');
-    commonPrint(status:
-        "video  data ",msg: "${AppConfig.videoUrl}${widget.data['gdrive_id']}/${widget.data['video']}");
-    commonPrint(status:
-        "image ",msg: "${AppConfig.imageUrl}${widget.data['curriculum_id']}/${widget.data['photos']}");
+    commonPrint(status: "coures data ", msg: '${widget.data}');
+    commonPrint(
+        status: "video  data ",
+        msg:
+            "${AppConfig.videoUrl}${widget.data['gdrive_id']}/${widget.data['video']}");
+    commonPrint(
+        status: "image ",
+        msg:
+            "${AppConfig.imageUrl}${widget.data['curriculum_id']}/${widget.data['photos']}");
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -638,7 +642,7 @@ class _CourseDetailState extends State<CourseDetail> {
                           child: ClipRRect(
                             borderRadius: BorderRadius.circular(10.0),
                             child: Container(
-                              color: Colors.black,
+                              color: AppColors.primary,
                               width: double.infinity,
                               height: double.infinity,
                               padding: const EdgeInsets.all(12),

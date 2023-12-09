@@ -26,6 +26,7 @@ class CartEmpty extends StatelessWidget {
           Image.asset(
             'assets/images/$image',
             height: 100,
+            color: AppColors.primary,
           ),
           const SizedBox(
             height: 10,
@@ -93,17 +94,17 @@ class Empty extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
         child: Column(
-          children: [
-            SvgPicture.asset(
-              'assets/svgs/no_data.svg',
-              height: 150,
-            ),
-            Text(
-              text,
-              textAlign: TextAlign.center,
-              style: regularText(),
-            ),
-          ],
-        ));
+      children: [
+        SvgPicture.asset(
+          'assets/svgs/no_data.svg',
+          height: 150,
+        ),
+        Text(
+          text,
+          textAlign: TextAlign.center,
+          style: regularText(),
+        ),
+      ],
+    ));
   }
 }

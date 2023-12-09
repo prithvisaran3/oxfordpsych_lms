@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:deviraj_lms/app/ui/pages/auth/validate_email.dart';
 import 'package:deviraj_lms/app/ui/widgets/common/common_print.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -86,23 +87,21 @@ class _LoginState extends State<Login> {
                     const SizedBox(
                       height: 5,
                     ),
-                    // Row(
-                    //   mainAxisAlignment: MainAxisAlignment.end,
-                    //   children: [
-                    //     InkWell(
-                    //       onTap: () {
-                    //         Navigator.push(
-                    //             context,
-                    //             MaterialPageRoute(
-                    //                 builder: (context) => forgotPassword()));
-                    //       },
-                    //       child: const Text(
-                    //         'Forgot Password ?',
-                    //         style: TextStyle(color: AppColors.primary),
-                    //       ),
-                    //     )
-                    //   ],
-                    // ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        InkWell(
+                          onTap: () {
+                            Get.to(
+                                () => EmailValidateForForgotPasswordScreen());
+                          },
+                          child: const Text(
+                            'Forgot Password ?',
+                            style: TextStyle(color: AppColors.primary),
+                          ),
+                        )
+                      ],
+                    ),
                     const SizedBox(
                       height: 20,
                     ),
@@ -142,18 +141,19 @@ class _LoginState extends State<Login> {
                         const SizedBox(
                           width: 25,
                         ),
-                       Platform.isIOS? GestureDetector(
-                          onTap: () async{
-                            AuthController.to.appleLogin();
-
-                          },
-                          child: Image.asset(
-                            'assets/images/apple.png',
-                            height: 30,
-                            width: 30,
-                            fit: BoxFit.cover,
-                          ),
-                        ):const SizedBox(),
+                        Platform.isIOS
+                            ? GestureDetector(
+                                onTap: () async {
+                                  AuthController.to.appleLogin();
+                                },
+                                child: Image.asset(
+                                  'assets/images/apple.png',
+                                  height: 30,
+                                  width: 30,
+                                  fit: BoxFit.cover,
+                                ),
+                              )
+                            : const SizedBox(),
                       ],
                     ),
                     const SizedBox(

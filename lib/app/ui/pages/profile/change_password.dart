@@ -3,7 +3,9 @@ import 'package:deviraj_lms/app/ui/widgets/common/common_button.dart';
 import 'package:deviraj_lms/app/ui/widgets/common/common_print.dart';
 import 'package:deviraj_lms/app/ui/widgets/common/common_snackbar.dart';
 import 'package:deviraj_lms/app/ui/widgets/common/common_textform_field.dart';
+import 'package:deviraj_lms/app/ui/widgets/common/logo_loading.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import '../../../controller/auth.dart';
 
@@ -56,19 +58,17 @@ class ChangePassword extends StatelessWidget {
           ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 50.0, vertical: 10),
-            child: CommonButton(
-              text: "Confirm",
-              onPressed: () {
-                dynamic cpassword = AuthController.to.currentPasswordCheck();
-                commonPrint(status: "CPASSWORD is ",msg: "$cpassword");
+            child: Obx(
+              () => AuthController.to.updatePasswordLoading == true
+                  ? LogoLoading()
+                  : CommonButton(
+                      text: "Confirm",
+                      onPressed: () {
+                        AuthController.to.updatePassword();
 
-                cpassword == AuthController.to.currentPassword.text
-                    ? commonSnackBar(title: "success", msg: "success")
-                    : commonSnackBar(
-                        title: "Error on Password Change",
-                        msg: "Current Password doesn't match");
-                // AuthController.to.checkPasswordChange();
-              },
+                        // AuthController.to.checkPasswordChange();
+                      },
+                    ),
             ),
           ),
         ],

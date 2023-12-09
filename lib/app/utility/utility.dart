@@ -146,7 +146,7 @@ String monthyearSeparate({required String date}) {
 openBrowser({required url}) async {
   if (!await launchUrl(
     Uri.parse(url),
-    mode: LaunchMode.externalApplication,
+    mode: LaunchMode.inAppWebView,
   )) {
     throw 'Could not launch $url';
   }

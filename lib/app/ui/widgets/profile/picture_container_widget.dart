@@ -15,7 +15,7 @@ class ProfilePicture extends StatelessWidget {
       width: 100,
       decoration: const BoxDecoration(
         shape: BoxShape.circle,
-        color: AppColors.black,
+        color: AppColors.primary,
         boxShadow: [
           BoxShadow(
             color: AppColors.grey,
