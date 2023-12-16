@@ -5,7 +5,7 @@ import '../../../controller/main.dart';
 import '../../theme/colors.dart';
 import '../favourite/favourite.dart';
 
-import '../myprogress/myProgress.dart';
+import '../my courses/myCoursesScreen.dart';
 import '../profile/profile.dart';
 import 'home.dart';
 

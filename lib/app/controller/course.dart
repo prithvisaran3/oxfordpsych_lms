@@ -5,7 +5,9 @@ import 'package:get/get.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../ui/widgets/common/alert.dart';
 import '../ui/widgets/common/common_print.dart';
+import '../ui/widgets/common/common_snackbar.dart';
 import 'main.dart';
 
 class CourseController extends GetxController {
@@ -14,20 +16,28 @@ class CourseController extends GetxController {
   final repository = CourseRepository();
   final TextEditingController searchController = TextEditingController();
 
-  final _getCourseLoading = false.obs;
+  final _courseLoading = false.obs;
 
-  get getCourseLoading => _getCourseLoading.value;
+  get courseLoading => _courseLoading.value;
 
-  set getCourseLoading(value) {
-    _getCourseLoading.value = value;
+  set courseLoading(value) {
+    _courseLoading.value = value;
   }
 
-  final _getSearchLoading = false.obs;
+  final _getMyCourseLoading = false.obs;
 
-  get getSearchLoading => _getSearchLoading.value;
+  get getMyCourseLoading => _getMyCourseLoading.value;
 
-  set getSearchLoading(value) {
-    _getSearchLoading.value = value;
+  set getMyCourseLoading(value) {
+    _getMyCourseLoading.value = value;
+  }
+
+  final _isMyCourse = false.obs;
+
+  get isMyCourse => _isMyCourse.value;
+
+  set isMyCourse(value) {
+    _isMyCourse.value = value;
   }
 
   final _courseDetails = <dynamic>[].obs;
@@ -60,6 +70,14 @@ class CourseController extends GetxController {
 
   set getCourseParams(value) {
     _getCourseParams.value = value;
+  }
+
+  final _courseDuration = "".obs;
+
+  get courseDuration => _courseDuration.value;
+
+  set courseDuration(value) {
+    _courseDuration.value = value;
   }
 
   final _perPage = 10.obs;
@@ -110,6 +128,30 @@ class CourseController extends GetxController {
     _isLastPageForProduct.value = value;
   }
 
+  final _categoryCoursePageNumber = 1.obs;
+
+  get categoryCoursePageNumber => _categoryCoursePageNumber.value;
+
+  set categoryCoursePageNumber(value) {
+    _categoryCoursePageNumber.value = value;
+  }
+
+  final _isLastPageForCategoryCourse = false.obs;
+
+  get isLastPageForCategoryCourse => _isLastPageForCategoryCourse.value;
+
+  set isLastPageForCategoryCourse(value) {
+    _isLastPageForCategoryCourse.value = value;
+  }
+
+  final _getCourseDuration = "".obs;
+
+  get getCourseDuration => _getCourseDuration.value;
+
+  set getCourseDuration(value) {
+    _getCourseDuration.value = value;
+  }
+
   final PagingController<int, dynamic> pagingController =
       PagingController(firstPageKey: 0);
 
@@ -121,10 +163,10 @@ class CourseController extends GetxController {
       limit,
       isCategory = false,
       isSeeAll = false}) async {
-    // getCourseLoading = true;
+    // courseLoading = true;
     if (isSeeAll == true) {
     } else {
-      // getSearchLoading = true;
+      // courseLoading = true;
     }
 
     pageNumber++;
@@ -150,11 +192,11 @@ class CourseController extends GetxController {
       var res = await repository.getCourses(params: getCourseParams);
       if (statusCode == 200) {
         searchNotFound = false;
-        getSearchLoading = false;
+        courseLoading = false;
         if (res["status"] == "200") {
           if (res["data"] == null || res["data"].isEmpty) {
             commonPrint(status: res["status"], msg: "No data for getCourse");
-            getCourseLoading = false;
+            courseLoading = false;
             searchNotFound = true;
           } else {
             searchNotFound = false;
@@ -165,7 +207,7 @@ class CourseController extends GetxController {
             }
 
             if (isInitial == true) {
-              getCourseLoading = false;
+              courseLoading = false;
               isCourseEmpty = false;
               if (res["data"] == null || res["data"].isEmpty) {
                 isCourseEmpty = true;
@@ -175,7 +217,7 @@ class CourseController extends GetxController {
               }
             }
             if (isInitial == false) {
-              getCourseLoading = false;
+              courseLoading = false;
               isCourseEmpty = false;
               courseDetails = res["data"];
               if (isCategory == true) {
@@ -198,62 +240,38 @@ class CourseController extends GetxController {
                 msg: "Course get successfully with data : ${res["data"]}");
           }
         } else {
-          getCourseLoading = false;
+          courseLoading = false;
           commonPrint(status: "${res["status"]}", msg: "UnProcessable Data");
         }
       } else {
         commonPrint(
             status: "${res["status"]}",
             msg: "Error from server on get curriculum");
-        getCourseLoading = false;
+        courseLoading = false;
       }
     } catch (e) {
       commonPrint(status: "500", msg: "Course get error due to $e");
-      getCourseLoading = false;
-      getSearchLoading = false;
+      courseLoading = false;
+      courseLoading = false;
     }
-  }
-
-  final _categoryCourseLoading = false.obs;
-
-  get categoryCourseLoading => _categoryCourseLoading.value;
-
-  set categoryCourseLoading(value) {
-    _categoryCourseLoading.value = value;
-  }
-
-  final _categoryCoursePageNumber = 1.obs;
-
-  get categoryCoursePageNumber => _categoryCoursePageNumber.value;
-
-  set categoryCoursePageNumber(value) {
-    _categoryCoursePageNumber.value = value;
-  }
-
-  final _isLastPageForCategoryCourse = false.obs;
-
-  get isLastPageForCategoryCourse => _isLastPageForCategoryCourse.value;
-
-  set isLastPageForCategoryCourse(value) {
-    _isLastPageForCategoryCourse.value = value;
   }
 
   getCategoryCourse({
     curriculumId,
   }) async {
     // categoryCoursePageNumber++;
-    categoryCourseLoading = true;
+    courseLoading = true;
     var params =
         "&pageID=$categoryCoursePageNumber&limit=$perPage&cid=$curriculumId";
     try {
       var res = await repository.getCourses(params: params);
       if (statusCode == 200) {
-        categoryCourseLoading = false;
+        courseLoading = false;
         if (res["status"] == "200") {
           if (res["data"] == null || res["data"].isEmpty) {
             commonPrint(
                 status: res["status"], msg: "No data for getCategoryCourse");
-            categoryCourseLoading = false;
+            courseLoading = false;
           } else {
             isLastPageForCategoryCourse = res['data'].length < perPage;
             categoryCourseDetails = res["data"];
@@ -263,27 +281,19 @@ class CourseController extends GetxController {
                     "CategoryCourse get successfully with data : ${res["data"]}");
           }
         } else {
-          categoryCourseLoading = false;
+          courseLoading = false;
           commonPrint(status: "${res["status"]}", msg: "UnProcessable Data");
         }
       } else {
         commonPrint(
             status: "${res["status"]}",
             msg: "Error from server on  getCategoryCourse");
-        categoryCourseLoading = false;
+        courseLoading = false;
       }
     } catch (e) {
       commonPrint(status: "500", msg: "CategoryCourse get error due to $e");
-      categoryCourseLoading = false;
+      courseLoading = false;
     }
-  }
-
-  final _getMyCourseLoading = false.obs;
-
-  get getMyCourseLoading => _getMyCourseLoading.value;
-
-  set getMyCourseLoading(value) {
-    _getMyCourseLoading.value = value;
   }
 
   final _myCourseDetails = <dynamic>[].obs;
@@ -332,6 +342,37 @@ class CourseController extends GetxController {
     } catch (e) {
       getMyCourseLoading = false;
       commonPrint(status: "500", msg: "Error on get my courses$e");
+    }
+  }
+
+  sendDuration({duration, id}) async {
+    courseLoading = true;
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    var token = preferences.getString('token');
+    var body = {
+      "course": id,
+      "user": token,
+      "progress": duration,
+    };
+    try {
+      var res = await repository.sendDuration(body: body);
+      if (statusCode == 200) {
+        if (res['status'] == "200") {
+          courseLoading = false;
+          commonPrint(status: res['status'], msg: res['message']);
+        } else if (res['status'] == "422") {
+          courseLoading = false;
+          commonPrint(status: res['status'], msg: "${res['message']}");
+        }
+      } else {
+        courseLoading = false;
+        commonPrint(status: "500", msg: "Error from server or No Internet");
+      }
+    } catch (e) {
+      courseLoading = false;
+      commonPrint(
+          status: "$statusCode",
+          msg: "Error from send duration due to data mismatch or format $e");
     }
   }
 }

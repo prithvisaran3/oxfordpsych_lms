@@ -33,4 +33,5 @@ class ApiService {
 
   //get myCourse
   static const getMyCourse = "${AppConfig.baseUrl}?action=viewedCourses";
+  static const sendDuration = "${AppConfig.baseUrl}?action=courseView";
 }

@@ -20,7 +20,7 @@ class MyCoursesScreen extends StatelessWidget {
         },
         builder: (_) {
           return Obx(
-            () => CourseController.to.getMyCourseLoading == true
+            () => CourseController.to.courseLoading == true
                 ? const LogoLoading()
                 : Scaffold(
                     backgroundColor: Colors.white,

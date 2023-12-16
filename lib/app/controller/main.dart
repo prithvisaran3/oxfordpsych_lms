@@ -21,11 +21,27 @@ class MainController extends GetxController {
     _isFavourite.value = value;
   }
 
+  final _isTripFinish = false.obs;
+
+  get isTripFinish => _isTripFinish.value;
+
+  set isTripFinish(value) {
+    _isTripFinish.value = value;
+  }
+
   final _tabLength = 3.obs;
 
   get tabLength => _tabLength.value;
 
   set tabLength(value) {
     _tabLength.value = value;
+  }
+
+  final _waitingTime = "".obs;
+
+  get waitingTime => _waitingTime.value;
+
+  set waitingTime(value) {
+    _waitingTime.value = value;
   }
 }

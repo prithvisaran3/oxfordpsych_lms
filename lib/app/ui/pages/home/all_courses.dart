@@ -59,7 +59,7 @@ class AllCourses extends StatelessWidget {
         },
         builder: (_) {
           return Obx(
-            () => CourseController.to.getSearchLoading == true
+            () => CourseController.to.courseLoading == true
                 ? const LogoLoading()
                 : Scaffold(
                     backgroundColor: Colors.white,
@@ -112,6 +112,7 @@ class AllCourses extends StatelessWidget {
                                                                 .to
                                                                 .searchCourseDetails[
                                                             index],
+                                                        duration: 0,
                                                       ),
                                                     )
                                                   : commonSnackBar(
@@ -182,6 +183,7 @@ class AllCourses extends StatelessWidget {
                                                         ? Get.to(
                                                             () => CourseDetail(
                                                               data: item,
+                                                              duration: 0,
                                                             ),
                                                           )
                                                         : commonSnackBar(

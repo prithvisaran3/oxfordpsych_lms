@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:deviraj_lms/app/controller/course.dart';
 import 'package:deviraj_lms/app/ui/pages/courseDetail.dart';
 import 'package:deviraj_lms/app/ui/widgets/common/common_snackbar.dart';
 import 'package:deviraj_lms/app/utility/utility.dart';
@@ -20,7 +21,14 @@ class ProgressCard extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         ProfileController.to.isSubscribed == true
-            ? Get.to(() => CourseDetail(data: data))
+            ? Get.to(
+                () => CourseDetail(
+                  data: data,
+                  duration: CourseController.to.isMyCourse == true
+                      ? data['progress']
+                      : 0,
+                ),
+              )
             : commonSnackBar(
                 title: "You don't have access to this content",
                 msg: "Visit our website for detailed info");

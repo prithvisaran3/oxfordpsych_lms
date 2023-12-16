@@ -48,7 +48,7 @@ class CategoryCourses extends StatelessWidget {
                   //     controller: CourseController.to.searchController,
                   //   ),
                   // ),
-                  Obx(() => CourseController.to.categoryCourseLoading
+                  Obx(() => CourseController.to.courseLoading
                       ? const LogoLoading()
                       : Padding(
                           padding:
@@ -79,6 +79,7 @@ class CategoryCourses extends StatelessWidget {
                                                   data: CourseController.to
                                                           .categoryCourseDetails[
                                                       index],
+                                                  duration: 0,
                                                 ),
                                               )
                                             : commonSnackBar(

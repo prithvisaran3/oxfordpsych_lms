@@ -42,7 +42,7 @@ class Home extends StatelessWidget {
       },
       builder: (_) {
         return Obx(
-          () => CourseController.to.getSearchLoading == true
+          () => CourseController.to.courseLoading == true
               ? const LogoLoading()
               : HomeController.to.getCurriculumLoading == true
                   ? const LogoLoading()
@@ -165,8 +165,7 @@ class Home extends StatelessWidget {
 
                                     Obx(
                                       () =>
-                                          CourseController
-                                                      .to.getCourseLoading ==
+                                          CourseController.to.courseLoading ==
                                                   true
                                               ? const SimpleLoading()
                                               : CourseController
@@ -218,6 +217,7 @@ class Home extends StatelessWidget {
                                                                           ? Get.to(() =>
                                                                               CourseDetail(
                                                                                 data: CourseController.to.initialCourseDetails[index],
+                                                                                duration: 0,
                                                                               ))
                                                                           : commonSnackBar(
                                                                               title: "You don't have access",
@@ -351,6 +351,7 @@ class Home extends StatelessWidget {
                       ProfileController.to.isSubscribed == true
                           ? Get.to(() => CourseDetail(
                                 data: CourseController.to.courseDetails[index],
+                                duration: 0,
                               ))
                           : commonSnackBar(
                               title: "You don't have access to this content",

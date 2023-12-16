@@ -24,6 +24,7 @@ class FavouriteCard extends StatelessWidget {
                 MaterialPageRoute(
                     builder: (context) => CourseDetail(
                           data: data,
+                          duration: 0,
                         )))
             : commonSnackBar(
                 title: "You don't have access",
@@ -59,7 +60,11 @@ class FavouriteCard extends StatelessWidget {
                       fit: BoxFit.cover,
                       width: double.infinity,
                       progressIndicatorBuilder:
-                          (context, url, downloadProgress) => const LogoLoading(size: 12,height: 50,width: 50,),
+                          (context, url, downloadProgress) => const LogoLoading(
+                                size: 12,
+                                height: 50,
+                                width: 50,
+                              ),
                       errorWidget: (context, url, error) {
                         return Center(
                           child: Container(
@@ -124,7 +129,6 @@ class FavouriteCard extends StatelessWidget {
             ),
             textAlign: TextAlign.center,
             maxLines: 2,
-
           ),
           // const Row(
           //   mainAxisAlignment: MainAxisAlignment.center,

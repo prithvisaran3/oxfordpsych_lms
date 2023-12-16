@@ -2,6 +2,7 @@
 
 import 'dart:io';
 
+import 'package:deviraj_lms/app/controller/profile.dart';
 import 'package:deviraj_lms/app/ui/pages/home/main.dart';
 import 'package:deviraj_lms/app/ui/pages/profile/change_password.dart';
 
@@ -513,7 +514,8 @@ class AuthController extends GetxController {
     debugPrint("token $token");
     if (token != null && token.isNotEmpty) {
       preferences.remove('token');
-      await Get.off(() => const Initial());
+      // ProfileController.to.profileDetails = {};
+      Get.off(() => const Initial());
       if (fcmToken != null && fcmToken.isNotEmpty) {
         preferences.remove('fcm_token');
       } else {
@@ -590,7 +592,7 @@ class AuthController extends GetxController {
         }
       }
     } else {
-      commonPrint(status: "501", msg: "Google singing account null ");
+      commonPrint(status: "501", msg: "Google signing account null ");
     }
 
     return user;

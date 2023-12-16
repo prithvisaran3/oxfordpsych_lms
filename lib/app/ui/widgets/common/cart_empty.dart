@@ -17,7 +17,7 @@ class CartEmpty extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.only(top: 90),
+      margin: const EdgeInsets.only(top: 200),
       alignment: Alignment.center,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,

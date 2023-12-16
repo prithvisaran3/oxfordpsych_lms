@@ -17,4 +17,10 @@ class CourseRepository {
     var res = jsonDecode(response);
     return res;
   }
+
+  Future<dynamic> sendDuration({required body}) async {
+    var response = await helper.post(url: ApiService.sendDuration, body: body);
+    var res = jsonDecode(response);
+    return res;
+  }
 }

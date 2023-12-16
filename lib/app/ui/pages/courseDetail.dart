@@ -1,6 +1,9 @@
 import 'package:appinio_video_player/appinio_video_player.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:deviraj_lms/app/config/config.dart';
+import 'package:deviraj_lms/app/controller/course.dart';
+import 'package:deviraj_lms/app/controller/timer.dart';
+import 'package:deviraj_lms/app/ui/utility.dart';
 import 'package:deviraj_lms/app/ui/widgets/common/common_print.dart';
 import 'package:deviraj_lms/app/ui/widgets/common/logo_loading.dart';
 import 'package:deviraj_lms/app/utility/utility.dart';
@@ -13,8 +16,10 @@ import '../widgets/common/currency_text.dart';
 import '../widgets/common/text.dart';
 
 class CourseDetail extends StatefulWidget {
-  const CourseDetail({Key? key, required this.data}) : super(key: key);
+  const CourseDetail({Key? key, required this.data, required this.duration})
+      : super(key: key);
   final dynamic data;
+  final int duration;
 
   @override
   State<CourseDetail> createState() => _CourseDetailState();
@@ -33,10 +38,11 @@ class _CourseDetailState extends State<CourseDetail> {
         "${AppConfig.videoUrl}${widget.data['gdrive_id']}/${widget.data['video']}"));
 
     customVideoPlayerController = CustomVideoPlayerController(
-        context: context,
-        videoPlayerController: videoPlayerController,
-        customVideoPlayerSettings: const CustomVideoPlayerSettings(
-            settingsButton: Row(
+      context: context,
+      videoPlayerController: videoPlayerController,
+      customVideoPlayerSettings: CustomVideoPlayerSettings(
+        // showDurationPlayed: true,
+        settingsButton: Row(
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
             Icon(
@@ -44,10 +50,23 @@ class _CourseDetailState extends State<CourseDetail> {
               color: AppColors.white,
             ),
           ],
-        )));
+        ),
+
+        showDurationPlayed: true,
+        showDurationRemaining: true,
+        // durationAfterControlsFadeOut: Duration(seconds: 10),
+      ),
+    );
     videoPlayerFuture = videoPlayerController.initialize();
+
     videoPlayerController.setLooping(true);
     videoPlayerController.setVolume(100.0);
+    // videoPlayerController.value.position=Duration(seconds: 10);
+
+    // videoPlayerController.seekTo(const Duration(seconds: 10));
+    // videoPlayerController.seekTo(Duration(seconds: 5));
+
+    // videoPlayerController.
   }
 
   @override
@@ -59,7 +78,7 @@ class _CourseDetailState extends State<CourseDetail> {
 
   @override
   Widget build(BuildContext context) {
-    commonPrint(status: "coures data ", msg: '${widget.data}');
+    commonPrint(status: "courses data ", msg: '${widget.data}');
     commonPrint(
         status: "video  data ",
         msg:
@@ -79,6 +98,13 @@ class _CourseDetailState extends State<CourseDetail> {
         iconTheme: const IconThemeData(color: AppColors.black),
         title: GestureDetector(
           onTap: () {
+            print("${videoPlayerController.value.position}");
+            convertToSeconds(
+                videoPlayerController.value.position.toString().split(":"));
+            CourseController.to.sendDuration(
+                duration: "${CourseController.to.courseDuration}",
+                id: "${widget.data['id']}");
+            dispose();
             Get.back();
           },
           child: Row(
@@ -86,6 +112,7 @@ class _CourseDetailState extends State<CourseDetail> {
               const Icon(
                 Icons.arrow_back_ios_new_outlined,
                 size: 18,
+                color: AppColors.primary,
               ),
               const SizedBox(
                 width: 5,
@@ -96,7 +123,7 @@ class _CourseDetailState extends State<CourseDetail> {
                 textAlign: TextAlign.center,
                 maxLines: 1,
                 softWrap: false,
-                style: headText(),
+                style: headText(color: AppColors.primary),
               ),
             ],
           ),
@@ -109,12 +136,12 @@ class _CourseDetailState extends State<CourseDetail> {
               },
               icon: MainController.to.isFavourite == false
                   ? const Icon(
-                      Icons.favorite_outline,
+                      Icons.bookmark_border_outlined,
                       color: Colors.black,
                     )
                   : const Icon(
-                      Icons.favorite_outlined,
-                      color: Colors.red,
+                      Icons.bookmark,
+                      color: AppColors.primary,
                     ),
             ),
           ),
@@ -209,8 +236,8 @@ class _CourseDetailState extends State<CourseDetail> {
 
   Padding video() {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-      child: Stack(
+      padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+      child: Column(
         children: [
           SizedBox(
             width: double.infinity,
@@ -233,12 +260,20 @@ class _CourseDetailState extends State<CourseDetail> {
                             height: 5,
                           ),
                           CommonText(
-                              text: "Video Error, Try again later",
-                              style: mediumText(
-                                  fontSize: 14, color: Colors.black45)),
+                            text: "Video Error, Try again later",
+                            style: mediumText(
+                              fontSize: 14,
+                              color: Colors.black45,
+                            ),
+                          ),
                         ],
                       );
                     } else {
+                      CourseController.to.isMyCourse == true
+                          ? videoPlayerController
+                              .seekTo(Duration(seconds: widget.duration))
+                          : null;
+
                       return AspectRatio(
                         aspectRatio: videoPlayerController.value.aspectRatio,
                         // child: VideoPlayer(videoPlayerController),
@@ -255,6 +290,19 @@ class _CourseDetailState extends State<CourseDetail> {
               ),
             ),
           ),
+          GestureDetector(
+            onTap: () {
+              // videoPlayerController.seekTo(Duration(seconds: 20));
+              print(
+                  "SECONDS: ${videoPlayerController.value.position.toString().split(":")}");
+            },
+            child: Container(
+              decoration: BoxDecoration(
+                color: Colors.red,
+              ),
+              child: Text('${videoPlayerController.value.position}'),
+            ),
+          )
           // Positioned(
           //     bottom: 5,
           //     right: 10,
@@ -315,7 +363,7 @@ class _CourseDetailState extends State<CourseDetail> {
         CommonText(
           textAlign: TextAlign.left,
           text: '${widget.data["title"]}',
-          style: headText(),
+          style: headText(color: AppColors.black),
         ),
         // const SizedBox(
         //   width: 20,
@@ -326,7 +374,10 @@ class _CourseDetailState extends State<CourseDetail> {
         CommonText(
           textAlign: TextAlign.left,
           text: '${widget.data["curriculum"]}',
-          style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w400),
+          style: const TextStyle(
+              fontSize: 14,
+              fontWeight: FontWeight.w400,
+              color: AppColors.black),
         ),
 
         // CommonText(
@@ -657,35 +708,37 @@ class _CourseDetailState extends State<CourseDetail> {
                       : ClipRRect(
                           borderRadius: BorderRadius.circular(10.0),
                           child: CachedNetworkImage(
-                              imageUrl:
-                                  "${AppConfig.imageUrl}${widget.data['curriculum_id']}/${widget.data['photos']}",
-                              fit: BoxFit.cover,
-                              width: double.infinity,
-                              progressIndicatorBuilder:
-                                  (context, url, downloadProgress) =>
-                                      const Center(
-                                          child: CircularProgressIndicator(
-                                        color: Colors.grey,
-                                        strokeWidth: 2,
-                                      )),
-                              errorWidget: (context, url, error) {
-                                return Center(
-                                  child: Container(
-                                    color: Colors.black,
-                                    width: double.infinity,
-                                    height: double.infinity,
-                                    padding: const EdgeInsets.all(4),
-                                    child: ClipRRect(
-                                        borderRadius:
-                                            BorderRadius.circular(10.0),
-                                        child: Image.asset(
-                                          "assets/images/logo.png",
-                                          fit: BoxFit.contain,
-                                          width: double.infinity,
-                                        )),
+                            imageUrl:
+                                "${AppConfig.imageUrl}${widget.data['curriculum_id']}/${widget.data['photos']}",
+                            fit: BoxFit.cover,
+                            width: double.infinity,
+                            progressIndicatorBuilder:
+                                (context, url, downloadProgress) =>
+                                    const Center(
+                              child: CircularProgressIndicator(
+                                color: Colors.grey,
+                                strokeWidth: 2,
+                              ),
+                            ),
+                            errorWidget: (context, url, error) {
+                              return Center(
+                                child: Container(
+                                  color: AppColors.primary,
+                                  width: double.infinity,
+                                  height: double.infinity,
+                                  padding: const EdgeInsets.all(4),
+                                  child: ClipRRect(
+                                    borderRadius: BorderRadius.circular(10.0),
+                                    child: Image.asset(
+                                      "assets/images/logo.png",
+                                      fit: BoxFit.contain,
+                                      width: double.infinity,
+                                    ),
                                   ),
-                                );
-                              }),
+                                ),
+                              );
+                            },
+                          ),
                         ),
             ),
             Expanded(
