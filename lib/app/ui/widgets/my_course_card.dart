@@ -18,6 +18,8 @@ class ProgressCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print("PROGRESS: ${data['progress']}");
+
     return GestureDetector(
       onTap: () {
         ProfileController.to.isSubscribed == true
@@ -130,19 +132,19 @@ class ProgressCard extends StatelessWidget {
                     const SizedBox(
                       height: 5,
                     ),
-                    LinearPercentIndicator(
-                      width: 150.0,
-                      barRadius: const Radius.circular(10),
-                      lineHeight: 10.0,
-                      percent: int.parse(data['views_count']) / 100,
-                      backgroundColor: AppColors.primary.withOpacity(0.3),
-                      progressColor: AppColors.primary,
-                      padding: const EdgeInsets.all(0),
-                    ),
-                    const SizedBox(
-                      height: 5,
-                    ),
-                    Text("${int.parse(data['views_count']) / 100}% Complete"),
+                    // LinearPercentIndicator(
+                    //   width: 150.0,
+                    //   barRadius: const Radius.circular(10),
+                    //   lineHeight: 10.0,
+                    //   percent: int.parse(data['views_count']) / 100,
+                    //   backgroundColor: AppColors.primary.withOpacity(0.3),
+                    //   progressColor: AppColors.primary,
+                    //   padding: const EdgeInsets.all(0),
+                    // ),
+                    // const SizedBox(
+                    //   height: 5,
+                    // ),
+                    // Text("${int.parse(data['views_count']) / 100}% Complete"),
                     Text(
                       "Last Viewed : ${getIsoToLocalDate(date: data['view_date'])}, ${getIsoToLocalTime(date: data['view_date'])}",
                       style: TextStyle(

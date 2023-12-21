@@ -11,7 +11,6 @@ import '../../../controller/course.dart';
 import '../../../controller/home.dart';
 import '../../../controller/profile.dart';
 import '../../theme/font_size.dart';
-import '../../widgets/home/curriculum_box.dart';
 import 'all_courses.dart';
 import '../../theme/colors.dart';
 import '../../widgets/banner.dart';

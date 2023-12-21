@@ -2,7 +2,6 @@ import 'package:appinio_video_player/appinio_video_player.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:deviraj_lms/app/config/config.dart';
 import 'package:deviraj_lms/app/controller/course.dart';
-import 'package:deviraj_lms/app/controller/timer.dart';
 import 'package:deviraj_lms/app/ui/utility.dart';
 import 'package:deviraj_lms/app/ui/widgets/common/common_print.dart';
 import 'package:deviraj_lms/app/ui/widgets/common/logo_loading.dart';
@@ -40,7 +39,7 @@ class _CourseDetailState extends State<CourseDetail> {
     customVideoPlayerController = CustomVideoPlayerController(
       context: context,
       videoPlayerController: videoPlayerController,
-      customVideoPlayerSettings: CustomVideoPlayerSettings(
+      customVideoPlayerSettings: const CustomVideoPlayerSettings(
         // showDurationPlayed: true,
         settingsButton: Row(
           mainAxisAlignment: MainAxisAlignment.end,
@@ -236,7 +235,7 @@ class _CourseDetailState extends State<CourseDetail> {
 
   Padding video() {
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
       child: Column(
         children: [
           SizedBox(
@@ -290,19 +289,19 @@ class _CourseDetailState extends State<CourseDetail> {
               ),
             ),
           ),
-          GestureDetector(
-            onTap: () {
-              // videoPlayerController.seekTo(Duration(seconds: 20));
-              print(
-                  "SECONDS: ${videoPlayerController.value.position.toString().split(":")}");
-            },
-            child: Container(
-              decoration: BoxDecoration(
-                color: Colors.red,
-              ),
-              child: Text('${videoPlayerController.value.position}'),
-            ),
-          )
+          // GestureDetector(
+          //   onTap: () {
+          //     // videoPlayerController.seekTo(Duration(seconds: 20));
+          //     print(
+          //         "SECONDS: ${videoPlayerController.value.position.toString().split(":")}");
+          //   },
+          //   child: Container(
+          //     decoration: const BoxDecoration(
+          //       color: Colors.red,
+          //     ),
+          //     child: Text('${videoPlayerController.value.position}'),
+          //   ),
+          // )
           // Positioned(
           //     bottom: 5,
           //     right: 10,
