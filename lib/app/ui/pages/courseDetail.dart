@@ -31,8 +31,6 @@ class _CourseDetailState extends State<CourseDetail> {
 
   @override
   void initState() {
-    super.initState();
-
     videoPlayerController = VideoPlayerController.networkUrl(Uri.parse(
         "${AppConfig.videoUrl}${widget.data['gdrive_id']}/${widget.data['video']}"));
 
@@ -53,25 +51,18 @@ class _CourseDetailState extends State<CourseDetail> {
 
         showDurationPlayed: true,
         showDurationRemaining: true,
-        // durationAfterControlsFadeOut: Duration(seconds: 10),
       ),
     );
     videoPlayerFuture = videoPlayerController.initialize();
 
     videoPlayerController.setLooping(true);
     videoPlayerController.setVolume(100.0);
-    // videoPlayerController.value.position=Duration(seconds: 10);
-
-    // videoPlayerController.seekTo(const Duration(seconds: 10));
-    // videoPlayerController.seekTo(Duration(seconds: 5));
-
-    // videoPlayerController.
+    super.initState();
   }
 
   @override
   void dispose() {
     videoPlayerController.dispose();
-    customVideoPlayerController.dispose();
     super.dispose();
   }
 
@@ -86,107 +77,168 @@ class _CourseDetailState extends State<CourseDetail> {
         status: "image ",
         msg:
             "${AppConfig.imageUrl}${widget.data['curriculum_id']}/${widget.data['photos']}");
+    Future<bool> onWillPop() async {
+      // This dialog will exit your app on saying yes
+      return (await showDialog(
+            context: context,
+            builder: (context) => AlertDialog(
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10.0)),
+              title: const Center(
+                  child: Text(
+                'Are you sure?',
+                style: TextStyle(fontFamily: 'medium'),
+              )),
+              content: const Text('Do you want to back'),
+              contentTextStyle:
+                  const TextStyle(fontFamily: 'medium', color: AppColors.grey),
+              titleTextStyle: const TextStyle(
+                  fontFamily: 'medium', color: AppColors.primary, fontSize: 16),
+              actions: [
+                MaterialButton(
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8.0)),
+                  color: AppColors.grey,
+                  onPressed: () async {
+                    // Navigator.of(context).pop(false);
+                    await videoPlayerController.pause();
+                    convertToSeconds(videoPlayerController.value.position
+                        .toString()
+                        .split(":"));
+                    CourseController.to.sendDuration(
+                        duration: "${CourseController.to.courseDuration}",
+                        id: "${widget.data['id']}");
+                    Get.back();
+                  },
+                  child: const Text(
+                    'No',
+                    style:
+                        TextStyle(color: AppColors.white, fontFamily: 'medium'),
+                  ),
+                ),
+                MaterialButton(
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8.0)),
+                  color: AppColors.primary,
+                  onPressed: () => Navigator.of(context).pop(true),
+                  child: const Text(
+                    'Yes',
+                    style: TextStyle(
+                        color: AppColors.white,
+                        fontFamily: 'medium',
+                        fontWeight: FontWeight.bold),
+                  ),
+                ),
+              ],
+            ),
+          )) ??
+          false;
+    }
 
-    return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: AppBar(
-        backgroundColor: AppColors.white,
-        elevation: 0,
-        centerTitle: true,
-        automaticallyImplyLeading: false,
-        iconTheme: const IconThemeData(color: AppColors.black),
-        title: GestureDetector(
-          onTap: () {
-            print("${videoPlayerController.value.position}");
-            convertToSeconds(
-                videoPlayerController.value.position.toString().split(":"));
-            CourseController.to.sendDuration(
-                duration: "${CourseController.to.courseDuration}",
-                id: "${widget.data['id']}");
-            dispose();
-            Get.back();
-          },
-          child: Row(
-            children: [
-              const Icon(
-                Icons.arrow_back_ios_new_outlined,
-                size: 18,
-                color: AppColors.primary,
-              ),
-              const SizedBox(
-                width: 5,
-              ),
-              Text(
-                "Course Detail",
-                overflow: TextOverflow.ellipsis,
-                textAlign: TextAlign.center,
-                maxLines: 1,
-                softWrap: false,
-                style: headText(color: AppColors.primary),
-              ),
-            ],
-          ),
-        ),
-        actions: [
-          Obx(
-            () => IconButton(
-              onPressed: () {
-                MainController.to.isFavourite = !MainController.to.isFavourite;
-              },
-              icon: MainController.to.isFavourite == false
-                  ? const Icon(
-                      Icons.bookmark_border_outlined,
-                      color: Colors.black,
-                    )
-                  : const Icon(
-                      Icons.bookmark,
-                      color: AppColors.primary,
-                    ),
+    return WillPopScope(
+      onWillPop: onWillPop,
+      child: Scaffold(
+        backgroundColor: Colors.white,
+        appBar: AppBar(
+          backgroundColor: AppColors.white,
+          elevation: 0,
+          centerTitle: true,
+          automaticallyImplyLeading: false,
+          iconTheme: const IconThemeData(color: AppColors.black),
+          title: GestureDetector(
+            onTap: () async {
+              await videoPlayerController.pause();
+              print("${videoPlayerController.value.position}");
+              convertToSeconds(
+                  videoPlayerController.value.position.toString().split(":"));
+              CourseController.to.sendDuration(
+                  duration: "${CourseController.to.courseDuration}",
+                  id: "${widget.data['id']}");
+              Get.back();
+            },
+            child: Row(
+              children: [
+                const Icon(
+                  Icons.arrow_back_ios_new_outlined,
+                  size: 18,
+                  color: AppColors.primary,
+                ),
+                const SizedBox(
+                  width: 5,
+                ),
+                Text(
+                  "Course Detail",
+                  overflow: TextOverflow.ellipsis,
+                  textAlign: TextAlign.center,
+                  maxLines: 1,
+                  softWrap: false,
+                  style: headText(color: AppColors.primary),
+                ),
+              ],
             ),
           ),
-        ],
-      ),
-      body: SingleChildScrollView(
-        physics: const BouncingScrollPhysics(),
-        child: Padding(
-          padding: const EdgeInsets.all(16),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              // course title with description
-              courseTitle(),
+          actions: [
+            Obx(
+              () => IconButton(
+                onPressed: () {
+                  MainController.to.isFavourite =
+                      !MainController.to.isFavourite;
+                },
+                icon: MainController.to.isFavourite == false
+                    ? const Icon(
+                        Icons.bookmark_border_outlined,
+                        color: Colors.black,
+                      )
+                    : const Icon(
+                        Icons.bookmark,
+                        color: AppColors.primary,
+                      ),
+              ),
+            ),
+          ],
+        ),
+        body: SingleChildScrollView(
+          physics: const BouncingScrollPhysics(),
+          child: Padding(
+            padding: const EdgeInsets.all(16),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                // course title with description
+                courseTitle(),
 
-              //video
-              video(),
+                //video
+                video(),
 
-              // // course includes
-              // courseIncludes(),
+                // // course includes
+                // courseIncludes(),
 
-              // //what will learn
-              // whatWillLearn(),
+                // //what will learn
+                // whatWillLearn(),
 
-              // course description
-              description(),
+                // course description
+                description(),
 
-              // curriculum data
-              // curriculum(),
+                // curriculum data
+                // curriculum(),
 
-              // highlights
-              highLights(),
+                // highlights
+                highLights(),
 
-              //course info
-              courseInfo(context),
+                //course info
+                courseInfo(context),
 
-              // about instructer
-              aboutInstructor(),
+                // about instructer
+                aboutInstructor(),
 
-              //price card
-              // priceCard(),
+                //price card
+                // priceCard(),
 
-              // buy & cart
-              // buyAndCart()
-            ],
+                // buy & cart
+                // buyAndCart()
+              ],
+            ),
           ),
         ),
       ),

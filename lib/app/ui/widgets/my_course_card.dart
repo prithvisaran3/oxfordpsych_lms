@@ -22,12 +22,13 @@ class ProgressCard extends StatelessWidget {
 
     return GestureDetector(
       onTap: () {
+        CourseController.to.isMyCourse = true;
         ProfileController.to.isSubscribed == true
             ? Get.to(
                 () => CourseDetail(
                   data: data,
                   duration: CourseController.to.isMyCourse == true
-                      ? data['progress']
+                      ? int.parse(data['progress'])
                       : 0,
                 ),
               )
