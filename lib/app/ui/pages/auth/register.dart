@@ -32,7 +32,7 @@ class Register extends StatelessWidget {
                   child: const Icon(
                     Icons.people,
                     size: 35,
-                    color: AppColors.green,
+                    color: AppColors.primary,
                   ),
                 ),
                 const SizedBox(
@@ -115,7 +115,7 @@ class Register extends StatelessWidget {
                             text: ' Terms of service \n and Privacy Policy',
                             style: const TextStyle(
                               fontFamily: 'medium',
-                              color: AppColors.secondary,
+                              color: AppColors.primary,
                             ),
                             recognizer: TapGestureRecognizer()
                               ..onTap = () {
@@ -155,7 +155,7 @@ class Register extends StatelessWidget {
                         text: ' Log In',
                         style: const TextStyle(
                           fontFamily: 'medium',
-                          color: AppColors.secondary,
+                          color: AppColors.primary,
                         ),
                         recognizer: TapGestureRecognizer()
                           ..onTap = () {

@@ -40,7 +40,7 @@ class _OnBoardScreenState extends State<OnBoard> {
       height: 8.0,
       width: isActive ? 24.0 : 16.0,
       decoration: BoxDecoration(
-        color: isActive ? AppColors.secondary : Colors.grey.withOpacity(0.8),
+        color: isActive ? AppColors.primary : Colors.grey.withOpacity(0.8),
         borderRadius: const BorderRadius.all(Radius.circular(12)),
       ),
     );
@@ -56,13 +56,13 @@ class _OnBoardScreenState extends State<OnBoard> {
           value: SystemUiOverlayStyle.light,
           child: Container(
             decoration: const BoxDecoration(
-              color: Colors.black,
+              color: Colors.white,
               // gradient: LinearGradient(
               //   begin: Alignment.topLeft,
               //   end: Alignment.bottomRight,
               //   colors: [
               //     AppColors.primary,
-              //     AppColors.secondary,
+              //     AppColors.primary,
               //   ],
               // ),
             ),
@@ -84,7 +84,7 @@ class _OnBoardScreenState extends State<OnBoard> {
                       child: CommonText(
                         text: 'Skip',
                         style: TextStyle(
-                          color: AppColors.secondary,
+                          color: AppColors.primary,
                           fontWeight: FontWeight.bold,
                           fontSize: 20,
                         ),
@@ -134,24 +134,24 @@ class _OnBoardScreenState extends State<OnBoard> {
                 currentPage == numPages - 1
                     ? Column(
                         children: [
-                          // const SizedBox(height: 30),
+                          const SizedBox(height: 10),
                           GestureDetector(
                             onTap: () => onIntroEnd(),
                             child: Container(
                               // height: media.width * 0.10,
                               margin: const EdgeInsets.symmetric(
-                                    horizontal: 20, vertical: 10),
+                                  horizontal: 20, vertical: 10),
                               padding: const EdgeInsets.symmetric(vertical: 10),
                               width: double.infinity,
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(10.0),
-                                color: AppColors.secondary,
+                                color: AppColors.primary,
                               ),
                               child: const Center(
                                 child: Text(
                                   'Get started',
                                   style: TextStyle(
-                                    color: Colors.black,
+                                    color: Colors.white,
                                     fontSize: 20.0,
                                     fontWeight: FontWeight.bold,
                                   ),
@@ -176,13 +176,13 @@ class _OnBoardScreenState extends State<OnBoard> {
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Center(child: buildOnboardPicture(imgSrc: image, fit: fit)),
-        const SizedBox(height: 20),
+        SizedBox(height: Get.height * 0.1),
         CommonText(
           text: title,
           textAlign: TextAlign.center,
           style: boldText(
             fontSize: 25,
-            color: AppColors.secondary,
+            color: AppColors.primary,
           ),
         ),
         const SizedBox(height: 15.0),
@@ -205,15 +205,19 @@ class _OnBoardScreenState extends State<OnBoard> {
 
   Widget buildOnboardPicture({required imgSrc, required fit}) {
     return Container(
-      height: Get.height * 0.50,
-      margin: const EdgeInsets.symmetric(horizontal: 10),
+      height: Get.height * 0.40,
+      margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+      padding: const EdgeInsets.all(10),
       decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(10),
-          image: DecorationImage(
-              image: AssetImage(
-                'assets/images/$imgSrc.png',
-              ),
-              fit: fit)),
+        color: AppColors.primary,
+        borderRadius: BorderRadius.circular(10),
+        image: DecorationImage(
+          image: AssetImage(
+            'assets/images/$imgSrc.png',
+          ),
+          fit: fit,
+        ),
+      ),
       // child: Image.asset(
       //   "assets/images/$imgSrc.jpg",
       //   fit: BoxFit.cover,

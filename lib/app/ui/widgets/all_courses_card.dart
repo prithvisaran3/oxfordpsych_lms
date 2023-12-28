@@ -134,19 +134,19 @@ class AllCoursesCard extends StatelessWidget {
               ),
             ),
           ),
-          Positioned(
-              right: 10,
-              bottom: 0,
-              child: GestureDetector(
-                onTap: () {
-                  WishListController.to
-                      .addWishList(courseId: "${cardData['id']}");
-                },
-                child: const Icon(
-                  Icons.favorite_border,
-                  size: 25,
-                ),
-              )),
+          // Positioned(
+          //     right: 10,
+          //     bottom: 0,
+          //     child: GestureDetector(
+          //       onTap: () {
+          //         WishListController.to
+          //             .addWishList(courseId: "${cardData['id']}");
+          //       },
+          //       child: const Icon(
+          //         Icons.favorite_border,
+          //         size: 25,
+          //       ),
+          //     )),
         ],
       ),
     );

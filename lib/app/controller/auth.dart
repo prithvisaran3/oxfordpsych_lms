@@ -55,6 +55,7 @@ class AuthController extends GetxController {
 
   ///login form key
   final registerKey = GlobalKey<FormState>();
+  final updateKey = GlobalKey<FormState>();
 
   final _termsAndConditions = false.obs;
 

@@ -17,31 +17,36 @@ class EditProfile extends StatelessWidget {
         centerTitle: false,
         title: "Edit Profile",
       ),
-      body: Form(
-          // key: AuthController.to.registerKey,
-          child: Column(
+      body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          CommonTextFormField(
-            hintText: "${ProfileController.to.profileDetails.name}",
-            controller: AuthController.to.name,
-            validator: (data) {
-              if (data!.isEmpty || data == "") {
-                return "Name field required";
-              }
-              return null;
-            },
-          ),
-          SizedBox(height: 5),
-          CommonTextFormField(
-            hintText: "${ProfileController.to.profileDetails.mobile}",
-            controller: AuthController.to.mobile,
-            validator: (data) {
-              if (data!.isEmpty || data == "") {
-                return "Email field required";
-              }
-              return null;
-            },
+          Form(
+            key: AuthController.to.updateKey,
+            child: Column(
+              children: [
+                CommonTextFormField(
+                  hintText: "${ProfileController.to.profileDetails.name}",
+                  controller: AuthController.to.name,
+                  validator: (data) {
+                    if (data!.isEmpty || data == "") {
+                      return "Name field required";
+                    }
+                    return null;
+                  },
+                ),
+                SizedBox(height: 5),
+                CommonTextFormField(
+                  hintText: "${ProfileController.to.profileDetails.mobile}",
+                  controller: AuthController.to.mobile,
+                  validator: (data) {
+                    if (data!.isEmpty || data == "") {
+                      return "Mobile field required";
+                    }
+                    return null;
+                  },
+                ),
+              ],
+            ),
           ),
           SizedBox(height: 40),
           Padding(
@@ -49,11 +54,13 @@ class EditProfile extends StatelessWidget {
             child: CommonButton(
                 text: "Confirm",
                 onPressed: () {
-                  ProfileController.to.updateProfile();
+                  if (AuthController.to.updateKey.currentState!.validate()) {
+                    ProfileController.to.updateProfile();
+                  }
                 }),
           )
         ],
-      )),
+      ),
     );
   }
 }

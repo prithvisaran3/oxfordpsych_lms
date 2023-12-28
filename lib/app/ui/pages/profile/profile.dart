@@ -82,7 +82,7 @@ class Profile extends StatelessWidget {
   Widget profileSection() {
     return Center(
       child: Container(
-        margin: EdgeInsets.symmetric(horizontal: 2),
+        margin: const EdgeInsets.symmetric(horizontal: 2),
         padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
         // height: Get.height,
         width: Get.width * 0.95,
@@ -105,7 +105,7 @@ class Profile extends StatelessWidget {
           ),
         ),
         child: ListView(
-          physics: BouncingScrollPhysics(),
+          physics: const BouncingScrollPhysics(),
           children: [
             AnimationConfiguration.staggeredList(
               position: 0,
